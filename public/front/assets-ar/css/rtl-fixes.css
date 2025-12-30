@@ -1,0 +1,63 @@
+/* RTL Fixes for Arabic Language */
+
+/* Swap padding-left with padding-right */
+.pl-55 {
+    padding-right: 55px !important;
+    padding-left: 0 !important;
+}
+
+.pl-60 {
+    padding-right: 60px !important;
+    padding-left: 0 !important;
+}
+
+.pl-70 {
+    padding-right: 70px !important;
+    padding-left: 0 !important;
+}
+
+.pr-55 {
+    padding-left: 55px !important;
+    padding-right: 0 !important;
+}
+
+.pr-60 {
+    padding-left: 60px !important;
+    padding-right: 0 !important;
+}
+
+.pr-70 {
+    padding-left: 70px !important;
+    padding-right: 0 !important;
+}
+
+/* Swap margin-left with margin-right */
+.ml-20 {
+    margin-right: 20px !important;
+    margin-left: 0 !important;
+}
+
+.ml-25 {
+    margin-right: 25px !important;
+    margin-left: 0 !important;
+}
+
+.ml-35 {
+    margin-right: 35px !important;
+    margin-left: 0 !important;
+}
+
+.mr-20 {
+    margin-left: 20px !important;
+    margin-right: 0 !important;
+}
+
+.mr-25 {
+    margin-left: 25px !important;
+    margin-right: 0 !important;
+}
+
+.mr-35 {
+    margin-left: 35px !important;
+    margin-right: 0 !important;
+}
