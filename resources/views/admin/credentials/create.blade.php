@@ -1,8 +1,8 @@
-@extends('layouts.master')
-@section('title', __('Add Credential'))
+@extends('admin.layouts.master')
+@section('title', __('app.Add Credential'))
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">{{ __('Add Credential') }}</h1>
+        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">{{ __('app.Add Credential') }}</h1>
     </div>
 @endsection
 @section('content')
@@ -11,21 +11,21 @@
             @csrf
             <div class="card-body p-9">
                 <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('URL') }}</label>
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('app.URL') }}</label>
                     <div class="col-lg-10">
                         <input type="url" name="url" value="{{ old('url') }}" class="form-control @error('url') is-invalid @enderror" required>
                         @error('url')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('User') }}</label>
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('app.User') }}</label>
                     <div class="col-lg-10">
                         <input type="text" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" required>
                         @error('username')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('Password') }}</label>
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('app.Password') }}</label>
                     <div class="col-lg-10">
                         <div class="position-relative">
                             <input type="password" name="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" required>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('Server Name') }}</label>
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('app.Server Name') }}</label>
                     <div class="col-lg-10">
                         <input type="text" name="server_name" value="{{ old('server_name') }}" class="form-control @error('server_name') is-invalid @enderror">
                         @error('server_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -45,8 +45,8 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                <a href="{{ route('credentials.index') }}" class="btn btn-light me-3">{{ __('Cancel') }}</a>
-                <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                <a href="{{ route('credentials.index') }}" class="btn btn-light me-3">{{ __('app.Cancel') }}</a>
+                <button type="submit" class="btn btn-primary">{{ __('app.Save') }}</button>
             </div>
         </form>
     </div>

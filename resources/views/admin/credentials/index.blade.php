@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('admin.layouts.master')
 
 @section('title', __('Credentials'))
 
@@ -92,8 +92,8 @@
     <div class="card shadow-sm">
         <div class="card-header border-0 pt-6">
             <h3 class="card-title">
-                <span class="card-label fw-bold fs-5 text-gray-800">{{ __('All Credentials') }}</span>
-                <span class="text-muted fw-semibold fs-7 ms-2">({{ $credentials->total() }} {{ __('total') }})</span>
+                <span class="card-label fw-bold fs-5 text-gray-800">{{ __('admin.all_credentials') }}</span>
+                <span class="text-muted fw-semibold fs-7 ms-2">({{ __('admin.total_count', ['count' => $credentials->total()]) }})</span>
             </h3>
         </div>
         <div class="card-body p-0">
@@ -234,8 +234,11 @@
         </div>
         <div class="card-footer d-flex justify-content-between align-items-center">
             <div class="text-muted fs-7">
-                {{ __('Showing') }} {{ $credentials->firstItem() ?? 0 }} {{ __('to') }} {{ $credentials->lastItem() ?? 0 }}
-                {{ __('of') }} {{ $credentials->total() }} {{ __('entries') }}
+                {{ __('admin.showing_entries', [
+                    'first' => $credentials->firstItem() ?? 0,
+                    'last' => $credentials->lastItem() ?? 0,
+                    'total' => $credentials->total()
+                ]) }}
             </div>
             <div>{{ $credentials->links() }}</div>
         </div>

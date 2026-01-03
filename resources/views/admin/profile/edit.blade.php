@@ -1,20 +1,20 @@
-@extends('layouts.master')
+@extends('admin.layouts.master')
 
-@section('title', __('My Profile'))
+@section('title', __('admin.my_profile'))
 
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-            {{ __('My Profile') }}
+            {{ __('admin.my_profile') }}
         </h1>
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
             <li class="breadcrumb-item text-muted">
-                <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">{{ __('Home') }}</a>
+                <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">{{ __('admin.home') }}</a>
             </li>
             <li class="breadcrumb-item">
                 <span class="bullet bg-gray-400 w-5px h-2px"></span>
             </li>
-            <li class="breadcrumb-item text-muted">{{ __('My Profile') }}</li>
+            <li class="breadcrumb-item text-muted">{{ __('admin.my_profile') }}</li>
         </ul>
     </div>
 @endsection
@@ -28,13 +28,13 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ __('Update Profile') }}</h3>
+                    <h3 class="card-title">{{ __('admin.update_profile') }}</h3>
                 </div>
                 <form method="POST" action="{{ route('profile.update') }}" class="form" novalidate>
                     @csrf
                     <div class="card-body p-9">
                         <div class="row mb-6">
-                            <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('Name') }}</label>
+                            <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.name') }}</label>
                             <div class="col-lg-10">
                                 <input type="text" name="name" value="{{ old('name', Auth::user()->name) }}" class="form-control" required />
                                 @error('name')<div class="text-danger fs-7 mt-1">{{ $message }}</div>@enderror
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="row mb-6">
-                            <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('Email') }}</label>
+                            <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.email') }}</label>
                             <div class="col-lg-10">
                                 <input type="email" name="email" value="{{ old('email', Auth::user()->email) }}" class="form-control" required />
                                 @error('email')<div class="text-danger fs-7 mt-1">{{ $message }}</div>@enderror
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
-                        <button type="submit" class="btn btn-primary">{{ __('Save Changes') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('admin.save_changes') }}</button>
                     </div>
                 </form>
             </div>

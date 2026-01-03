@@ -1,11 +1,11 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Edit Service'))
+@section('title', __('admin.edit_service'))
 
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-            {{ __('Edit Service') }}
+            {{ __('admin.edit_service') }}
         </h1>
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
             <li class="breadcrumb-item text-muted">
@@ -16,8 +16,14 @@
                 <a href="{{ route('admin.services.index') }}" class="text-muted text-hover-primary">{{ __('admin.services') }}</a>
             </li>
             <li class="breadcrumb-item"><span class="bullet bg-gray-400 w-5px h-2px"></span></li>
-            <li class="breadcrumb-item text-muted">{{ __('Edit') }}</li>
+            <li class="breadcrumb-item text-muted">{{ __('admin.edit') }}</li>
         </ul>
+    </div>
+    <div class="d-flex align-items-center gap-2 gap-lg-3">
+        <a href="{{ route('admin.services.index') }}" class="btn btn-sm btn-light">
+            <i class="fa-solid fa-arrow-left"></i>
+            {{ __('admin.back') }}
+        </a>
     </div>
 @endsection
 
@@ -26,186 +32,277 @@
         @csrf
         @method('PUT')
 
-        <div class="row g-5">
-            <div class="col-lg-8">
-                {{-- English Content --}}
-                <div class="card shadow-sm mb-5">
-                    <div class="card-header">
-                        <h3 class="card-title">🇬🇧 {{ 'English Content' }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-5">
-                            <label class="form-label required">{{ __('admin.title_en') }}</label>
-                            <input type="text" name="title_en" class="form-control @error('title_en') is-invalid @enderror"
-                                   value="{{ old('title_en', $service->title['en'] ?? '') }}" required>
-                            @error('title_en')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-5">
-                            <label class="form-label required">{{ __('admin.description_en') }}</label>
-                            <textarea name="description_en" rows="4"
-                                      class="form-control @error('description_en') is-invalid @enderror"
-                                      required>{{ old('description_en', $service->description['en'] ?? '') }}</textarea>
-                            @error('description_en')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-5">
-                            <label class="form-label">{{ 'Features (English)' }}</label>
-                            <small class="text-muted d-block mb-2">{{ 'Add service features, one per line' }}</small>
-                            <textarea name="features_en" rows="6"
-                                      class="form-control @error('features_en') is-invalid @enderror"
-                                      placeholder="Brand Naming&#10;Creative Direction&#10;Brand Strategy">{{ old('features_en', isset($service->features) ? collect($service->features)->pluck('en')->implode("\n") : '') }}</textarea>
-                            @error('features_en')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+        <div class="card shadow-sm">
+            <div class="card-header border-0 pt-6">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-dark fs-2">
+                        <i class="fa-solid fa-briefcase text-primary me-2"></i>
+                        {{ __('admin.service_information') }}
+                    </span>
+                </h3>
+            </div>
+            <div class="card-body">
+                {{-- Title --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.title') }}</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" name="title_en"
+                                       class="form-control form-control-lg form-control-solid @error('title_en') is-invalid @enderror"
+                                       placeholder="{{ __('admin.title_en') }}"
+                                       value="{{ old('title_en', $service->title['en'] ?? '') }}" required />
+                                @error('title_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="title_ar"
+                                       class="form-control form-control-lg form-control-solid @error('title_ar') is-invalid @enderror"
+                                       placeholder="{{ __('admin.title_ar') }}"
+                                       value="{{ old('title_ar', $service->title['ar'] ?? '') }}" required dir="rtl" />
+                                @error('title_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Arabic Content --}}
-                <div class="card shadow-sm mb-5">
-                    <div class="card-header">
-                        <h3 class="card-title">🇸🇦 {{ 'Arabic Content' }}</h3>
+                {{-- Description --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.description') }}</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <textarea name="description_en" rows="4"
+                                          class="form-control form-control-solid @error('description_en') is-invalid @enderror"
+                                          placeholder="{{ __('admin.description_en') }}" required>{{ old('description_en', $service->description['en'] ?? '') }}</textarea>
+                                @error('description_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="description_ar" rows="4"
+                                          class="form-control form-control-solid @error('description_ar') is-invalid @enderror"
+                                          placeholder="{{ __('admin.description_ar') }}" required dir="rtl">{{ old('description_ar', $service->description['ar'] ?? '') }}</textarea>
+                                @error('description_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="mb-5">
-                            <label class="form-label required">{{ __('admin.title_ar') }}</label>
-                            <input type="text" name="title_ar" class="form-control @error('title_ar') is-invalid @enderror"
-                                   value="{{ old('title_ar', $service->title['ar'] ?? '') }}" required dir="rtl">
-                            @error('title_ar')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                </div>
 
-                        <div class="mb-5">
-                            <label class="form-label required">{{ __('admin.description_ar') }}</label>
-                            <textarea name="description_ar" rows="4"
-                                      class="form-control @error('description_ar') is-invalid @enderror"
-                                      required dir="rtl">{{ old('description_ar', $service->description['ar'] ?? '') }}</textarea>
-                            @error('description_ar')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                {{-- Features --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.features') }}</label>
+                    <div class="col-lg-10">
+                        <div class="alert alert-info d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-circle-info fs-2x me-3"></i>
+                            <span>{{ __('admin.features_help_text') }}</span>
                         </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <textarea name="features_en" rows="6"
+                                          class="form-control form-control-solid @error('features_en') is-invalid @enderror"
+                                          placeholder="Brand Naming&#10;Creative Direction&#10;Brand Strategy">{{ old('features_en', isset($service->features) ? collect($service->features)->pluck('en')->implode("\n") : '') }}</textarea>
+                                @error('features_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="features_ar" rows="6"
+                                          class="form-control form-control-solid @error('features_ar') is-invalid @enderror"
+                                          placeholder="تسمية العلامة التجارية&#10;التوجيه الإبداعي"
+                                          dir="rtl">{{ old('features_ar', isset($service->features) ? collect($service->features)->pluck('ar')->implode("\n") : '') }}</textarea>
+                                @error('features_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                        <div class="mb-5">
-                            <label class="form-label">{{ 'Features (Arabic)' }}</label>
-                            <small class="text-muted d-block mb-2">{{ 'Add service features, one per line' }}</small>
-                            <textarea name="features_ar" rows="6"
-                                      class="form-control @error('features_ar') is-invalid @enderror"
-                                      placeholder="تسمية العلامة التجارية&#10;التوجيه الإبداعي"
-                                      dir="rtl">{{ old('features_ar', isset($service->features) ? collect($service->features)->pluck('ar')->implode("\n") : '') }}</textarea>
-                            @error('features_ar')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                <div class="separator separator-dashed my-8"></div>
+
+                {{-- Media --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.media') }}</label>
+                    <div class="col-lg-10">
+                        @if($service->icon || $service->image)
+                            <div class="row g-3 mb-4">
+                                @if($service->icon)
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-6 fw-semibold mb-3">
+                                            <i class="fa-solid fa-star text-warning me-2"></i>
+                                            {{ __('admin.current_icon') }}
+                                        </label>
+                                        <div class="image-preview text-center p-3 bg-light rounded">
+                                            <img src="{{ asset('storage/' . $service->icon) }}"
+                                                 alt="Service Icon"
+                                                 class="img-thumbnail shadow-sm rounded"
+                                                 style="max-width: 150px; max-height: 150px; object-fit: contain;">
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($service->image)
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-6 fw-semibold mb-3">
+                                            <i class="fa-solid fa-image text-primary me-2"></i>
+                                            {{ __('admin.current_image') }}
+                                        </label>
+                                        <div class="image-preview text-center p-3 bg-light rounded">
+                                            <img src="{{ asset('storage/' . $service->image) }}"
+                                                 alt="Service Image"
+                                                 class="img-thumbnail shadow-sm rounded"
+                                                 style="max-width: 100%; max-height: 200px; object-fit: cover;">
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fs-6 fw-semibold mb-3">
+                                    <i class="fa-solid fa-star text-warning me-2"></i>
+                                    {{ __('admin.new_icon') }}
+                                </label>
+                                <input type="file" name="icon"
+                                       class="form-control form-control-solid @error('icon') is-invalid @enderror"
+                                       accept="image/*" id="iconInput"
+                                       onchange="previewImage(this, 'newIconPreview')" />
+                                <div class="form-text mt-2">
+                                    <i class="fa-solid fa-info-circle me-1"></i>
+                                    {{ __('admin.leave_empty_keep_current') }}
+                                </div>
+                                <div class="image-preview-container mt-3" id="newIconPreviewContainer" style="display: none;">
+                                    <img id="newIconPreview" src="" alt="New Icon Preview" 
+                                         class="img-thumbnail shadow-sm rounded"
+                                         style="max-width: 150px; max-height: 150px; object-fit: contain;">
+                                </div>
+                                @error('icon')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6 fw-semibold mb-3">
+                                    <i class="fa-solid fa-image text-warning me-2"></i>
+                                    {{ __('admin.new_image') }}
+                                </label>
+                                <input type="file" name="image"
+                                       class="form-control form-control-solid @error('image') is-invalid @enderror"
+                                       accept="image/*" id="imageInput"
+                                       onchange="previewImage(this, 'newImagePreview')" />
+                                <div class="form-text mt-2">
+                                    <i class="fa-solid fa-info-circle me-1"></i>
+                                    {{ __('admin.leave_empty_keep_current') }}
+                                </div>
+                                <div class="image-preview-container mt-3" id="newImagePreviewContainer" style="display: none;">
+                                    <img id="newImagePreview" src="" alt="New Image Preview" 
+                                         class="img-thumbnail shadow-sm rounded"
+                                         style="max-width: 100%; max-height: 300px; object-fit: cover;">
+                                </div>
+                                @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-8"></div>
+
+                {{-- Settings --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.display_order') }}</label>
+                    <div class="col-lg-10">
+                        <input type="number" name="order"
+                               class="form-control form-control-solid @error('order') is-invalid @enderror"
+                               value="{{ old('order', $service->order) }}" min="0" required />
+                        <div class="form-text">
+                            <i class="fa-solid fa-info-circle me-1"></i>
+                            {{ __('admin.order_help_text') }}
+                        </div>
+                        @error('order')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.status') }}</label>
+                    <div class="col-lg-10">
+                        <div class="form-check form-check-custom form-check-solid">
+                            <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
+                                   value="1" {{ old('is_active', $service->is_active) ? 'checked' : '' }} />
+                            <label class="form-check-label" for="is_active">
+                                {{ __('admin.active') }}
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                {{-- Settings --}}
-                <div class="card shadow-sm mb-5">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ __('Settings') }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-5">
-                            <label class="form-label required">{{ __('Order') }}</label>
-                            <input type="number" name="order" class="form-control @error('order') is-invalid @enderror"
-                                   value="{{ old('order', $service->order) }}" min="0" required>
-                            <small class="text-muted">{{ __('Display order (lower numbers appear first)') }}</small>
-                            @error('order')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-5">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
-                                       value="1" {{ old('is_active', $service->is_active) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="is_active">
-                                    {{ __('Active') }}
-                                </label>
-                            </div>
-                            <small class="text-muted">{{ __('Show this service on the website') }}</small>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Current Images --}}
-                @if($service->icon || $service->image)
-                <div class="card shadow-sm mb-5">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ __('Current Images') }}</h3>
-                    </div>
-                    <div class="card-body">
-                        @if($service->icon)
-                            <div class="mb-3">
-                                <label class="form-label">{{ __('Current Icon') }}</label>
-                                <div class="text-center">
-                                    <img src="{{ asset('storage/' . $service->icon) }}" alt="Icon" class="img-thumbnail" style="max-width: 150px;">
-                                </div>
-                            </div>
-                        @endif
-
-                        @if($service->image)
-                            <div>
-                                <label class="form-label">{{ __('Current Image') }}</label>
-                                <div class="text-center">
-                                    <img src="{{ asset('storage/' . $service->image) }}" alt="Image" class="img-thumbnail" style="max-width: 100%;">
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                @endif
-
-                {{-- Upload New Images --}}
-                <div class="card shadow-sm mb-5">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ __('Upload New Images') }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-5">
-                            <label class="form-label">{{ __('Service Icon') }}</label>
-                            <input type="file" name="icon" class="form-control @error('icon') is-invalid @enderror"
-                                   accept="image/*">
-                            <small class="text-muted">{{ __('Leave empty to keep current icon') }}</small>
-                            @error('icon')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-0">
-                            <label class="form-label">{{ __('Image') }}</label>
-                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
-                                   accept="image/*">
-                            <small class="text-muted">{{ __('Leave empty to keep current image') }}</small>
-                            @error('image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Actions --}}
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <button type="submit" class="btn btn-primary w-100 mb-3">
-                            <i class="fa-solid fa-save"></i>
-                            {{ __('Update') }}
-                        </button>
-                        <a href="{{ route('admin.services.index') }}" class="btn btn-light w-100">
-                            <i class="fa-solid fa-times"></i>
-                            {{ __('Cancel') }}
-                        </a>
-                    </div>
-                </div>
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <a href="{{ route('admin.services.index') }}" class="btn btn-light btn-active-light-primary me-2">
+                    {{ __('admin.cancel') }}
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-save"></i>
+                    {{ __('admin.update') }}
+                </button>
             </div>
         </div>
     </form>
 @endsection
+
+@push('styles')
+<style>
+    .image-preview {
+        transition: all 0.3s ease;
+    }
+    .image-preview:hover img {
+        transform: scale(1.05);
+    }
+    .image-preview-container {
+        text-align: center;
+        padding: 1rem;
+        background: #f5f8fa;
+        border-radius: 0.75rem;
+        border: 2px dashed #e4e6ef;
+        transition: all 0.3s ease;
+    }
+    .image-preview-container:hover {
+        border-color: #009ef7;
+        background: #f1faff;
+    }
+    .form-control-solid {
+        background-color: #f5f8fa;
+        border-color: #f5f8fa;
+        transition: all 0.2s ease;
+    }
+    .form-control-solid:focus {
+        background-color: #ffffff;
+        border-color: #009ef7;
+        box-shadow: 0 0 0 0.2rem rgba(0, 158, 247, 0.1);
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    function previewImage(input, previewId) {
+        const container = document.getElementById(previewId + 'Container');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewId).src = e.target.result;
+                container.style.display = 'block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            container.style.display = 'none';
+        }
+    }
+</script>
+@endpush

@@ -1,20 +1,20 @@
-@extends('layouts.master')
+@extends('admin.layouts.master')
 
-@section('title', 'Dashboard | Alexon System')
+@section('title', __('admin.dashboard'))
 
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-            {{ __('Dashboard') }}
+            {{ __('admin.dashboard') }}
         </h1>
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
             <li class="breadcrumb-item text-muted">
-                <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">{{ __('Home') }}</a>
+                <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">{{ __('admin.home') }}</a>
             </li>
             <li class="breadcrumb-item">
                 <span class="bullet bg-gray-400 w-5px h-2px"></span>
             </li>
-            <li class="breadcrumb-item text-muted">{{ __('Dashboard') }}</li>
+            <li class="breadcrumb-item text-muted">{{ __('admin.dashboard') }}</li>
         </ul>
     </div>
 @endsection
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="fs-7 text-muted">{{ __('Total Credentials') }}</div>
+                        <div class="fs-7 text-muted">{{ __('admin.total_credentials') }}</div>
                         <div class="fs-2 fw-bold">{{ $totalCredentials ?? 0 }}</div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="fs-7 text-muted">{{ __('With Server Name') }}</div>
+                        <div class="fs-7 text-muted">{{ __('admin.with_server_name') }}</div>
                         <div class="fs-2 fw-bold">{{ $withServer ?? 0 }}</div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="fs-7 text-muted">{{ __('Without Server Name') }}</div>
+                        <div class="fs-7 text-muted">{{ __('admin.without_server_name') }}</div>
                         <div class="fs-2 fw-bold">{{ $withoutServer ?? 0 }}</div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="fs-7 text-muted">{{ __('Users') }}</div>
+                        <div class="fs-7 text-muted">{{ __('admin.users') }}</div>
                         <div class="fs-2 fw-bold">{{ $totalUsers ?? 0 }}</div>
                     </div>
                 </div>

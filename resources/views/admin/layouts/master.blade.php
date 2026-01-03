@@ -37,6 +37,9 @@
         <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     @endif
 
+    {{-- Custom Admin Styles --}}
+    <link href="{{ asset('assets/admin/css/custom-admin.css') }}" rel="stylesheet" type="text/css" />
+
     <style>
         /* Global direction-safe icon rendering (applies to all pages) */
         .ki-duotone,
@@ -251,14 +254,14 @@
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 
         {{-- Include Header --}}
-        @include('layouts.header')
+        @include('admin.layouts.header')
 
         {{-- Begin::Wrapper --}}
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 
             {{-- Include Sidebar if enabled (default: on) --}}
             @if(!isset($hasSidebar) || $hasSidebar)
-                @include('layouts.sidebar')
+                @include('admin.layouts.sidebar')
             @endif
 
             {{-- Begin::Main --}}

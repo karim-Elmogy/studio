@@ -18,7 +18,7 @@
                         <div class="col-xl-12">
                             <div class="tp-contact-us-heading tp_fade_anim" data-delay=".3">
                                 <div class="ar-about-us-4-title-box d-flex align-items-center mb-20">
-                                    <span class="tp-section-subtitle pre text-white tp_fade_anim">{{ __('contact us') }}</span>
+                                    <span class="tp-section-subtitle pre text-white tp_fade_anim">{{ $pageSettings->getTranslatedHeroSubtitle() }}</span>
                                     <div class="ar-about-us-4-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                             <rect y="4" width="80" height="1" fill="#fff" />
@@ -26,8 +26,8 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <h3 class="tp-career-title text-white pb-30">{{ __('Your creative') }}
-                                    <span class="shape-1"><img src="{{asset('front/assets/img/about-us/about-us-4/about-us-4-shape-2.png')}}" alt=""></span> <br>{{ __('journey starts here') }}
+                                <h3 class="tp-career-title text-white pb-30">{{ $pageSettings->getTranslatedHeroTitle() }}
+                                    <span class="shape-1"><img src="{{asset('front/assets/img/about-us/about-us-4/about-us-4-shape-2.png')}}" alt=""></span>
                                 </h3>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <div class="col-lg-4"></div>
                         <div class="col-lg-8">
                             <div class="tp-faq-text tp_fade_anim">
-                                <p class="text-white m-0">{{ __('Agntix is a beacon of best innovation and the dynamic') }} <br> {{ __('parent a company of wealcoder and many other subsidiaries.') }}</p>
+                                <p class="text-white m-0">{{ $pageSettings->getTranslatedHeroDescription() }}</p>
                             </div>
                         </div>
                     </div>
@@ -52,13 +52,13 @@
                                             <rect x="6.25781" width="1.5" height="21" fill="#F5F7F5" />
                                             <path d="M14.1641 13.6257C10.28 13.6257 7.13714 16.9239 7.13714 21" stroke="#F5F7F5" stroke-width="1.5" stroke-miterlimit="10" />
                                             <path d="M7.13672 21C7.13672 16.9239 3.99384 13.6257 0.109797 13.6257" stroke="#F5F7F5" stroke-width="1.5" stroke-miterlimit="10" />
-                                        </svg> {{ __('Scroll to explore') }}</p>
+                                        </svg> {{ $pageSettings->getTranslatedScrollText() }}</p>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="tp-contact-us-text d-none d-md-block text-md-end">
-                                <p>{{ __('See in Map our Office') }}</p>
+                                <p>{{ $pageSettings->getTranslatedMapText() }}</p>
                             </div>
                         </div>
                     </div>
@@ -137,9 +137,7 @@
                     <div class="col-xl-10">
                         <div class="cn-contactform-support-bg d-flex align-items-center justify-content-center" data-background="{{asset('front/assets/img/contact/contact-us/contact-us-shape.png')}}">
                             <div class="cn-contactform-support-text text-center">
-                                        <span>{{ __('Or, you can contact one of our studios') }}
-                                            {{ __('directly below. We aim to respond') }}
-                                            {{ __('within 24 hours.') }}</span>
+                                <span>{{ $pageSettings->getTranslatedStudiosText() }}</span>
                             </div>
                         </div>
                     </div>

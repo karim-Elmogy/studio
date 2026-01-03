@@ -13,9 +13,7 @@
                                 <div class="col-xl-6">
                                     <div class="creative-2-hero-title-box">
                                         <h2 class="creative-2-hero-title" style="color: white">
-                                            {{ __('Scale') }}
-                                            y<img class="d-none d-md-inline-block" src="{{asset('front/assets/img/home-04/hero/hero-shape-1.png')}}" alt="">{{ __('ur') }}
-                                            {{ __('Business') }}
+                                            {{ $pageSettings->getTranslatedHeroTitle() }}
                                         </h2>
                                     </div>
                                 </div>
@@ -25,8 +23,7 @@
                                             <div class="col-xl-4">
                                                 <div class="creative-2-hero-text p-relative">
                                                     <p style="color: white">
-                                                        {{ __('An independent web design &') }} <br>
-                                                        {{ __('branding agency') }}
+                                                        {{ $pageSettings->getTranslatedHeroDescription() }}
                                                     </p>
                                                     <span class="creative-2-hero-icon">
                                                         <svg width="351" height="8" viewBox="0 0 351 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +35,7 @@
                                             <div class="col-xl-8">
                                                 <div class="creative-2-hero-btn-wrap text-xl-end">
                                                     <div class="creative-2-hero-btn">
-                                                        <a href="#" class="tp-btn-black btn-green-light-bg pb-10 pr-15">
+                                                        <a href="{{ $pageSettings->hero_button1_url ?? '#' }}" class="tp-btn-black btn-green-light-bg pb-10 pr-15">
                                                             <span class="tp-btn-black-filter-blur">
                                                                 <svg width="0" height="0">
                                                                     <defs>
@@ -52,7 +49,7 @@
                                                                 </svg>
                                                             </span>
                                                             <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter3)">
-                                                                <span class="tp-btn-black-text">{{ __('View our work') }}</span>
+                                                                <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedHeroButton1Text() }}</span>
                                                                 <span class="tp-btn-black-circle">
                                                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -60,7 +57,7 @@
                                                                 </span>
                                                             </span>
                                                         </a>
-                                                        <a href="#" class="tp-btn-black btn-transparent-bg pb-10">
+                                                        <a href="{{ $pageSettings->hero_button2_url ?? '#' }}" class="tp-btn-black btn-transparent-bg pb-10">
                                                             <span class="tp-btn-black-filter-blur">
                                                                 <svg width="0" height="0">
                                                                     <defs>
@@ -74,7 +71,7 @@
                                                                 </svg>
                                                             </span>
                                                             <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter11)">
-                                                                <span class="tp-btn-black-text">{{ __('Meet the team') }}</span>
+                                                                <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedHeroButton2Text() }}</span>
                                                                 <span class="tp-btn-black-circle">
                                                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -98,7 +95,7 @@
                                     <div class="creative-hero-banner-wrap">
                                         <div class="creative-hero-banner">
                                             <video loop="" muted="" autoplay="" playsinline="">
-                                                <source src="https://html.aqlova.com/videos/liko/liko.mp4" type="video/mp4">
+                                                <source src="{{ $pageSettings->hero_video_url ?? 'https://html.aqlova.com/videos/liko/liko.mp4' }}" type="video/mp4">
                                             </video>
                                         </div>
                                     </div>
@@ -115,19 +112,19 @@
                         <div class="row">
                             <div class="col-xxl-5 col-xl-3">
                                 <div class="creative-about-title-box">
-                                    <span class="tp-section-subtitle fs-17 pre-circle">{{ __('Who we are ?') }}</span>
+                                    <span class="tp-section-subtitle fs-17 pre-circle">{{ $pageSettings->getTranslatedAboutSubtitle() }}</span>
                                 </div>
                             </div>
                             <div class="col-xxl-7 col-xl-9">
                                 <div class="creative-about-right">
                                     <div class="creative-about-text tp_fade_anim">
                                         <p>
-                                            {{ __('Our design and strategy solutions support social impact businesses, forward-thinking brands, and eco-friendly products guiding consumers toward smarter, more sustainable choices.') }}
+                                            {{ $pageSettings->getTranslatedAboutDescription() }}
                                         </p>
                                     </div>
                                     <div class="creative-about-btn-box d-flex align-items-center">
                                         <div class="tp_fade_anim" data-fade-from="top" data-delay=".3" data-ease="bounce">
-                                            <a href="#" class="tp-btn-black btn-green-light-bg mb-20 pr-15">
+                                            <a href="{{ $pageSettings->about_button_url ?? '#' }}" class="tp-btn-black btn-green-light-bg mb-20 pr-15">
                                                 <span class="tp-btn-black-filter-blur">
                                                     <svg width="0" height="0">
                                                         <defs>
@@ -141,31 +138,7 @@
                                                     </svg>
                                                 </span>
                                                 <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter1)">
-                                                    <span class="tp-btn-black-text">{{ __('About Agntix') }}</span>
-                                                    <span class="tp-btn-black-circle">
-                                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div class="tp_fade_anim" data-fade-from="top" data-delay=".5" data-ease="bounce">
-                                            <a href="#" class="tp-btn-black btn-transparent-bg mb-20">
-                                                <span class="tp-btn-black-filter-blur">
-                                                    <svg width="0" height="0">
-                                                        <defs>
-                                                            <filter id="buttonFilter2">
-                                                                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"></feGaussianBlur>
-                                                                <feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"></feColorMatrix>
-                                                                <feComposite in="SourceGraphic" in2="buttonFilter2" operator="atop"></feComposite>
-                                                                <feBlend in="SourceGraphic" in2="buttonFilter2"></feBlend>
-                                                            </filter>
-                                                        </defs>
-                                                    </svg>
-                                                </span>
-                                                <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter2)">
-                                                    <span class="tp-btn-black-text">{{ __('Meet the team') }}</span>
+                                                    <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedAboutButtonText() }}</span>
                                                     <span class="tp-btn-black-circle">
                                                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -187,51 +160,15 @@
                     <div class="creative-brand-wrapper">
                         <div class="swiper-container creative-brand-active">
                             <div class="swiper-wrapper slide-transtion">
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-1.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-6.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-3.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-4.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-5.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-6.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-1.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-3.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="creative-brand-item">
-                                        <img src="{{asset('front/assets/img/home-04/brand/brand-5.png')}}" alt="">
-                                    </div>
-                                </div>
+                                @if($pageSettings->brand_logos && is_array($pageSettings->brand_logos))
+                                    @foreach($pageSettings->brand_logos as $logo)
+                                        <div class="swiper-slide">
+                                            <div class="creative-brand-item">
+                                                <img src="{{asset($logo)}}" alt="">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -245,17 +182,17 @@
                             <div class="row align-items-end">
                                 <div class="col-lg-3">
                                     <div class="creative-project-title-box">
-                                        <span class="tp-section-subtitle mb-20 fs-17 pre-circle tp_fade_anim" data-delay=".3">{{ __('Work Showcase') }}</span>
+                                        <span class="tp-section-subtitle mb-20 fs-17 pre-circle tp_fade_anim" data-delay=".3">{{ $pageSettings->getTranslatedProjectsSubtitle() }}</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="creative-project-title-box">
-                                        <h4 class="tp-section-title fs-64 tp_fade_anim" data-delay=".5">{{ __('Discover my') }} <br> {{ __('Creative Expertise') }}</h4>
+                                        <h4 class="tp-section-title fs-64 tp_fade_anim" data-delay=".5">{{ $pageSettings->getTranslatedProjectsTitle() }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="creative-project-2-btn text-lg-end tp_fade_anim" data-fade-from="top" data-delay=".3" data-ease="bounce">
-                                        <a href="#" class="tp-btn-black btn-green-light-bg mb-20">
+                                        <a href="{{ $pageSettings->projects_button_url ?? '#' }}" class="tp-btn-black btn-green-light-bg mb-20">
                                             <span class="tp-btn-black-filter-blur">
                                                 <svg width="0" height="0">
                                                     <defs>
@@ -269,7 +206,7 @@
                                                 </svg>
                                             </span>
                                             <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter1)">
-                                                <span class="tp-btn-black-text">{{ __('About Agntix') }}</span>
+                                                <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedProjectsButtonText() }}</span>
                                                 <span class="tp-btn-black-circle">
                                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -386,19 +323,19 @@
                             <div class="row align-items-end">
                                 <div class="col-xl-3">
                                     <div class="creative-blog-subtitle-box">
-                                        <span class="tp-section-subtitle mb-20 fs-17 pre-circle">{{ __('Our Services') }}</span>
+                                        <span class="tp-section-subtitle mb-20 fs-17 pre-circle">{{ $pageSettings->getTranslatedServicesSubtitle() }}</span>
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-7">
                                     <div class="creative-blog-title-box">
                                         <h4 class="tp-section-title fs-44">
-                                            {{ __('How we take your') }} <br> {{ __('business to the next level') }}
+                                            {{ $pageSettings->getTranslatedServicesTitle() }}
                                         </h4>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-5">
                                     <div class="creative-blog-top-content">
-                                        <a href="{{ route('services.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
+                                        <a href="{{ $pageSettings->services_button_url ?? route('services.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
                                             <span class="tp-btn-black-filter-blur">
                                                 <svg width="0" height="0">
                                                     <defs>
@@ -412,7 +349,7 @@
                                                 </svg>
                                             </span>
                                             <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter5)">
-                                                <span class="tp-btn-black-text">{{ __('See all Articles') }}</span>
+                                                <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedServicesButtonText() }}</span>
                                                 <span class="tp-btn-black-circle">
                                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -518,13 +455,12 @@
                                         </svg>
                                     </span>
                                     <h3 class="tp-service-5-feature-title">
-                                        {{ __('We provide') }} <br> {{ __('special offers for') }} <br>
-                                        {{ __('the best customers') }}
+                                        {{ $pageSettings->getTranslatedChooseTitle() }}
                                     </h3>
                                 </div>
                             </div>
                         </div>
-                        <img data-speed=".8" class="w-100" src="{{asset('front/assets/img/home-04/choose/chose-1.jpg')}}" alt="">
+                        <img data-speed=".8" class="w-100" src="{{asset($pageSettings->choose_image ?? 'front/assets/img/home-04/choose/chose-1.jpg')}}" alt="">
                     </div>
                 </div>
                 <!-- choose area end -->
@@ -535,11 +471,11 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3 col-lg-4">
                                 <div class="creative-testimonial-title-box mb-25">
-                                    <span class="tp-section-subtitle mb-20 fs-17 pre-circle tp_fade_anim" data-delay=".3">{{ __('Testimonials') }}</span>
-                                    <h4 class="tp-section-title fs-44 tp_fade_anim" data-delay=".5">{{ __('What our') }} <br> {{ __('happy clients') }} <br> {{ __('say about us.') }}</h4>
+                                    <span class="tp-section-subtitle mb-20 fs-17 pre-circle tp_fade_anim" data-delay=".3">{{ $pageSettings->getTranslatedTestimonialsSubtitle() }}</span>
+                                    <h4 class="tp-section-title fs-44 tp_fade_anim" data-delay=".5">{{ $pageSettings->getTranslatedTestimonialsTitle() }}</h4>
                                 </div>
                                 <div class="creative-testimonial-btn mb-55 tp_fade_anim" data-delay=".7" data-fade-from="top" data-ease="bounce">
-                                    <a href="contact.html" class="tp-btn-black btn-green-light-bg pr-15">
+                                    <a href="{{ $pageSettings->testimonials_button_url ?? route('contact.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
                                         <span class="tp-btn-black-filter-blur">
                                             <svg width="0" height="0">
                                                 <defs>
@@ -553,7 +489,7 @@
                                             </svg>
                                         </span>
                                         <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter6)">
-                                            <span class="tp-btn-black-text">{{ __("Let's chat") }}</span>
+                                            <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedTestimonialsButtonText() }}</span>
                                             <span class="tp-btn-black-circle">
                                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -809,17 +745,17 @@
                                 <div class="row">
                                     <div class="col-xl-4">
                                         <div class="creative-work-title-box">
-                                            <span class="tp-section-subtitle fs-17 pre-circle tp_fade_anim" data-delay=".3">{{ __('Sharing the love') }}</span>
+                                            <span class="tp-section-subtitle fs-17 pre-circle tp_fade_anim" data-delay=".3">{{ $pageSettings->getTranslatedBrandSubtitle() }}</span>
                                         </div>
                                     </div>
                                     <div class="col-xl-7">
                                         <div class="creative-work-title-box mb-30">
                                             <h4 class="tp-section-title fs-44 tp_fade_anim" data-delay=".5">
-                                                {{ __('Speak up in a crowded digital world. Build a reputation on the voice of your brand.') }}
+                                                {{ $pageSettings->getTranslatedBrandTitle() }}
                                             </h4>
                                         </div>
                                         <div class="creative-work-btn tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                                            <a href="{{ route('contact.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
+                                            <a href="{{ $pageSettings->brand_button_url ?? route('contact.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
                                                 <span class="tp-btn-black-filter-blur">
                                                     <svg width="0" height="0">
                                                         <defs>
@@ -833,7 +769,7 @@
                                                     </svg>
                                                 </span>
                                                 <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter7)">
-                                                    <span class="tp-btn-black-text">{{ __("Let's chat") }}</span>
+                                                    <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedBrandButtonText() }}</span>
                                                     <span class="tp-btn-black-circle">
                                                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -849,40 +785,40 @@
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="creative-work-item text-center mb-30 tp_fade_anim" data-delay=".3">
                                         <div class="creative-work-icon">
-                                            <img src="{{asset('front/assets/img/home-04/brand/brand-1-1.png')}}" alt="">
+                                            <img src="{{asset($pageSettings->achievement1_icon ?? 'front/assets/img/home-04/brand/brand-1-1.png')}}" alt="">
                                         </div>
                                         <div class="creative-work-content">
-                                            <p>{{ __('#1 Team in the world') }} <br> {{ __('on Dribbble') }}</p>
+                                            <p>{{ $pageSettings->getTranslatedAchievement1Text() }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="creative-work-item text-center mb-30 tp_fade_anim" data-delay=".4">
                                         <div class="creative-work-icon">
-                                            <img src="{{asset('front/assets/img/home-04/brand/brand-1-2.png')}}" alt="">
+                                            <img src="{{asset($pageSettings->achievement2_icon ?? 'front/assets/img/home-04/brand/brand-1-2.png')}}" alt="">
                                         </div>
                                         <div class="creative-work-content">
-                                            <p>{{ __('Top 100 Global Companies') }} <br> {{ __('on Clutch') }}</p>
+                                            <p>{{ $pageSettings->getTranslatedAchievement2Text() }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="creative-work-item text-center mb-30 tp_fade_anim" data-delay=".5">
                                         <div class="creative-work-icon">
-                                            <img src="{{asset('front/assets/img/home-04/brand/brand-1-3.png')}}" alt="">
+                                            <img src="{{asset($pageSettings->achievement3_icon ?? 'front/assets/img/home-04/brand/brand-1-3.png')}}" alt="">
                                         </div>
                                         <div class="creative-work-content">
-                                            <p>{{ __('5 Stars Rating on') }} <br> {{ __('GoodFirms') }}</p>
+                                            <p>{{ $pageSettings->getTranslatedAchievement3Text() }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-4 col-md-6">
                                     <div class="creative-work-item text-center mb-30 tp_fade_anim" data-delay=".6">
                                         <div class="creative-work-icon">
-                                            <img src="{{asset('front/assets/img/home-04/brand/brand-1-4.png')}}" alt="">
+                                            <img src="{{asset($pageSettings->achievement4_icon ?? 'front/assets/img/home-04/brand/brand-1-4.png')}}" alt="">
                                         </div>
                                         <div class="creative-work-content">
-                                            <p>{{ __('100% Job Success on') }} <br> {{ __('Upwork') }}</p>
+                                            <p>{{ $pageSettings->getTranslatedAchievement4Text() }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -899,17 +835,17 @@
                             <div class="row align-items-end">
                                 <div class="col-xl-3">
                                     <div class="creative-blog-subtitle-box">
-                                        <span class="tp-section-subtitle mb-20 fs-17 pre-circle">{{ __('Featured Works') }}</span>
+                                        <span class="tp-section-subtitle mb-20 fs-17 pre-circle">{{ $pageSettings->getTranslatedBlogSubtitle() }}</span>
                                     </div>
                                 </div>
                                 <div class="col-xl-5 col-lg-6">
                                     <div class="creative-blog-title-box">
-                                        <h4 class="tp-section-title fs-44">{{ __('Newest trends and') }} <br> {{ __('insights from our team.') }}</h4>
+                                        <h4 class="tp-section-title fs-44">{{ $pageSettings->getTranslatedBlogTitle() }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6">
                                     <div class="creative-blog-top-content text-lg-end">
-                                        <a href="{{ route('blog.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
+                                        <a href="{{ $pageSettings->blog_button_url ?? route('blog.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
                                             <span class="tp-btn-black-filter-blur">
                                                 <svg width="0" height="0">
                                                     <defs>
@@ -923,7 +859,7 @@
                                                 </svg>
                                             </span>
                                             <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter8)">
-                                                <span class="tp-btn-black-text">{{ __('See all Articles') }}</span>
+                                                <span class="tp-btn-black-text">{{ $pageSettings->getTranslatedBlogButtonText() }}</span>
                                                 <span class="tp-btn-black-circle">
                                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

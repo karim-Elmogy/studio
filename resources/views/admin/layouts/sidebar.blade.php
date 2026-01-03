@@ -35,30 +35,148 @@
                                 <span class="path4"></span>
                             </i>
                         </span>
-                        <span class="menu-title">{{ __('Dashboard') }}</span>
+                        <span class="menu-title">{{ __('admin.dashboard') }}</span>
                     </a>
                 </div>
 
 
-                {{-- Separator --}}
+              
+                {{-- Separator for Content Management --}}
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
-                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ __('Apps') }}</span>
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ __('admin.content_management') }}</span>
                     </div>
                 </div>
 
-
-
-                {{-- Credentials --}}
+                {{-- Home Page Settings --}}
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->routeIs('credentials.*') ? 'active' : '' }}" href="{{ route('credentials.index') }}">
+                    <a class="menu-link {{ request()->routeIs('admin.home-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.home-page-settings.edit') }}">
                         <span class="menu-icon">
-                            🔐
+                            <i class="fa-solid fa-home fs-2"></i>
                         </span>
-                        <span class="menu-title">{{ __('Credentials') }}</span>
+                        <span class="menu-title">{{ __('admin.home_page_settings') }}</span>
                     </a>
                 </div>
 
+                {{-- Services --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-briefcase fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.services') }}</span>
+                    </a>
+                </div>
+
+                {{-- Service Page Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.service-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.service-page-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-sliders fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.service_page_settings') }}</span>
+                    </a>
+                </div>
+
+                {{-- Projects --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}" href="{{ route('admin.projects.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-folder-open fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.projects') }}</span>
+                    </a>
+                </div>
+
+                {{-- Project Page Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.project-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.project-page-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-sliders fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.project_page_settings') }}</span>
+                    </a>
+                </div>
+
+                {{-- Blog Posts --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-newspaper fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.blogs') }}</span>
+                    </a>
+                </div>
+
+                {{-- Blog Page Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.blog-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.blog-page-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-sliders fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.blog_page_settings') }}</span>
+                    </a>
+                </div>
+
+                {{-- Testimonials --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}" href="{{ route('admin.testimonials.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-star fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.testimonials') }}</span>
+                    </a>
+                </div>
+
+                {{-- FAQs --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-question-circle fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.faqs') }}</span>
+                    </a>
+                </div>
+
+                {{-- FAQ Page Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.faq-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.faq-page-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-sliders fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.faq_page_settings') }}</span>
+                    </a>
+                </div>
+
+                {{-- Contact Page Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.contact-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.contact-page-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-sliders fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.contact_page_settings') }}</span>
+                    </a>
+                </div>
+
+                {{-- Contact Messages --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-envelope fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.messages') }}</span>
+                    </a>
+                </div>
+
+                {{-- Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-cog fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.settings') }}</span>
+                    </a>
+                </div>
 
             </div>
         </div>

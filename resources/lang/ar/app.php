@@ -73,6 +73,41 @@ return [
     'Blog' => 'المدونة',
     'Contact' => 'اتصل بنا',
     'Contact Us' => 'اتصل بنا',
+
+    // Additional Actions
+    'View' => 'عرض',
+    'Delete' => 'حذف',
+    'Copy Password' => 'نسخ كلمة المرور',
+    'Invalid URL' => 'رابط غير صالح',
+    'No records found' => 'لا توجد سجلات',
+    'Try adjusting your search filters' => 'حاول تعديل مرشحات البحث',
+    'Searching...' => 'جاري البحث...',
+    'Success' => 'نجاح',
+    'Deleted!' => 'تم الحذف!',
+    'Credential has been deleted successfully' => 'تم حذف البيانات بنجاح',
+    'Yes, delete it!' => 'نعم، احذفها!',
+    'Are you sure you want to delete this credential?' => 'هل أنت متأكد من حذف هذه البيانات؟',
+    'This feature requires API endpoint implementation' => 'هذه الميزة تتطلب تطبيق نقطة نهاية API',
+    'Name' => 'الاسم',
+    'Save Changes' => 'حفظ التغييرات',
+    'Update Profile' => 'تحديث الملف الشخصي',
+
+    // Credentials
+    'Add Credential' => 'إضافة بيانات اعتماد',
+    'Edit Credential' => 'تعديل بيانات اعتماد',
+    'Credential' => 'بيانات الاعتماد',
+    'Credential ID' => 'معرف البيانات',
+    'Credential Details' => 'تفاصيل بيانات الاعتماد',
+    'Save' => 'حفظ',
+    'Update' => 'تحديث',
+    'Username' => 'اسم المستخدم',
+    'Leave blank to keep current' => 'اترك فارغاً للإبقاء على القيمة الحالية',
+    'Leave blank to keep the current password' => 'اترك فارغاً للإبقاء على كلمة المرور الحالية',
+    'Show password' => 'إظهار كلمة المرور',
+    'Hide password' => 'إخفاء كلمة المرور',
+    'Delete this item?' => 'حذف هذا العنصر؟',
+    'Yes, delete' => 'نعم، احذف',
+    'Hide' => 'إخفاء',
 ];
 
 

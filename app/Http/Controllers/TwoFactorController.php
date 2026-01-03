@@ -19,7 +19,7 @@ class TwoFactorController extends Controller
             return redirect()->route('login');
         }
 
-        return view('auth.two-factor');
+        return view('admin.auth.two-factor');
     }
 
     /**
@@ -53,7 +53,7 @@ class TwoFactorController extends Controller
         $user->clearTwoFactorCode();
 
         flash()->success('Welcome back!');
-        return redirect()->intended('/');
+        return redirect()->intended('/dashboard');
     }
 
     /**

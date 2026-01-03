@@ -5,18 +5,18 @@
     <main>
 
         <!-- breadcurmb area start -->
-        <div class="tp-breadcrumb-area tp-breadcrumb-ptb" data-background="{{asset('front/assets/img/blog/blog-masonry/blog-bradcum-bg.png')}}">
+        <div class="tp-breadcrumb-area tp-breadcrumb-ptb" data-background="{{ $pageSettings->hero_background_image ? asset('storage/' . $pageSettings->hero_background_image) : asset('front/assets/img/blog/blog-masonry/blog-bradcum-bg.png') }}">
             <div class="container container-1330">
                 <div class="row justify-content-center">
                     <div class="col-xxl-12">
                         <div class="tp-blog-heading-wrap p-relative pb-130">
-                                    <span class="tp-section-subtitle pre tp_fade_anim">{{ __('Blog Post') }} <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
+                                    <span class="tp-section-subtitle pre tp_fade_anim">{{ $pageSettings->getTranslatedHeroSubtitle() }} <svg xmlns="http://www.w3.org/2000/svg" width="81" height="9" viewBox="0 0 81 9" fill="none">
                                             <rect y="4.04333" width="80" height="1" fill="white" />
                                             <path d="M77 8.00783L80.5 4.52527L77 1.04271" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </span>
 
-                            <h3 class="tp-blog-title tp_fade_anim smooth">{{ __('Best blog of the week...') }} <img src="{{asset('front/assets/img/blog/blog-masonry/blog-bradcum-shape.png')}}" alt=""> <br> <a href="#down"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <h3 class="tp-blog-title tp_fade_anim smooth">{{ $pageSettings->getTranslatedHeroTitle() }} <img src="{{asset('front/assets/img/blog/blog-masonry/blog-bradcum-shape.png')}}" alt=""> <br> <a href="#down"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M9.99999 1V19M9.99999 19L1 10M9.99999 19L19 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg></a></h3>
 

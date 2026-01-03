@@ -2,50 +2,35 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\App;
 
 // Front-end Routes
-Route::get('/', function () {
-    return view('front.home.index');
-})->name('home');
+Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'index'])->name('home');
 
-Route::get('/services', function () {
-    return view('front.services.index');
-})->name('services.index');
+// Services Routes
+Route::get('/services', [\App\Http\Controllers\Front\ServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{id}', [\App\Http\Controllers\Front\ServiceController::class, 'show'])->name('services.show');
 
-Route::get('/blog', function () {
-    return view('front.blog.index');
-})->name('blog.index');
+// Projects Routes
+Route::get('/projects', [\App\Http\Controllers\Front\ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects/{id}', [\App\Http\Controllers\Front\ProjectController::class, 'show'])->name('projects.show');
 
-Route::get('/contact', function () {
-    return view('front.contact.index');
-})->name('contact.index');
+// Blog Routes
+Route::get('/blog', [\App\Http\Controllers\Front\BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{id}', [\App\Http\Controllers\Front\BlogController::class, 'show'])->name('blog.show');
 
-Route::get('/faq', function () {
-    return view('front.faq.index');
-})->name('faq.index');
+// Contact Route
+Route::get('/contact', [\App\Http\Controllers\Front\ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [\App\Http\Controllers\Front\ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/projects', function () {
-    return view('front.projects.index');
-})->name('projects.index');
+// FAQ Route
+Route::get('/faq', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faq.index');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Two-Factor Authentication Routes
-Route::middleware(['guest'])->group(function () {
-    Route::get('/2fa', [TwoFactorController::class, 'show'])->name('2fa.show');
-    Route::post('/2fa/verify', [TwoFactorController::class, 'verify'])->name('2fa.verify');
-    Route::post('/2fa/resend', [TwoFactorController::class, 'resend'])->name('2fa.resend');
-    // Prevent accidental GET to POST endpoints from showing 419
-    Route::get('/2fa/verify', function () {
-        return redirect()->route('2fa.show');
-    });
-});
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
@@ -56,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
         $recentCredentials = \App\Models\Credential::latest()->take(5)->get();
         $totalUsers = \App\Models\User::count();
 
-        return view('dashboard', compact('totalCredentials','withServer','withoutServer','recentCredentials','totalUsers'));
+        return view('admin.dashboard', compact('totalCredentials','withServer','withoutServer','recentCredentials','totalUsers'));
     })->name('dashboard');
 
     // Profile
@@ -65,6 +50,44 @@ Route::middleware(['auth'])->group(function () {
 
     // Credentials CRUD
     Route::resource('credentials', \App\Http\Controllers\CredentialController::class);
+
+    // Dynamic Content Management
+    Route::resource('admin/services', \App\Http\Controllers\Admin\ServiceController::class)->names('admin.services');
+    Route::resource('admin/projects', \App\Http\Controllers\Admin\ProjectController::class)->names('admin.projects');
+    Route::resource('admin/blogs', \App\Http\Controllers\Admin\BlogController::class)->names('admin.blogs');
+    Route::resource('admin/testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');
+    Route::resource('admin/faqs', \App\Http\Controllers\Admin\FaqController::class)->names('admin.faqs');
+    Route::resource('admin/settings', \App\Http\Controllers\Admin\SettingController::class)->names('admin.settings');
+
+    // Service Page Settings
+    Route::get('admin/service-page-settings', [\App\Http\Controllers\Admin\ServicePageSettingController::class, 'edit'])->name('admin.service-page-settings.edit');
+    Route::post('admin/service-page-settings', [\App\Http\Controllers\Admin\ServicePageSettingController::class, 'update'])->name('admin.service-page-settings.update');
+
+    // Project Page Settings
+    Route::get('admin/project-page-settings', [\App\Http\Controllers\Admin\ProjectPageSettingController::class, 'edit'])->name('admin.project-page-settings.edit');
+    Route::post('admin/project-page-settings', [\App\Http\Controllers\Admin\ProjectPageSettingController::class, 'update'])->name('admin.project-page-settings.update');
+
+    // Home Page Settings
+    Route::get('admin/home-page-settings', [\App\Http\Controllers\Admin\HomePageSettingController::class, 'edit'])->name('admin.home-page-settings.edit');
+    Route::post('admin/home-page-settings', [\App\Http\Controllers\Admin\HomePageSettingController::class, 'update'])->name('admin.home-page-settings.update');
+
+    // Blog Page Settings
+    Route::get('admin/blog-page-settings', [\App\Http\Controllers\Admin\BlogPageSettingController::class, 'edit'])->name('admin.blog-page-settings.edit');
+    Route::post('admin/blog-page-settings', [\App\Http\Controllers\Admin\BlogPageSettingController::class, 'update'])->name('admin.blog-page-settings.update');
+
+    // FAQ Page Settings
+    Route::get('admin/faq-page-settings', [\App\Http\Controllers\Admin\FaqPageSettingController::class, 'edit'])->name('admin.faq-page-settings.edit');
+    Route::post('admin/faq-page-settings', [\App\Http\Controllers\Admin\FaqPageSettingController::class, 'update'])->name('admin.faq-page-settings.update');
+
+    // Contact Page Settings
+    Route::get('admin/contact-page-settings', [\App\Http\Controllers\Admin\ContactPageSettingController::class, 'edit'])->name('admin.contact-page-settings.edit');
+    Route::post('admin/contact-page-settings', [\App\Http\Controllers\Admin\ContactPageSettingController::class, 'update'])->name('admin.contact-page-settings.update');
+
+    // Contacts (read-only, no create/edit)
+    Route::get('admin/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('admin.contacts.index');
+    Route::get('admin/contacts/{contact}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('admin.contacts.show');
+    Route::delete('admin/contacts/{contact}', [\App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('admin.contacts.destroy');
+    Route::post('admin/contacts/{contact}/status', [\App\Http\Controllers\Admin\ContactController::class, 'updateStatus'])->name('admin.contacts.updateStatus');
 });
 
 // Language switcher

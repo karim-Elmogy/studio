@@ -42,7 +42,7 @@ class CredentialController extends Controller
 
         $credentials = $credentialsQuery->latest()->paginate(12)->appends($request->query());
 
-        return view('credentials.index', compact('credentials', 'q', 'url', 'username', 'server'));
+        return view('admin.credentials.index', compact('credentials', 'q', 'url', 'username', 'server'));
     }
 
     /**
@@ -50,7 +50,7 @@ class CredentialController extends Controller
      */
     public function create()
     {
-        return view('credentials.create');
+        return view('admin.credentials.create');
     }
 
     /**
@@ -80,7 +80,7 @@ class CredentialController extends Controller
      */
     public function show(Credential $credential)
     {
-        return view('credentials.show', compact('credential'));
+        return view('admin.credentials.show', compact('credential'));
     }
 
     /**
@@ -88,7 +88,7 @@ class CredentialController extends Controller
      */
     public function edit(Credential $credential)
     {
-        return view('credentials.edit', compact('credential'));
+        return view('admin.credentials.edit', compact('credential'));
     }
 
     /**
