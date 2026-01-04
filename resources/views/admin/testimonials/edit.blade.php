@@ -71,14 +71,14 @@
 
                 {{-- Role --}}
                 <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.role') }}</label>
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.role') }}</label>
                     <div class="col-lg-10">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <input type="text" name="role_en"
                                        class="form-control form-control-solid @error('role_en') is-invalid @enderror"
                                        placeholder="e.g., CEO at Company"
-                                       value="{{ old('role_en', $testimonial->role['en'] ?? '') }}" required />
+                                       value="{{ old('role_en', $testimonial->role['en'] ?? '') }}" />
                                 @error('role_en')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -87,7 +87,7 @@
                                 <input type="text" name="role_ar"
                                        class="form-control form-control-solid @error('role_ar') is-invalid @enderror"
                                        placeholder="مثال: الرئيس التنفيذي في الشركة"
-                                       value="{{ old('role_ar', $testimonial->role['ar'] ?? '') }}" required dir="rtl" />
+                                       value="{{ old('role_ar', $testimonial->role['ar'] ?? '') }}" dir="rtl" />
                                 @error('role_ar')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

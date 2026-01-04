@@ -25,12 +25,10 @@ class TestimonialController extends Controller
         $validated = $request->validate([
             'name_en' => 'required|string|max:255',
             'name_ar' => 'required|string|max:255',
-            'position_en' => 'nullable|string|max:255',
-            'position_ar' => 'nullable|string|max:255',
-            'company_en' => 'nullable|string|max:255',
-            'company_ar' => 'nullable|string|max:255',
-            'content_en' => 'required|string',
-            'content_ar' => 'required|string',
+            'role_en' => 'nullable|string|max:255',
+            'role_ar' => 'nullable|string|max:255',
+            'testimonial_en' => 'required|string',
+            'testimonial_ar' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
             'rating' => 'required|integer|min:1|max:5',
             'order' => 'nullable|integer',
@@ -47,17 +45,13 @@ class TestimonialController extends Controller
                 'en' => $validated['name_en'],
                 'ar' => $validated['name_ar'],
             ],
-            'position' => [
-                'en' => $validated['position_en'] ?? '',
-                'ar' => $validated['position_ar'] ?? '',
+            'role' => [
+                'en' => $validated['role_en'] ?? '',
+                'ar' => $validated['role_ar'] ?? '',
             ],
-            'company' => [
-                'en' => $validated['company_en'] ?? '',
-                'ar' => $validated['company_ar'] ?? '',
-            ],
-            'content' => [
-                'en' => $validated['content_en'],
-                'ar' => $validated['content_ar'],
+            'testimonial' => [
+                'en' => $validated['testimonial_en'],
+                'ar' => $validated['testimonial_ar'],
             ],
             'image' => $validated['image'] ?? null,
             'rating' => $validated['rating'],
@@ -84,12 +78,10 @@ class TestimonialController extends Controller
         $validated = $request->validate([
             'name_en' => 'required|string|max:255',
             'name_ar' => 'required|string|max:255',
-            'position_en' => 'nullable|string|max:255',
-            'position_ar' => 'nullable|string|max:255',
-            'company_en' => 'nullable|string|max:255',
-            'company_ar' => 'nullable|string|max:255',
-            'content_en' => 'required|string',
-            'content_ar' => 'required|string',
+            'role_en' => 'nullable|string|max:255',
+            'role_ar' => 'nullable|string|max:255',
+            'testimonial_en' => 'required|string',
+            'testimonial_ar' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
             'rating' => 'required|integer|min:1|max:5',
             'order' => 'nullable|integer',
@@ -111,17 +103,13 @@ class TestimonialController extends Controller
                 'en' => $validated['name_en'],
                 'ar' => $validated['name_ar'],
             ],
-            'position' => [
-                'en' => $validated['position_en'] ?? '',
-                'ar' => $validated['position_ar'] ?? '',
+            'role' => [
+                'en' => $validated['role_en'] ?? '',
+                'ar' => $validated['role_ar'] ?? '',
             ],
-            'company' => [
-                'en' => $validated['company_en'] ?? '',
-                'ar' => $validated['company_ar'] ?? '',
-            ],
-            'content' => [
-                'en' => $validated['content_en'],
-                'ar' => $validated['content_ar'],
+            'testimonial' => [
+                'en' => $validated['testimonial_en'],
+                'ar' => $validated['testimonial_ar'],
             ],
             'image' => $validated['image'],
             'rating' => $validated['rating'],

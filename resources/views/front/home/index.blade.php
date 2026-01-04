@@ -501,44 +501,27 @@
                                 <div class="creative-testimonial-slider-wrap">
                                     <div class="swiper-container creative-testimonial-active fix">
                                         <div class="swiper-wrapper">
+                                            @forelse($testimonials as $testimonial)
                                             <div class="swiper-slide">
                                                 <div class="creative-testimonial-item">
                                                     <div class="creative-testimonial-avater-wrap d-flex align-items-center justify-content-between">
                                                         <div class="creative-testimonial-avater-box d-inline-flex align-items-center">
                                                             <div class="creative-testimonial-avater">
-                                                                <img src="{{asset('front/assets/img/home-04/avater/avater-1.jpg')}}" alt="">
+                                                                <img src="{{ $testimonial->getImageUrl() }}" alt="{{ $testimonial->getTranslatedName() }}">
                                                             </div>
                                                             <div class="creative-testimonial-avater-info">
-                                                                <h4>{{ __('Bradley Gordon') }}</h4>
-                                                                <span>{{ __('Co-Founder of Agntix') }}</span>
+                                                                <h4>{{ $testimonial->getTranslatedName() }}</h4>
+                                                                <span>{{ $testimonial->getTranslatedRole() }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="creative-testimonial-star">
+                                                            @for($i = 0; $i < $testimonial->rating; $i++)
                                                             <span>
                                                                 <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
                                                                 </svg>
                                                             </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
+                                                            @endfor
                                                         </div>
                                                     </div>
                                                     <div class="creative-testimonial-text">
@@ -548,167 +531,20 @@
                                                                     <path d="M14.5928 0L14.8534 0.573292C14.4017 0.747015 13.9501 0.972856 13.4984 1.25081C13.0467 1.52877 12.6298 1.8241 12.2476 2.13681C11.8654 2.44951 11.57 2.77959 11.3616 3.12703L11.9349 3.59609H12.4039C13.1336 3.59609 13.759 3.75244 14.2801 4.06514C14.836 4.3431 15.253 4.7253 15.5309 5.21172C15.8436 5.69815 16 6.25407 16 6.87948C16 7.50488 15.8263 8.0608 15.4788 8.54723C15.1661 8.99891 14.7318 9.36373 14.1759 9.64169C13.6547 9.91965 13.0293 10.0586 12.2997 10.0586C11.6048 10.0586 10.9794 9.91965 10.4235 9.64169C9.86754 9.32898 9.43322 8.92942 9.12052 8.44299C8.80782 7.95656 8.65147 7.38327 8.65147 6.72312C8.65147 5.99348 8.79045 5.29859 9.0684 4.63844C9.38111 3.94354 9.79805 3.31813 10.3192 2.76222C10.8404 2.17155 11.4658 1.65038 12.1954 1.1987C12.9251 0.712269 13.7242 0.312704 14.5928 0ZM5.94137 0L6.20195 0.573292C5.75027 0.747015 5.29859 0.972856 4.84691 1.25081C4.39522 1.52877 3.97828 1.8241 3.59609 2.13681C3.2139 2.44951 2.91857 2.77959 2.7101 3.12703L3.28339 3.59609H3.75244C4.48208 3.59609 5.10749 3.75244 5.62866 4.06514C6.18458 4.3431 6.60152 4.7253 6.87948 5.21172C7.19218 5.69815 7.34853 6.25407 7.34853 6.87948C7.34853 7.50488 7.17481 8.0608 6.82736 8.54723C6.51466 8.99891 6.08035 9.36373 5.52443 9.64169C5.00326 9.91965 4.37785 10.0586 3.64821 10.0586C2.95331 10.0586 2.3279 9.91965 1.77199 9.64169C1.21607 9.32898 0.781759 8.92942 0.469055 8.44299C0.156352 7.95656 0 7.38327 0 6.72312C0 5.99348 0.138979 5.29859 0.416938 4.63844C0.729642 3.94354 1.14658 3.31813 1.66775 2.76222C2.18893 2.17155 2.81433 1.65038 3.54397 1.1987C4.27362 0.712269 5.07275 0.312704 5.94137 0Z" fill="white" />
                                                                 </svg>
                                                             </span>
-                                                            {{ __('Agntix went above and beyond to make sure we got something we were happy with.') }}
+                                                            {{ $testimonial->getTranslatedTestimonial() }}
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @empty
                                             <div class="swiper-slide">
                                                 <div class="creative-testimonial-item">
-                                                    <div class="creative-testimonial-avater-wrap d-flex align-items-center justify-content-between">
-                                                        <div class="creative-testimonial-avater-box d-inline-flex align-items-center">
-                                                            <div class="creative-testimonial-avater">
-                                                                <img src="{{asset('front/assets/img/home-04/avater/avater-3.jpg')}}" alt="">
-                                                            </div>
-                                                            <div class="creative-testimonial-avater-info">
-                                                                <h4>{{ __('Tisha Norton') }}</h4>
-                                                                <span>{{ __('Co-Founder of Agntix') }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="creative-testimonial-star">
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="creative-testimonial-text">
-                                                        <p>
-                                                            <span>
-                                                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M14.5928 0L14.8534 0.573292C14.4017 0.747015 13.9501 0.972856 13.4984 1.25081C13.0467 1.52877 12.6298 1.8241 12.2476 2.13681C11.8654 2.44951 11.57 2.77959 11.3616 3.12703L11.9349 3.59609H12.4039C13.1336 3.59609 13.759 3.75244 14.2801 4.06514C14.836 4.3431 15.253 4.7253 15.5309 5.21172C15.8436 5.69815 16 6.25407 16 6.87948C16 7.50488 15.8263 8.0608 15.4788 8.54723C15.1661 8.99891 14.7318 9.36373 14.1759 9.64169C13.6547 9.91965 13.0293 10.0586 12.2997 10.0586C11.6048 10.0586 10.9794 9.91965 10.4235 9.64169C9.86754 9.32898 9.43322 8.92942 9.12052 8.44299C8.80782 7.95656 8.65147 7.38327 8.65147 6.72312C8.65147 5.99348 8.79045 5.29859 9.0684 4.63844C9.38111 3.94354 9.79805 3.31813 10.3192 2.76222C10.8404 2.17155 11.4658 1.65038 12.1954 1.1987C12.9251 0.712269 13.7242 0.312704 14.5928 0ZM5.94137 0L6.20195 0.573292C5.75027 0.747015 5.29859 0.972856 4.84691 1.25081C4.39522 1.52877 3.97828 1.8241 3.59609 2.13681C3.2139 2.44951 2.91857 2.77959 2.7101 3.12703L3.28339 3.59609H3.75244C4.48208 3.59609 5.10749 3.75244 5.62866 4.06514C6.18458 4.3431 6.60152 4.7253 6.87948 5.21172C7.19218 5.69815 7.34853 6.25407 7.34853 6.87948C7.34853 7.50488 7.17481 8.0608 6.82736 8.54723C6.51466 8.99891 6.08035 9.36373 5.52443 9.64169C5.00326 9.91965 4.37785 10.0586 3.64821 10.0586C2.95331 10.0586 2.3279 9.91965 1.77199 9.64169C1.21607 9.32898 0.781759 8.92942 0.469055 8.44299C0.156352 7.95656 0 7.38327 0 6.72312C0 5.99348 0.138979 5.29859 0.416938 4.63844C0.729642 3.94354 1.14658 3.31813 1.66775 2.76222C2.18893 2.17155 2.81433 1.65038 3.54397 1.1987C4.27362 0.712269 5.07275 0.312704 5.94137 0Z" fill="white" />
-                                                                </svg>
-                                                            </span>
-                                                            {{ __('The team at Agntix was incredibly attentive and made sure every detail was perfect.') }}
-                                                        </p>
+                                                    <div class="creative-testimonial-text text-center">
+                                                        <p>{{ __('No testimonials available at the moment.') }}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="swiper-slide">
-                                                <div class="creative-testimonial-item">
-                                                    <div class="creative-testimonial-avater-wrap d-flex align-items-center justify-content-between">
-                                                        <div class="creative-testimonial-avater-box d-inline-flex align-items-center">
-                                                            <div class="creative-testimonial-avater">
-                                                                <img src="{{asset('front/assets/img/home-04/avater/avater-4.jpg')}}" alt="">
-                                                            </div>
-                                                            <div class="creative-testimonial-avater-info">
-                                                                <h4>{{ __('Emma Berger') }}</h4>
-                                                                <span>{{ __('Co-Founder of Agntix') }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="creative-testimonial-star">
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="creative-testimonial-text">
-                                                        <p>
-                                                            <span>
-                                                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M14.5928 0L14.8534 0.573292C14.4017 0.747015 13.9501 0.972856 13.4984 1.25081C13.0467 1.52877 12.6298 1.8241 12.2476 2.13681C11.8654 2.44951 11.57 2.77959 11.3616 3.12703L11.9349 3.59609H12.4039C13.1336 3.59609 13.759 3.75244 14.2801 4.06514C14.836 4.3431 15.253 4.7253 15.5309 5.21172C15.8436 5.69815 16 6.25407 16 6.87948C16 7.50488 15.8263 8.0608 15.4788 8.54723C15.1661 8.99891 14.7318 9.36373 14.1759 9.64169C13.6547 9.91965 13.0293 10.0586 12.2997 10.0586C11.6048 10.0586 10.9794 9.91965 10.4235 9.64169C9.86754 9.32898 9.43322 8.92942 9.12052 8.44299C8.80782 7.95656 8.65147 7.38327 8.65147 6.72312C8.65147 5.99348 8.79045 5.29859 9.0684 4.63844C9.38111 3.94354 9.79805 3.31813 10.3192 2.76222C10.8404 2.17155 11.4658 1.65038 12.1954 1.1987C12.9251 0.712269 13.7242 0.312704 14.5928 0ZM5.94137 0L6.20195 0.573292C5.75027 0.747015 5.29859 0.972856 4.84691 1.25081C4.39522 1.52877 3.97828 1.8241 3.59609 2.13681C3.2139 2.44951 2.91857 2.77959 2.7101 3.12703L3.28339 3.59609H3.75244C4.48208 3.59609 5.10749 3.75244 5.62866 4.06514C6.18458 4.3431 6.60152 4.7253 6.87948 5.21172C7.19218 5.69815 7.34853 6.25407 7.34853 6.87948C7.34853 7.50488 7.17481 8.0608 6.82736 8.54723C6.51466 8.99891 6.08035 9.36373 5.52443 9.64169C5.00326 9.91965 4.37785 10.0586 3.64821 10.0586C2.95331 10.0586 2.3279 9.91965 1.77199 9.64169C1.21607 9.32898 0.781759 8.92942 0.469055 8.44299C0.156352 7.95656 0 7.38327 0 6.72312C0 5.99348 0.138979 5.29859 0.416938 4.63844C0.729642 3.94354 1.14658 3.31813 1.66775 2.76222C2.18893 2.17155 2.81433 1.65038 3.54397 1.1987C4.27362 0.712269 5.07275 0.312704 5.94137 0Z" fill="white" />
-                                                                </svg>
-                                                            </span>
-                                                            {{ __("We're beyond satisfied — Agntix made the entire process seamless and rewarding.") }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="creative-testimonial-item">
-                                                    <div class="creative-testimonial-avater-wrap d-flex align-items-center justify-content-between">
-                                                        <div class="creative-testimonial-avater-box d-inline-flex align-items-center">
-                                                            <div class="creative-testimonial-avater">
-                                                                <img src="{{asset('front/assets/img/home-04/avater/avater-5.jpg')}}" alt="">
-                                                            </div>
-                                                            <div class="creative-testimonial-avater-info">
-                                                                <h4>{{ __('Mary Cruz') }}</h4>
-                                                                <span>{{ __('Co-Founder of Agntix') }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="creative-testimonial-star">
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                            <span>
-                                                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M7.99999 0L9.7961 5.52786H15.6084L10.9062 8.94427L12.7023 14.4721L7.99999 11.0557L3.29771 14.4721L5.09382 8.94427L0.391541 5.52786H6.20388L7.99999 0Z" fill="currentColor" />
-                                                                </svg>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="creative-testimonial-text">
-                                                        <p>
-                                                            <span>
-                                                                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M14.5928 0L14.8534 0.573292C14.4017 0.747015 13.9501 0.972856 13.4984 1.25081C13.0467 1.52877 12.6298 1.8241 12.2476 2.13681C11.8654 2.44951 11.57 2.77959 11.3616 3.12703L11.9349 3.59609H12.4039C13.1336 3.59609 13.759 3.75244 14.2801 4.06514C14.836 4.3431 15.253 4.7253 15.5309 5.21172C15.8436 5.69815 16 6.25407 16 6.87948C16 7.50488 15.8263 8.0608 15.4788 8.54723C15.1661 8.99891 14.7318 9.36373 14.1759 9.64169C13.6547 9.91965 13.0293 10.0586 12.2997 10.0586C11.6048 10.0586 10.9794 9.91965 10.4235 9.64169C9.86754 9.32898 9.43322 8.92942 9.12052 8.44299C8.80782 7.95656 8.65147 7.38327 8.65147 6.72312C8.65147 5.99348 8.79045 5.29859 9.0684 4.63844C9.38111 3.94354 9.79805 3.31813 10.3192 2.76222C10.8404 2.17155 11.4658 1.65038 12.1954 1.1987C12.9251 0.712269 13.7242 0.312704 14.5928 0ZM5.94137 0L6.20195 0.573292C5.75027 0.747015 5.29859 0.972856 4.84691 1.25081C4.39522 1.52877 3.97828 1.8241 3.59609 2.13681C3.2139 2.44951 2.91857 2.77959 2.7101 3.12703L3.28339 3.59609H3.75244C4.48208 3.59609 5.10749 3.75244 5.62866 4.06514C6.18458 4.3431 6.60152 4.7253 6.87948 5.21172C7.19218 5.69815 7.34853 6.25407 7.34853 6.87948C7.34853 7.50488 7.17481 8.0608 6.82736 8.54723C6.51466 8.99891 6.08035 9.36373 5.52443 9.64169C5.00326 9.91965 4.37785 10.0586 3.64821 10.0586C2.95331 10.0586 2.3279 9.91965 1.77199 9.64169C1.21607 9.32898 0.781759 8.92942 0.469055 8.44299C0.156352 7.95656 0 7.38327 0 6.72312C0 5.99348 0.138979 5.29859 0.416938 4.63844C0.729642 3.94354 1.14658 3.31813 1.66775 2.76222C2.18893 2.17155 2.81433 1.65038 3.54397 1.1987C4.27362 0.712269 5.07275 0.312704 5.94137 0Z" fill="white" />
-                                                                </svg>
-                                                            </span>
-                                                            {{ __('From start to finish, Agntix went the extra mile to ensure we were thrilled with the result.') }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @endforelse
                                         </div>
                                     </div>
                                     <div class="tp-scrollbar"></div>
@@ -854,54 +690,30 @@
                             </div>
                         </div>
                         <div class="row">
+                            @forelse($blogs as $blog)
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="creative-blog-item mb-40">
                                     <div class="creative-blog-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{{asset('front/assets/img/home-04/blog/blog-1.jpg')}}" alt="">
+                                        <a href="{{ $blog->getUrl() }}">
+                                            <img src="{{ $blog->getImageUrl() }}" alt="{{ $blog->getTranslatedTitle() }}">
                                         </a>
                                     </div>
                                     <div class="creative-blog-meta">
-                                        <span>{{ __('Experience') }}</span>
-                                        <span>{{ __('May 15, 2025') }}</span>
+                                        <span>{{ $blog->getTranslatedCategory() }}</span>
+                                        <span>{{ $blog->getFormattedDate() }}</span>
                                     </div>
                                     <h4 class="creative-blog-title-sm">
-                                        <a class="tp-line-white" href="blog-details.html">{{ __('How to build work culture for') }} <br> {{ __('young office?') }}</a>
+                                        <a class="tp-line-white" href="{{ $blog->getUrl() }}">{{ $blog->getTranslatedTitle() }}</a>
                                     </h4>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6">
-                                <div class="creative-blog-item mb-40">
-                                    <div class="creative-blog-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{{asset('front/assets/img/home-04/blog/blog-2.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="creative-blog-meta">
-                                        <span>{{ __('Experience') }}</span>
-                                        <span>{{ __('May 15, 2025') }}</span>
-                                    </div>
-                                    <h4 class="creative-blog-title-sm">
-                                        <a class="tp-line-white" href="blog-details.html">{{ __('Thriving Work Culture for Young') }} <br> {{ __('Professionals') }}</a>
-                                    </h4>
+                            @empty
+                            <div class="col-12">
+                                <div class="text-center py-5">
+                                    <p class="text-muted">{{ __('No blog posts available at the moment.') }}</p>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6">
-                                <div class="creative-blog-item mb-40">
-                                    <div class="creative-blog-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{{asset('front/assets/img/home-04/blog/blog-3.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="creative-blog-meta">
-                                        <span>{{ __('Experience') }}</span>
-                                        <span>{{ __('May 15, 2025') }}</span>
-                                    </div>
-                                    <h4 class="creative-blog-title-sm">
-                                        <a class="tp-line-white" href="blog-details.html">{{ __('Fostering Innovation in Young') }} <br> {{ __('Offices') }}</a>
-                                    </h4>
-                                </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -910,3 +722,4 @@
             </main>
 
 @endsection
+
