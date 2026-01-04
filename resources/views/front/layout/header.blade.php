@@ -1,15 +1,36 @@
 <!-- header area start -->
 <header>
+
+    <style>
+        .logo-text {
+            color: white;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        .logo-text .sub {
+            font-weight: 300;
+           font-size: 17px;
+            margin-top: -5px;
+        }
+
+
+
+    </style>
     <!-- header area start -->
     <div id="header-sticky" class="tp-header-area tp-header-ptb tp-header-4-style tp-header-blur header-transparent tp-header-border">
         <div class="container container-1580">
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-5 col-5">
                     <div class="tp-header-logo">
-                        <a href="{{ url('/') }}">
-                            <img data-width="120" src="{{ asset('front/assets/img/logo/logo-white.png') }}" alt="">
+                        <a href="{{ url('/') }}" class="logo-text">
+                            <span class="main">VELARYON</span>
+                            <span class="sub">Studio</span>
                         </a>
                     </div>
+
+
+
                 </div>
                 <div class="col-xl-10 col-lg-7 col-7">
                     <div class="tp-header-box d-flex align-items-center justify-content-end">
