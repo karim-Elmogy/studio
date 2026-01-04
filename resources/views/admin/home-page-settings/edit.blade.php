@@ -622,7 +622,8 @@
                                             @foreach($settings->brand_logos as $index => $logo)
                                                 <div class="col-md-2 col-sm-3 col-4">
                                                     <div class="position-relative">
-                                                        <img src="{{ asset($logo) }}" alt="Logo {{ $index + 1 }}" class="img-thumbnail w-100">
+                                                        <img src="{{ asset($logo) }}" alt="Logo {{ $index + 1 }}" 
+                                                        style="background-color: #1f1d1d;"class="img-thumbnail w-100">
                                                         <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" onclick="removeImage({{ $index }})">
                                                             <i class="fas fa-times"></i>
                                                         </button>

@@ -83,6 +83,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/contact-page-settings', [\App\Http\Controllers\Admin\ContactPageSettingController::class, 'edit'])->name('admin.contact-page-settings.edit');
     Route::post('admin/contact-page-settings', [\App\Http\Controllers\Admin\ContactPageSettingController::class, 'update'])->name('admin.contact-page-settings.update');
 
+    // Footer Settings
+    Route::get('admin/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'edit'])->name('admin.footer-settings.edit');
+    Route::post('admin/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'update'])->name('admin.footer-settings.update');
+
     // Contacts (read-only, no create/edit)
     Route::get('admin/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('admin.contacts.index');
     Route::get('admin/contacts/{contact}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('admin.contacts.show');

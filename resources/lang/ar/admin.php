@@ -440,6 +440,28 @@ return [
     'map_text' => 'نص الخريطة',
     'studios_text' => 'نص الاستوديوهات',
 
+    // Footer Settings
+    'footer_settings' => 'إعدادات التذييل',
+    'footer_title' => 'عنوان التذييل',
+    'footer_description' => 'وصف التذييل',
+    'contact_information' => 'معلومات الاتصال',
+    'email' => 'البريد الإلكتروني',
+    'phone' => 'الهاتف',
+    'address_url' => 'رابط العنوان',
+    'address_text' => 'نص العنوان',
+    'social_media' => 'وسائل التواصل الاجتماعي',
+    'facebook' => 'فيسبوك',
+    'twitter' => 'تويتر',
+    'dribbble' => 'دريبل',
+    'instagram' => 'إنستجرام',
+    'footer_bottom' => 'أسفل التذييل',
+    'logo_text' => 'نص الشعار',
+    'copyright_text' => 'نص حقوق النشر',
+    'terms_text' => 'نص الشروط',
+    'privacy_text' => 'نص الخصوصية',
+    'terms_url' => 'رابط الشروط',
+    'privacy_url' => 'رابط الخصوصية',
+
     // Home Page Settings - New Sections
     'projects_section' => 'قسم المشاريع',
     'projects_subtitle' => 'عنوان فرعي للمشاريع',

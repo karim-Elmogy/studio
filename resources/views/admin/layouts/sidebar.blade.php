@@ -158,6 +158,16 @@
                     </a>
                 </div>
 
+                {{-- Footer Settings --}}
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.footer-settings.*') ? 'active' : '' }}" href="{{ route('admin.footer-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-solid fa-shoe-prints fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.footer_settings') }}</span>
+                    </a>
+                </div>
+
                 {{-- Contact Messages --}}
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">

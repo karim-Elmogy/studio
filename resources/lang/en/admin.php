@@ -322,6 +322,28 @@ return [
     'map_text' => 'Map Text',
     'studios_text' => 'Studios Text',
 
+    // Footer Settings
+    'footer_settings' => 'Footer Settings',
+    'footer_title' => 'Footer Title',
+    'footer_description' => 'Footer Description',
+    'contact_information' => 'Contact Information',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'address_url' => 'Address URL',
+    'address_text' => 'Address Text',
+    'social_media' => 'Social Media',
+    'facebook' => 'Facebook',
+    'twitter' => 'Twitter',
+    'dribbble' => 'Dribbble',
+    'instagram' => 'Instagram',
+    'footer_bottom' => 'Footer Bottom',
+    'logo_text' => 'Logo Text',
+    'copyright_text' => 'Copyright Text',
+    'terms_text' => 'Terms Text',
+    'privacy_text' => 'Privacy Text',
+    'terms_url' => 'Terms URL',
+    'privacy_url' => 'Privacy URL',
+
     // Home Page Settings - New Sections
     'projects_section' => 'Projects Section',
     'projects_subtitle' => 'Projects Subtitle',

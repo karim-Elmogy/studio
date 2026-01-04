@@ -388,22 +388,27 @@
                         <div class="creative-service-wrap">
                             <div class="row">
                                 <div class="offset-xl-3 col-xl-9">
+                                    @foreach($services as $index => $service)
                                     <div class="creative-service-item about-us-4 d-flex align-items-start justify-content-between tp_fade_anim">
                                         <div class="creative-service-content d-flex align-items-start">
-                                            <span>(01)</span>
+                                            <span>({{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }})</span>
                                             <div class="creative-service-title-info">
-                                                <h4 class="creative-service-title"><a href="service-details-light.html">{{ __('Branding') }}</a></h4>
+                                                <h4 class="creative-service-title">
+                                                    <a href="{{ route('services.show', $service->id) }}">
+                                                        {{ $service->getTranslatedTitle() }}
+                                                    </a>
+                                                </h4>
+                                                @if($service->getTranslatedFeatures())
                                                 <div class="creative-service-category">
-                                                    <span>{{ __('Logo design') }}</span>
-                                                    <span>{{ __('Brand Guidelines') }}</span>
-                                                    <span>{{ __('Visual Identity') }}</span>
-                                                    <span>{{ __('Custom Emails') }}</span>
-                                                    <span>{{ __('Presentations') }}</span>
+                                                    @foreach($service->getTranslatedFeatures() as $feature)
+                                                        <span>{{ $feature }}</span>
+                                                    @endforeach
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="creative-service-link">
-                                            <a href="service-details-light.html">
+                                            <a href="{{ route('services.show', $service->id) }}">
                                                 <span>
                                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 13L13 1M13 1H1M13 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -412,54 +417,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="creative-service-item about-us-4 d-flex align-items-start justify-content-between tp_fade_anim">
-                                        <div class="creative-service-content d-flex align-items-start">
-                                            <span>(02)</span>
-                                            <div class="creative-service-title-info">
-                                                <h4 class="creative-service-title"><a href="service-details-light.html">{{ __('Identity') }}</a></h4>
-                                                <div class="creative-service-category">
-                                                    <span>{{ __('Logo design') }}</span>
-                                                    <span>{{ __('Brand Guidelines') }}</span>
-                                                    <span>{{ __('Visual Identity') }}</span>
-                                                    <span>{{ __('Custom Emails') }}</span>
-                                                    <span>{{ __('Presentations') }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="creative-service-link">
-                                            <a href="service-details-light.html">
-                                                <span>
-                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 13L13 1M13 1H1M13 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="creative-service-item about-us-4 d-flex align-items-start justify-content-between tp_fade_anim">
-                                        <div class="creative-service-content d-flex align-items-start">
-                                            <span>(03)</span>
-                                            <div class="creative-service-title-info">
-                                                <h4 class="creative-service-title"><a href="service-details-light.html">{{ __('Impact') }}</a></h4>
-                                                <div class="creative-service-category">
-                                                    <span>{{ __('Logo design') }}</span>
-                                                    <span>{{ __('Brand Guidelines') }}</span>
-                                                    <span>{{ __('Visual Identity') }}</span>
-                                                    <span>{{ __('Custom Emails') }}</span>
-                                                    <span>{{ __('Presentations') }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="creative-service-link">
-                                            <a href="service-details-light.html">
-                                                <span>
-                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 13L13 1M13 1H1M13 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -484,7 +442,7 @@
                                 </div>
                             </div>
                         </div>
-                        <img data-speed=".8" class="w-100" src="{{asset($pageSettings->choose_image ?? 'front/assets/img/home-04/choose/chose-1.jpg')}}" alt="">
+                        <img data-speed=".8" class="w-100" src="{{asset($pageSettings->choose_image ?? 'https://html.aqlova.com/agntix-landing/agntix/assets/img/home-04/choose/chose-1.jpg')}}" alt="">
                     </div>
                 </div>
                 <!-- choose area end -->
@@ -764,7 +722,7 @@
                 <!-- brand area end -->
                 <div class="creative-work-area creative-work-2-style">
                     <div class="container container-1580">
-                        <div class="creative-work-bg p-relative" data-bg-color="#F6F6F9">
+                        <div class="creative-work-bg p-relative" data-bg-color="#1a1b1e">
                             <div class="creative-work-title-wrap mb-65">
                                 <div class="row">
                                     <div class="col-xl-4">
