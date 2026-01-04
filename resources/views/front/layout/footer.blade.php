@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="tp-copyright-content text-center">
-                        <h2 class="tp-copyright-big-text">{{ $footerSettings->footer_logo_text ?: 'Agntix.studio' }}</h2>
+                        <h2 class="tp-copyright-big-text" style="font-size: 132px">{{ $footerSettings->footer_logo_text ?: 'Agntix.studio' }}</h2>
                     </div>
                 </div>
             </div>

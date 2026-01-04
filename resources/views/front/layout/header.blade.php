@@ -3,12 +3,15 @@
 
     <style>
         .logo-text {
+            font-family: "KoHo", sans-serif;
             color: white;
             font-size: 20px;
             font-weight: bolder;
+
         }
 
         .logo-text .sub {
+            font-family: "KoHo", sans-serif;
             font-weight: 300;
            font-size: 17px;
             margin-top: -5px;

@@ -39,12 +39,6 @@
 
 </head>
 
-<style>
-    body{
-        font-family: "KoHo", sans-serif;
-        font-weight: 500;
-    }
-</style>
 
 <body class="tp-magic-cursor black-bg-7">
 

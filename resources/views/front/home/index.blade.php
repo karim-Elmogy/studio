@@ -64,13 +64,19 @@
         }
 
         .creative-service-item.about-us-4 .creative-service-title a {
-            background: linear-gradient(#FF5722, #FF5722) left no-repeat, white;
+            background: linear-gradient(#05a5c5, #05a5c5) left no-repeat, white;
             background-size: auto, auto;
             background-clip: border-box, border-box;
             background-size: 0% 100%;
             background-clip: text;
             -webkit-background-clip: text;
         }
+        .creative-service-item.about-us-4:hover .creative-service-link a {
+            background-color:#05a5c5 ;
+            color: white;
+            border: 1px solid #05a5c5;
+        }
+
         .creative-service-item.about-us-4 .creative-service-content > span {
             color: white;
         }
