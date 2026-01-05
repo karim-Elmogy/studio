@@ -38,6 +38,8 @@ class FooterSettingController extends Controller
             'footer_terms_url' => 'nullable|string|max:255',
             'footer_privacy_url' => 'nullable|string|max:255',
             'footer_logo_text' => 'nullable|string|max:255',
+            'back_to_top_text_en' => 'nullable|string|max:255',
+            'back_to_top_text_ar' => 'nullable|string|max:255',
         ]);
 
         $settings = FooterSetting::getSettings();
@@ -58,6 +60,7 @@ class FooterSettingController extends Controller
         $settings->footer_terms_url = $request->footer_terms_url;
         $settings->footer_privacy_url = $request->footer_privacy_url;
         $settings->footer_logo_text = $request->footer_logo_text;
+        $settings->back_to_top_text = ['en' => $request->back_to_top_text_en ?? "Agntix I've gone too far, send me back up 👆", 'ar' => $request->back_to_top_text_ar ?? 'Agntix لقد ذهبت بعيداً، أعدني للأعلى 👆'];
 
         $settings->save();
 

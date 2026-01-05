@@ -22,7 +22,8 @@ class FooterSetting extends Model
         'footer_privacy_text',
         'footer_terms_url',
         'footer_privacy_url',
-        'footer_logo_text'
+        'footer_logo_text',
+        'back_to_top_text'
     ];
 
     protected $casts = [
@@ -30,7 +31,8 @@ class FooterSetting extends Model
         'footer_description' => 'array',
         'footer_address_text' => 'array',
         'footer_terms_text' => 'array',
-        'footer_privacy_text' => 'array'
+        'footer_privacy_text' => 'array',
+        'back_to_top_text' => 'array'
     ];
 
     public function getTranslatedFooterTitle($locale = null)
@@ -63,6 +65,12 @@ class FooterSetting extends Model
         return $this->footer_privacy_text[$locale] ?? $this->footer_privacy_text['en'] ?? '';
     }
 
+    public function getTranslatedBackToTopText($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $this->back_to_top_text[$locale] ?? $this->back_to_top_text['en'] ?? "Agntix I've gone too far, send me back up 👆";
+    }
+
     public static function getSettings()
     {
         $settings = self::first();
@@ -84,7 +92,8 @@ class FooterSetting extends Model
                 'footer_privacy_text' => ['en' => 'Privacy Policy', 'ar' => 'سياسة الخصوصية'],
                 'footer_terms_url' => '#',
                 'footer_privacy_url' => '#',
-                'footer_logo_text' => 'Agntix.studio'
+                'footer_logo_text' => 'Agntix.studio',
+                'back_to_top_text' => ['en' => "Agntix I've gone too far, send me back up 👆", 'ar' => 'Agntix لقد ذهبت بعيداً، أعدني للأعلى 👆']
             ]);
         }
 

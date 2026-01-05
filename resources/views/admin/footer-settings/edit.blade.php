@@ -271,6 +271,36 @@
                             </div>
                         </div>
 
+                        <!-- Back to Top Button Text Section -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2">{{ __('admin.back_to_top_button_text') }}</h5>
+
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('admin.back_to_top_text') }} ({{ __('admin.english') }})</label>
+                                        <input type="text" class="form-control @error('back_to_top_text_en') is-invalid @enderror"
+                                               name="back_to_top_text_en" value="{{ old('back_to_top_text_en', $settings->back_to_top_text['en'] ?? "Agntix I've gone too far, send me back up 👆") }}"
+                                               placeholder="Agntix I've gone too far, send me back up 👆">
+                                        @error('back_to_top_text_en')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('admin.back_to_top_text') }} ({{ __('admin.arabic') }})</label>
+                                        <input type="text" class="form-control @error('back_to_top_text_ar') is-invalid @enderror"
+                                               name="back_to_top_text_ar" value="{{ old('back_to_top_text_ar', $settings->back_to_top_text['ar'] ?? 'Agntix لقد ذهبت بعيداً، أعدني للأعلى 👆') }}"
+                                               placeholder="Agntix لقد ذهبت بعيداً، أعدني للأعلى 👆" dir="rtl">
+                                        @error('back_to_top_text_ar')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">{{ __('admin.update') }}</button>
                         </div>

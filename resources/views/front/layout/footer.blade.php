@@ -48,7 +48,7 @@
     </div>
 
     <div class="creative-footer-text d-none d-lg-block">
-        <p>Agntix I’ve gone too far, send me back up 👆</p>
+        <p>{{ $footerSettings->getTranslatedBackToTopText() }}</p>
     </div>
 
     <!-- footer area start -->
