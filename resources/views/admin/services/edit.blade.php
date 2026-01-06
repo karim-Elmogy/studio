@@ -184,7 +184,7 @@
                                 </label>
                                 <input type="file" name="icon"
                                        class="form-control form-control-solid @error('icon') is-invalid @enderror"
-                                       accept="image/*" id="iconInput"
+                                       accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml,image/webp" id="iconInput"
                                        onchange="previewImage(this, 'newIconPreview')" />
                                 <div class="form-text mt-2">
                                     <i class="fa-solid fa-info-circle me-1"></i>
@@ -208,7 +208,7 @@
                                 </label>
                                 <input type="file" name="image"
                                        class="form-control form-control-solid @error('image') is-invalid @enderror"
-                                       accept="image/*" id="imageInput"
+                                       accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml,image/webp" id="imageInput"
                                        onchange="previewImage(this, 'newImagePreview')" />
                                 <div class="form-text mt-2">
                                     <i class="fa-solid fa-info-circle me-1"></i>
@@ -230,7 +230,7 @@
                                 </label>
                                 <input type="file" name="image_2"
                                        class="form-control form-control-solid @error('image_2') is-invalid @enderror"
-                                       accept="image/*" id="image2Input"
+                                       accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml,image/webp" id="image2Input"
                                        onchange="previewImage(this, 'newImage2Preview')" />
                                 <div class="form-text mt-2">
                                     <i class="fa-solid fa-info-circle me-1"></i>
@@ -242,6 +242,48 @@
                                          style="max-width: 100%; max-height: 300px; object-fit: cover;">
                                 </div>
                                 @error('image_2')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- Banner Image --}}
+                        @if($service->banner_image)
+                            <div class="row g-3 mt-3">
+                                <div class="col-12">
+                                    <label class="form-label fs-6 fw-semibold mb-3">
+                                        <i class="fa-solid fa-panorama text-success me-2"></i>
+                                        {{ __('Current Banner Image') }}
+                                    </label>
+                                    <div class="image-preview text-center p-3 bg-light rounded">
+                                        <img src="{{ asset('storage/' . $service->banner_image) }}"
+                                             alt="Current Banner Image"
+                                             class="img-thumbnail shadow-sm rounded"
+                                             style="max-width: 100%; max-height: 200px; object-fit: cover;">
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="row g-3 mt-3">
+                            <div class="col-12">
+                                <label class="form-label fs-6 fw-semibold mb-3">
+                                    <i class="fa-solid fa-panorama text-success me-2"></i>
+                                    {{ __('New Banner Image') }} <span class="text-muted">({{ __('Top banner in service detail page') }})</span>
+                                </label>
+                                <input type="file" name="banner_image"
+                                       class="form-control form-control-solid @error('banner_image') is-invalid @enderror"
+                                       accept="image/jpeg,image/png,image/jpg,image/gif,image/svg+xml,image/webp" id="bannerImageInput"
+                                       onchange="previewImage(this, 'newBannerImagePreview')" />
+                                <div class="form-text mt-2">
+                                    <i class="fa-solid fa-info-circle me-1"></i>
+                                    {{ __('Recommended size: 1920x600px for wide banner. Leave empty to keep current.') }}
+                                </div>
+                                <div class="image-preview-container mt-3" id="newBannerImagePreviewContainer" style="display: none;">
+                                    <img id="newBannerImagePreview" src="" alt="New Banner Image Preview"
+                                         class="img-thumbnail shadow-sm rounded"
+                                         style="max-width: 100%; max-height: 300px; object-fit: cover;">
+                                </div>
+                                @error('banner_image')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>

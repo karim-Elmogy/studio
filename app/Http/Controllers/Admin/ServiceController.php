@@ -38,9 +38,10 @@ class ServiceController extends Controller
             'description_ar' => 'required|string',
             'features_en' => 'nullable|string',
             'features_ar' => 'nullable|string',
-            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
             'order' => 'required|integer|min:0',
             'is_active' => 'nullable|boolean',
             // Hero Section
@@ -57,7 +58,7 @@ class ServiceController extends Controller
             'process_steps_ar' => 'nullable|string',
             'process_description_en' => 'nullable|string',
             'process_description_ar' => 'nullable|string',
-            'process_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'process_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             // Benefits Section
             'benefits_title_en' => 'nullable|string|max:255',
             'benefits_title_ar' => 'nullable|string|max:255',
@@ -66,7 +67,7 @@ class ServiceController extends Controller
             // Features Section
             'features_title_en' => 'nullable|string|max:255',
             'features_title_ar' => 'nullable|string|max:255',
-            'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         // Process features
@@ -115,6 +116,11 @@ class ServiceController extends Controller
             $image2Path = $request->file('image_2')->store('services/images', 'public');
         }
 
+        $bannerImagePath = null;
+        if ($request->hasFile('banner_image')) {
+            $bannerImagePath = $request->file('banner_image')->store('services/banners', 'public');
+        }
+
         $processImagePath = null;
         if ($request->hasFile('process_image')) {
             $processImagePath = $request->file('process_image')->store('services/process', 'public');
@@ -138,6 +144,7 @@ class ServiceController extends Controller
             'icon' => $iconPath,
             'image' => $imagePath,
             'image_2' => $image2Path,
+            'banner_image' => $bannerImagePath,
             'order' => $validated['order'],
             'is_active' => $request->has('is_active'),
             // Hero Section
@@ -216,9 +223,10 @@ class ServiceController extends Controller
             'description_ar' => 'required|string',
             'features_en' => 'nullable|string',
             'features_ar' => 'nullable|string',
-            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
             'order' => 'required|integer|min:0',
             'is_active' => 'nullable|boolean',
             // Hero Section
@@ -235,7 +243,7 @@ class ServiceController extends Controller
             'process_steps_ar' => 'nullable|string',
             'process_description_en' => 'nullable|string',
             'process_description_ar' => 'nullable|string',
-            'process_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'process_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             // Benefits Section
             'benefits_title_en' => 'nullable|string|max:255',
             'benefits_title_ar' => 'nullable|string|max:255',
@@ -244,7 +252,7 @@ class ServiceController extends Controller
             // Features Section
             'features_title_en' => 'nullable|string|max:255',
             'features_title_ar' => 'nullable|string|max:255',
-            'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         // Process features
@@ -304,6 +312,15 @@ class ServiceController extends Controller
             $image2Path = $request->file('image_2')->store('services/images', 'public');
         }
 
+        // Handle banner_image upload
+        $bannerImagePath = $service->banner_image;
+        if ($request->hasFile('banner_image')) {
+            if ($service->banner_image && Storage::disk('public')->exists($service->banner_image)) {
+                Storage::disk('public')->delete($service->banner_image);
+            }
+            $bannerImagePath = $request->file('banner_image')->store('services/banners', 'public');
+        }
+
         // Handle process_image upload
         $processImagePath = $service->process_image;
         if ($request->hasFile('process_image')) {
@@ -335,6 +352,7 @@ class ServiceController extends Controller
             'icon' => $iconPath,
             'image' => $imagePath,
             'image_2' => $image2Path,
+            'banner_image' => $bannerImagePath,
             'order' => $validated['order'],
             'is_active' => $request->has('is_active'),
             // Hero Section
@@ -398,6 +416,9 @@ class ServiceController extends Controller
         }
         if ($service->image_2 && Storage::disk('public')->exists($service->image_2)) {
             Storage::disk('public')->delete($service->image_2);
+        }
+        if ($service->banner_image && Storage::disk('public')->exists($service->banner_image)) {
+            Storage::disk('public')->delete($service->banner_image);
         }
 
         $service->delete();

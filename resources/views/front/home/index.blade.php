@@ -269,7 +269,7 @@
                 <!-- brand area end -->
 
                  <!-- project area start -->
-                 <div class="creative-project-area creative-project-2-style pb-120">
+                 <div id="projects" class="creative-project-area creative-project-2-style pb-120">
                      <div class="container container-1580">
                          <div class="creative-project-2-top">
                              <div class="row align-items-end">

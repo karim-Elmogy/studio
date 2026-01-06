@@ -50,7 +50,13 @@
 
 
         <!-- banner area start -->
-        @if($service->image)
+        @if($service->banner_image)
+        <div class="tp-service-4-banner-area p-relative">
+            <div class="ar-banner-wrap ar-about-us-4">
+                <img class="w-100" src="{{ asset('storage/' . $service->banner_image) }}" alt="{{ $service->getTranslatedTitle() }}" data-speed=".8">
+            </div>
+        </div>
+        @elseif($service->image)
         <div class="tp-service-4-banner-area p-relative">
             <div class="ar-banner-wrap ar-about-us-4">
                 <img class="w-100" src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->getTranslatedTitle() }}" data-speed=".8">
