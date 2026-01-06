@@ -120,30 +120,18 @@
                     </div>
                 </div>
 
-                {{-- Image & Type --}}
+                {{-- Image --}}
                 <div class="row mb-6">
                     <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.project_image') }}</label>
                     <div class="col-lg-10">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <input type="file" name="image"
-                                       class="form-control form-control-solid @error('image') is-invalid @enderror"
-                                       accept="image/*" required />
-                                <div class="form-text">{{ __('admin.image_formats') }}</div>
-                                @error('image')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <select name="type" class="form-select form-control-solid @error('type') is-invalid @enderror" required>
-                                    <option value="web" {{ old('type') === 'web' ? 'selected' : '' }}>{{ __('admin.web') }}</option>
-                                    <option value="mobile" {{ old('type') === 'mobile' ? 'selected' : '' }}>{{ __('admin.mobile') }}</option>
-                                </select>
-                                @error('type')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                        <input type="file" name="image"
+                               class="form-control form-control-solid @error('image') is-invalid @enderror"
+                               accept="image/*" required />
+                        <div class="form-text">{{ __('admin.image_formats') }}</div>
+                        @error('image')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                        <input type="hidden" name="type" value="web">
                     </div>
                 </div>
 

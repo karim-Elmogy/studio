@@ -75,7 +75,7 @@
                 </div>
 
                 {{-- Projects Section --}}
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.projects.*', 'admin.project-page-settings.*') ? 'here show' : '' }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.projects.*') ? 'here show' : '' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="fa-solid fa-folder-open fs-2"></i>
@@ -85,7 +85,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}" href="{{ route('admin.projects.index') }}">
+                            <a class="menu-link {{ request()->routeIs('admin.projects.index') && !request('type') ? 'active' : '' }}" href="{{ route('admin.projects.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -93,11 +93,19 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{ request()->routeIs('admin.project-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.project-page-settings.edit') }}">
+                            <a class="menu-link {{ request('type') === 'mobile' ? 'active' : '' }}" href="{{ route('admin.projects.index', ['type' => 'mobile']) }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">{{ __('admin.project_page_settings') }}</span>
+                                <span class="menu-title">{{ __('admin.mobile_projects') }}</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ request('type') === 'web' ? 'active' : '' }}" href="{{ route('admin.projects.index', ['type' => 'web']) }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">{{ __('admin.web_projects') }}</span>
                             </a>
                         </div>
                     </div>

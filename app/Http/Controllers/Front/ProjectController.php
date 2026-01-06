@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\ProjectPageSetting;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -15,9 +14,7 @@ class ProjectController extends Controller
             ->orderBy('order')
             ->paginate(12);
 
-        $pageSettings = ProjectPageSetting::getSettings();
-
-        return view('front.projects.index', compact('projects', 'pageSettings'));
+        return view('front.projects.index', compact('projects'));
     }
 
     public function show($id)
@@ -31,6 +28,11 @@ class ProjectController extends Controller
             ->limit(3)
             ->get();
 
-        return view('front.project.show', compact('project', 'relatedProjects'));
+        // Route to different views based on project type
+        $viewName = $project->type === 'mobile'
+            ? 'front.project.mobile.index'
+            : 'front.project.web.index';
+
+        return view($viewName, compact('project', 'relatedProjects'));
     }
 }

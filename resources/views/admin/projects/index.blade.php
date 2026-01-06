@@ -135,7 +135,7 @@
                                         {{ __('admin.actions') }}
                                         <i class="fa-solid fa-chevron-down fs-7 ms-1"></i>
                                     </a>
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4"
                                          data-kt-menu="true">
                                         <div class="menu-item px-3">
                                             <a href="{{ route('admin.projects.show', $project) }}" class="menu-link px-3">
@@ -147,6 +147,19 @@
                                                 <i class="fa-solid fa-pen me-2"></i>{{ __('admin.edit') }}
                                             </a>
                                         </div>
+                                        @if($project->type === 'mobile')
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('admin.projects.mobile-details.edit', $project) }}" class="menu-link px-3">
+                                                <i class="fa-solid fa-mobile-screen-button me-2 text-success"></i>{{ __('admin.mobile_details') }}
+                                            </a>
+                                        </div>
+                                        @elseif($project->type === 'web')
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('admin.projects.web-details.edit', $project) }}" class="menu-link px-3">
+                                                <i class="fa-solid fa-globe me-2 text-info"></i>{{ __('admin.web_details') }}
+                                            </a>
+                                        </div>
+                                        @endif
                                         <div class="menu-item px-3">
                                             <form action="{{ route('admin.projects.destroy', $project) }}"
                                                   method="POST"

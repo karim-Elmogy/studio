@@ -54,6 +54,13 @@ Route::middleware(['auth'])->group(function () {
     // Dynamic Content Management
     Route::resource('admin/services', \App\Http\Controllers\Admin\ServiceController::class)->names('admin.services');
     Route::resource('admin/projects', \App\Http\Controllers\Admin\ProjectController::class)->names('admin.projects');
+
+    // Project Details Routes
+    Route::get('admin/projects/{project}/mobile-details', [\App\Http\Controllers\Admin\ProjectController::class, 'editMobileDetails'])->name('admin.projects.mobile-details.edit');
+    Route::put('admin/projects/{project}/mobile-details', [\App\Http\Controllers\Admin\ProjectController::class, 'updateMobileDetails'])->name('admin.projects.mobile-details.update');
+    Route::get('admin/projects/{project}/web-details', [\App\Http\Controllers\Admin\ProjectController::class, 'editWebDetails'])->name('admin.projects.web-details.edit');
+    Route::put('admin/projects/{project}/web-details', [\App\Http\Controllers\Admin\ProjectController::class, 'updateWebDetails'])->name('admin.projects.web-details.update');
+
     Route::resource('admin/blogs', \App\Http\Controllers\Admin\BlogController::class)->names('admin.blogs');
     Route::resource('admin/testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');
     Route::resource('admin/faqs', \App\Http\Controllers\Admin\FaqController::class)->names('admin.faqs');
@@ -62,10 +69,6 @@ Route::middleware(['auth'])->group(function () {
     // Service Page Settings
     Route::get('admin/service-page-settings', [\App\Http\Controllers\Admin\ServicePageSettingController::class, 'edit'])->name('admin.service-page-settings.edit');
     Route::post('admin/service-page-settings', [\App\Http\Controllers\Admin\ServicePageSettingController::class, 'update'])->name('admin.service-page-settings.update');
-
-    // Project Page Settings
-    Route::get('admin/project-page-settings', [\App\Http\Controllers\Admin\ProjectPageSettingController::class, 'edit'])->name('admin.project-page-settings.edit');
-    Route::post('admin/project-page-settings', [\App\Http\Controllers\Admin\ProjectPageSettingController::class, 'update'])->name('admin.project-page-settings.update');
 
     // Home Page Settings
     Route::get('admin/home-page-settings', [\App\Http\Controllers\Admin\HomePageSettingController::class, 'edit'])->name('admin.home-page-settings.edit');

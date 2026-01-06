@@ -18,6 +18,8 @@ class Project extends Model
         'order',
         'is_featured',
         'is_active',
+        'mobile_details',
+        'web_details',
     ];
 
     protected $casts = [
@@ -25,6 +27,8 @@ class Project extends Model
         'description' => 'array',
         'category' => 'array',
         'tags' => 'array',
+        'mobile_details' => 'array',
+        'web_details' => 'array',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
     ];
