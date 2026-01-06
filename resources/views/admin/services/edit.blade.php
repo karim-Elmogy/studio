@@ -24,6 +24,10 @@
             <i class="fa-solid fa-arrow-left"></i>
             {{ __('admin.back') }}
         </a>
+        <a href="{{ route('admin.services.details.edit', $service->id) }}" class="btn btn-sm btn-info">
+            <i class="fa-solid fa-list-check"></i>
+            {{ __('Manage Details') }}
+        </a>
     </div>
 @endsection
 
@@ -160,6 +164,20 @@
                                         </div>
                                     </div>
                                 @endif
+                                @if($service->image_2)
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-6 fw-semibold mb-3">
+                                            <i class="fa-solid fa-image text-primary me-2"></i>
+                                            {{ __('admin.current_image') }} 2
+                                        </label>
+                                        <div class="image-preview text-center p-3 bg-light rounded">
+                                            <img src="{{ asset('storage/' . $service->image_2) }}"
+                                                 alt="Service Image 2"
+                                                 class="img-thumbnail shadow-sm rounded"
+                                                 style="max-width: 100%; max-height: 200px; object-fit: cover;">
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         @endif
                         <div class="row g-3">
@@ -177,7 +195,7 @@
                                     {{ __('admin.leave_empty_keep_current') }}
                                 </div>
                                 <div class="image-preview-container mt-3" id="newIconPreviewContainer" style="display: none;">
-                                    <img id="newIconPreview" src="" alt="New Icon Preview" 
+                                    <img id="newIconPreview" src="" alt="New Icon Preview"
                                          class="img-thumbnail shadow-sm rounded"
                                          style="max-width: 150px; max-height: 150px; object-fit: contain;">
                                 </div>
@@ -185,10 +203,12 @@
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="row g-3 mt-3">
                             <div class="col-md-6">
                                 <label class="form-label fs-6 fw-semibold mb-3">
                                     <i class="fa-solid fa-image text-warning me-2"></i>
-                                    {{ __('admin.new_image') }}
+                                    {{ __('admin.new_image') }} 1
                                 </label>
                                 <input type="file" name="image"
                                        class="form-control form-control-solid @error('image') is-invalid @enderror"
@@ -199,11 +219,33 @@
                                     {{ __('admin.leave_empty_keep_current') }}
                                 </div>
                                 <div class="image-preview-container mt-3" id="newImagePreviewContainer" style="display: none;">
-                                    <img id="newImagePreview" src="" alt="New Image Preview" 
+                                    <img id="newImagePreview" src="" alt="New Image Preview"
                                          class="img-thumbnail shadow-sm rounded"
                                          style="max-width: 100%; max-height: 300px; object-fit: cover;">
                                 </div>
                                 @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6 fw-semibold mb-3">
+                                    <i class="fa-solid fa-image text-warning me-2"></i>
+                                    {{ __('admin.new_image') }} 2
+                                </label>
+                                <input type="file" name="image_2"
+                                       class="form-control form-control-solid @error('image_2') is-invalid @enderror"
+                                       accept="image/*" id="image2Input"
+                                       onchange="previewImage(this, 'newImage2Preview')" />
+                                <div class="form-text mt-2">
+                                    <i class="fa-solid fa-info-circle me-1"></i>
+                                    {{ __('admin.leave_empty_keep_current') }}
+                                </div>
+                                <div class="image-preview-container mt-3" id="newImage2PreviewContainer" style="display: none;">
+                                    <img id="newImage2Preview" src="" alt="New Image 2 Preview"
+                                         class="img-thumbnail shadow-sm rounded"
+                                         style="max-width: 100%; max-height: 300px; object-fit: cover;">
+                                </div>
+                                @error('image_2')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>

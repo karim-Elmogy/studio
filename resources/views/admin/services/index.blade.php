@@ -136,11 +136,16 @@
                                             {{ __('admin.actions') }}
                                             <i class="fa-solid fa-chevron-down fs-7 ms-1"></i>
                                         </a>
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-175px py-4"
                                              data-kt-menu="true">
                                             <div class="menu-item px-3">
                                                 <a href="{{ route('admin.services.edit', $service->id) }}" class="menu-link px-3">
                                                     <i class="fa-solid fa-pen me-2"></i>{{ __('admin.edit') }}
+                                                </a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a href="{{ route('admin.services.details.edit', $service->id) }}" class="menu-link px-3">
+                                                    <i class="fa-solid fa-list-check me-2"></i>{{ __('Manage Details') }}
                                                 </a>
                                             </div>
                                             <div class="menu-item px-3">

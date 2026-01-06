@@ -40,6 +40,7 @@ class ServiceController extends Controller
             'features_ar' => 'nullable|string',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'order' => 'required|integer|min:0',
             'is_active' => 'nullable|boolean',
         ]);
@@ -70,6 +71,11 @@ class ServiceController extends Controller
             $imagePath = $request->file('image')->store('services/images', 'public');
         }
 
+        $image2Path = null;
+        if ($request->hasFile('image_2')) {
+            $image2Path = $request->file('image_2')->store('services/images', 'public');
+        }
+
         Service::create([
             'title' => [
                 'en' => $validated['title_en'],
@@ -82,6 +88,7 @@ class ServiceController extends Controller
             'features' => $features,
             'icon' => $iconPath,
             'image' => $imagePath,
+            'image_2' => $image2Path,
             'order' => $validated['order'],
             'is_active' => $request->has('is_active')
         ]);
@@ -123,6 +130,7 @@ class ServiceController extends Controller
             'features_ar' => 'nullable|string',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'order' => 'required|integer|min:0',
             'is_active' => 'nullable|boolean',
         ]);
@@ -162,6 +170,16 @@ class ServiceController extends Controller
             $imagePath = $request->file('image')->store('services/images', 'public');
         }
 
+        // Handle image_2 upload
+        $image2Path = $service->image_2;
+        if ($request->hasFile('image_2')) {
+            // Delete old image_2
+            if ($service->image_2 && Storage::disk('public')->exists($service->image_2)) {
+                Storage::disk('public')->delete($service->image_2);
+            }
+            $image2Path = $request->file('image_2')->store('services/images', 'public');
+        }
+
         $service->update([
             'title' => [
                 'en' => $validated['title_en'],
@@ -174,6 +192,7 @@ class ServiceController extends Controller
             'features' => $features,
             'icon' => $iconPath,
             'image' => $imagePath,
+            'image_2' => $image2Path,
             'order' => $validated['order'],
             'is_active' => $request->has('is_active')
         ]);
@@ -195,6 +214,9 @@ class ServiceController extends Controller
         }
         if ($service->image && Storage::disk('public')->exists($service->image)) {
             Storage::disk('public')->delete($service->image);
+        }
+        if ($service->image_2 && Storage::disk('public')->exists($service->image_2)) {
+            Storage::disk('public')->delete($service->image_2);
         }
 
         $service->delete();

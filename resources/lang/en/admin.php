@@ -39,6 +39,7 @@ return [
 
     // Services
     'services' => 'Services',
+    'all_services' => 'All Services',
     'services_management' => 'Services Management',
     'add_service' => 'Add New Service',
     'edit_service' => 'Edit Service',
@@ -103,6 +104,7 @@ return [
 
     // Projects
     'projects' => 'Projects',
+    'all_projects' => 'All Projects',
     'projects_management' => 'Projects Management',
     'add_project' => 'Add New Project',
     'edit_project' => 'Edit Project',
@@ -133,6 +135,7 @@ return [
 
     // Blogs
     'blogs' => 'Blogs',
+    'all_blogs' => 'All Blogs',
     'blog_posts' => 'Blog Posts',
     'blogs_management' => 'Blogs Management',
     'add_blog' => 'Add New Post',
@@ -180,6 +183,7 @@ return [
 
     // FAQs
     'faqs' => 'FAQs',
+    'all_faqs' => 'All FAQs',
     'faqs_management' => 'FAQs Management',
     'add_faq' => 'Add New FAQ',
     'edit_faq' => 'Edit FAQ',
@@ -216,6 +220,8 @@ return [
 
     // Settings
     'settings' => 'Settings',
+    'general_settings' => 'General Settings',
+    'page_settings' => 'Page Settings',
     'settings_management' => 'Settings Management',
     'add_setting' => 'Add New Setting',
     'edit_setting' => 'Edit Setting',
@@ -276,16 +282,21 @@ return [
     'hero_section' => 'Hero Section',
     'hero_title' => 'Hero Title',
     'hero_subtitle' => 'Hero Subtitle',
+    'contact_email' => 'Contact Email',
     'hero_image' => 'Background Image',
     'banner_section' => 'Banner Section',
     'banner_text' => 'Banner Text',
     'banner_image' => 'Banner Image',
+    'recent_work_text' => 'Recent Work Text',
     'slider_section' => 'Slider Section',
     'slider_text' => 'Slider Text',
     'add_word' => 'Add Word',
     'english' => 'English',
     'arabic' => 'Arabic',
     'settings_updated_successfully' => 'Settings updated successfully',
+    'background_images' => 'Background Images',
+    'background_images_desc' => 'Upload up to 16 background images for the services page hero section. If no image is uploaded, the default image will be used.',
+    'no_image' => 'No Image',
 
     // Project Page Settings
     'project_page_settings' => 'Project Page Settings',

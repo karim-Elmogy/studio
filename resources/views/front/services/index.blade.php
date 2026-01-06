@@ -6,55 +6,38 @@
         <!-- hero area start -->
         <div class="studio-hero-area p-relative fix pb-80">
             <div class="content z-index-2 d-none d-md-block">
+                @php
+                    $defaultImages = [
+                        'front/assets/img/1.webp',
+                        'front/assets/img/2.webp',
+                        'front/assets/img/3.webp',
+                        'front/assets/img/4.webp',
+                        'front/assets/img/5.webp',
+                        'front/assets/img/6.webp',
+                        'front/assets/img/7.webp',
+                        'front/assets/img/9.webp',
+                        'front/assets/img/10.webp',
+                        'front/assets/img/11.webp',
+                        'front/assets/img/12.webp',
+                        'front/assets/img/13.webp',
+                        'front/assets/img/14.webp',
+                        'front/assets/img/15.webp',
+                        'front/assets/img/16.webp',
+                        'front/assets/img/17.webp'
+                    ];
+                @endphp
 
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/1.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/2.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/3.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/4.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/5.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/6.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/7.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/9.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/10.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/11.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/12.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/13.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/14.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/15.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/16.webp') }}')"></div>
-                </div>
-                <div class="content__img">
-                    <div class="content__img-inner" style="background-image:url('{{ asset('front/assets/img/17.webp') }}')"></div>
-                </div>
+                @for($i = 1; $i <= 16; $i++)
+                    @php
+                        $bgImage = $pageSettings->{"bg_image_{$i}"};
+                        $imageUrl = $bgImage
+                            ? asset('storage/' . $bgImage)
+                            : asset($defaultImages[$i - 1]);
+                    @endphp
+                    <div class="content__img">
+                        <div class="content__img-inner" style="background-image:url('{{ $imageUrl }}')"></div>
+                    </div>
+                @endfor
 
             </div>
 
@@ -63,9 +46,9 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="studio-hero-info z-index-5 d-flex justify-content-md-between justify-content-center align-items-center">
-                                <a href="mailto:info@agntix.studio">info@agntix.studio</a>
+                                <a href="mailto:{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}">{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}</a>
                                 <span>{{ $pageSettings->getTranslatedHeroSubtitle() }}</span>
-                                <a href="mailto:info@agntix.studio">info@agntix.studio</a>
+                                <a href="mailto:{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}">{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}</a>
                             </div>
                         </div>
                     </div>
@@ -154,18 +137,29 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if($service->image)
+                                @if($service->image || $service->image_2)
                                     <div class="row gx-10">
                                         <div class="inner-service-1-thumb-text">
-                                            <span>({{ __('Our recent Digital work') }})</span>
+                                            <span>({{ $pageSettings->getTranslatedRecentWorkText() }})</span>
                                         </div>
-                                        <div class="col-xl-12">
-                                            <div class="inner-service-1-thumb tp--hover-item">
-                                                <div class=" tp--hover-img" data-displacement="{{asset('front/assets/img/webgl/1.jpg')}}" data-intensity="0.6" data-speedin="1" data-speedout="1">
-                                                    <img class="w-100" src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->getTranslatedTitle() }}">
+                                        @if($service->image)
+                                            <div class="col-xl-6">
+                                                <div class="inner-service-1-thumb tp--hover-item">
+                                                    <div class=" tp--hover-img" data-displacement="{{asset('front/assets/img/webgl/1.jpg')}}" data-intensity="0.6" data-speedin="1" data-speedout="1">
+                                                        <img class="w-100" src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->getTranslatedTitle() }}">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
+                                        @if($service->image_2)
+                                            <div class="col-xl-6">
+                                                <div class="inner-service-1-thumb tp--hover-item">
+                                                    <div class=" tp--hover-img" data-displacement="{{asset('front/assets/img/webgl/1.jpg')}}" data-intensity="0.6" data-speedin="1" data-speedout="1">
+                                                        <img class="w-100" src="{{ asset('storage/' . $service->image_2) }}" alt="{{ $service->getTranslatedTitle() }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
                             </div>

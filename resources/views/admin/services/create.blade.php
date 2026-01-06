@@ -152,10 +152,12 @@
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="row g-3 mt-3">
                             <div class="col-md-6">
                                 <label class="form-label fs-6 fw-semibold mb-3">
                                     <i class="fa-solid fa-image text-warning me-2"></i>
-                                    {{ __('admin.cover_image') }}
+                                    {{ __('admin.cover_image') }} 1
                                 </label>
                                 <input type="file" name="image"
                                        class="form-control form-control-solid @error('image') is-invalid @enderror"
@@ -166,11 +168,33 @@
                                     {{ __('admin.image_size_hint') }}
                                 </div>
                                 <div class="image-preview-container mt-3" id="imagePreviewContainer" style="display: none;">
-                                    <img id="imagePreview" src="" alt="Image Preview" 
+                                    <img id="imagePreview" src="" alt="Image Preview"
                                          class="img-thumbnail shadow-sm rounded"
                                          style="max-width: 100%; max-height: 300px; object-fit: cover;">
                                 </div>
                                 @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fs-6 fw-semibold mb-3">
+                                    <i class="fa-solid fa-image text-warning me-2"></i>
+                                    {{ __('admin.cover_image') }} 2
+                                </label>
+                                <input type="file" name="image_2"
+                                       class="form-control form-control-solid @error('image_2') is-invalid @enderror"
+                                       accept="image/*" id="image2Input"
+                                       onchange="previewImage(this, 'image2Preview')" />
+                                <div class="form-text mt-2">
+                                    <i class="fa-solid fa-info-circle me-1"></i>
+                                    {{ __('admin.image_size_hint') }}
+                                </div>
+                                <div class="image-preview-container mt-3" id="image2PreviewContainer" style="display: none;">
+                                    <img id="image2Preview" src="" alt="Image 2 Preview"
+                                         class="img-thumbnail shadow-sm rounded"
+                                         style="max-width: 100%; max-height: 300px; object-fit: cover;">
+                                </div>
+                                @error('image_2')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>

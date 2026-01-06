@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معاينة الصور - عرض توضيحي</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #f5f8fa;
+            padding: 40px 0;
+        }
+        .demo-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .gallery-preview-item {
+            position: relative;
+            border: 2px solid #e4e6ef;
+            border-radius: 0.475rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .gallery-preview-item:hover {
+            border-color: #009ef7;
+            transform: translateY(-2px);
+        }
+        .gallery-preview-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .gallery-preview-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-preview-item:hover .gallery-preview-remove {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 mb-3">🖼️ معاينة الصور قبل الرفع</h1>
+            <p class="lead text-muted">عرض توضيحي للميزة الجديدة</p>
+        </div>
+
+        <!-- Single Image Preview Demo -->
+        <div class="demo-card">
+            <h3 class="mb-4">
+                <i class="fa-solid fa-image text-primary me-2"></i>
+                1. معاينة صورة واحدة
+            </h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">اختر صورة:</label>
+                    <div id="single_image_current" class="mb-3" style="display: none;">
+                        <img src="" alt="Current" class="img-fluid rounded" style="max-width: 300px;">
+                        <p class="text-muted mt-2">الصورة الحالية</p>
+                    </div>
+                    <div id="single_image_preview" class="mb-3" style="display: none;">
+                        <img src="" alt="Preview" class="img-fluid rounded" style="max-width: 300px;">
+                        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="clearImagePreview('single_image')">
+                            <i class="fa-solid fa-times"></i> إلغاء
+                        </button>
+                    </div>
+                    <input type="file" id="single_image_input" class="form-control" accept="image/*"
+                           onchange="previewImage(this, 'single_image_preview')">
+                    <small class="text-muted d-block mt-2">اختر صورة لرؤية المعاينة</small>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-info">
+                        <h6 class="alert-heading">كيفية الاستخدام:</h6>
+                        <ol class="mb-0">
+                            <li>اضغط على "Browse" واختر صورة</li>
+                            <li>سترى المعاينة فوراً</li>
+                            <li>اضغط "إلغاء" لإزالة الاختيار</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Preview Demo -->
+        <div class="demo-card">
+            <h3 class="mb-4">
+                <i class="fa-solid fa-images text-primary me-2"></i>
+                2. معاينة معرض الصور (متعدد)
+            </h3>
+            <div class="row">
+                <div class="col-12">
+                    <label class="form-label fw-bold">اختر صور متعددة:</label>
+                    <input type="file" id="gallery_images_input" class="form-control" accept="image/*"
+                           multiple onchange="previewGalleryImages(this)">
+                    <small class="text-muted d-block mt-2">يمكنك اختيار عدة صور في نفس الوقت (Ctrl + Click)</small>
+
+                    <div id="gallery_preview_container" class="mt-4" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">معاينة الصور:</h6>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="clearGalleryPreview()">
+                                <i class="fa-solid fa-times"></i> حذف الكل
+                            </button>
+                        </div>
+                        <div id="gallery_preview_images">
+                            <div class="row g-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="alert alert-success">
+                        <h6 class="alert-heading">المميزات:</h6>
+                        <ul class="mb-0">
+                            <li>✅ معاينة فورية لجميع الصور</li>
+                            <li>✅ حذف صورة واحدة (مرر الماوس واضغط ❌)</li>
+                            <li>✅ حذف جميع الصور دفعة واحدة</li>
+                            <li>✅ عرض اسم الملف تحت كل صورة</li>
+                            <li>✅ تأثيرات Hover جميلة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features List -->
+        <div class="demo-card">
+            <h3 class="mb-4">
+                <i class="fa-solid fa-star text-warning me-2"></i>
+                المميزات الرئيسية
+            </h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">📸 معاينة فورية</h5>
+                            <p class="card-text">شاهد الصور فوراً قبل الرفع بدون الحاجة لحفظ النموذج</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">🗑️ إلغاء سهل</h5>
+                            <p class="card-text">إمكانية إلغاء الاختيار والعودة للصورة الأصلية بنقرة واحدة</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-info mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">📐 أحجام موحدة</h5>
+                            <p class="card-text">جميع الصور بأحجام متساوية لعرض منظم وجميل</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-warning mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">✨ تأثيرات بصرية</h5>
+                            <p class="card-text">Hover effects وانتقالات سلسة لتجربة مستخدم ممتازة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Info -->
+        <div class="demo-card bg-light">
+            <h4 class="mb-3">
+                <i class="fa-solid fa-code text-info me-2"></i>
+                معلومات تقنية
+            </h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>التقنية المستخدمة:</strong>
+                    <ul>
+                        <li>FileReader API</li>
+                        <li>DataTransfer API</li>
+                        <li>Vanilla JavaScript</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <strong>المتصفحات المدعومة:</strong>
+                    <ul>
+                        <li>Chrome/Edge ✅</li>
+                        <li>Firefox ✅</li>
+                        <li>Safari ✅</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <strong>الأداء:</strong>
+                    <ul>
+                        <li>Client-side فقط</li>
+                        <li>لا يؤثر على السيرفر</li>
+                        <li>سريع وفعال</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Preview single image
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const currentImage = document.getElementById(previewId.replace('_preview', '_current'));
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.querySelector('img').src = e.target.result;
+                    preview.style.display = 'block';
+                    if (currentImage) {
+                        currentImage.style.display = 'none';
+                    }
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Clear single image preview
+        function clearImagePreview(inputPrefix) {
+            const input = document.getElementById(inputPrefix + '_input');
+            const preview = document.getElementById(inputPrefix + '_preview');
+            const currentImage = document.getElementById(inputPrefix + '_current');
+
+            input.value = '';
+            preview.style.display = 'none';
+            preview.querySelector('img').src = '';
+
+            if (currentImage) {
+                currentImage.style.display = 'block';
+            }
+        }
+
+        // Preview gallery images
+        function previewGalleryImages(input) {
+            const container = document.getElementById('gallery_preview_container');
+            const imagesContainer = document.getElementById('gallery_preview_images').querySelector('.row');
+
+            if (input.files && input.files.length > 0) {
+                container.style.display = 'block';
+                imagesContainer.innerHTML = '';
+
+                Array.from(input.files).forEach((file, index) => {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-3';
+                        col.innerHTML = `
+                            <div class="gallery-preview-item">
+                                <img src="${e.target.result}" alt="Preview ${index + 1}">
+                                <button type="button" class="btn btn-sm btn-danger gallery-preview-remove"
+                                        onclick="removeGalleryPreviewItem(this, ${index})">
+                                    <i class="fa-solid fa-times"></i>
+                                </button>
+                                <div class="p-2 text-center bg-light">
+                                    <small class="text-muted">${file.name}</small>
+                                </div>
+                            </div>
+                        `;
+                        imagesContainer.appendChild(col);
+                    }
+
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        // Remove single gallery item
+        function removeGalleryPreviewItem(button, index) {
+            const input = document.getElementById('gallery_images_input');
+            const container = document.getElementById('gallery_preview_container');
+
+            const dt = new DataTransfer();
+            const files = input.files;
+
+            for (let i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    dt.items.add(files[i]);
+                }
+            }
+
+            input.files = dt.files;
+            button.closest('.col-md-3').remove();
+
+            if (input.files.length === 0) {
+                container.style.display = 'none';
+            } else {
+                previewGalleryImages(input);
+            }
+        }
+
+        // Clear all gallery previews
+        function clearGalleryPreview() {
+            const input = document.getElementById('gallery_images_input');
+            const container = document.getElementById('gallery_preview_container');
+            const imagesContainer = document.getElementById('gallery_preview_images').querySelector('.row');
+
+            input.value = '';
+            container.style.display = 'none';
+            imagesContainer.innerHTML = '';
+        }
+    </script>
+</body>
+</html>

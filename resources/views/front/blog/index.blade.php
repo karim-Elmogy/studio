@@ -65,10 +65,10 @@
                                 <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="#">{{ __('Understanding the process of 3D modeling.') }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
                                     <a href="#">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span></a>
                                 </div>
@@ -103,10 +103,10 @@
                                 <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="#">{{ __('21 Web Design Mistakes to Avoid Right Now') }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
                                     <a href="#">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span></a>
                                 </div>
@@ -148,10 +148,10 @@
                                 <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="#">{{ __('8 Tips to Design Better Text Input Controls') }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
                                     <a href="#">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span></a>
                                 </div>
@@ -186,10 +186,10 @@
                                 <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="#">{{ __('Everything You Should Know About Return') }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
                                     <a href="#">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span></a>
                                 </div>
@@ -224,10 +224,10 @@
                                 <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="#">{{ __('Understanding the process of 3D modeling.') }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
                                     <a href="#">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span></a>
                                 </div>
@@ -262,10 +262,10 @@
                                 <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="#">{{ __('The role of social media in shaping society') }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
                                     <a href="#">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#D0FF71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span></a>
                                 </div>

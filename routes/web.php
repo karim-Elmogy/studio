@@ -53,6 +53,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Dynamic Content Management
     Route::resource('admin/services', \App\Http\Controllers\Admin\ServiceController::class)->names('admin.services');
+
+    // Service Details Management
+    Route::get('admin/services/{service}/details', [\App\Http\Controllers\Admin\ServiceDetailController::class, 'edit'])->name('admin.services.details.edit');
+    Route::post('admin/services/{service}/details', [\App\Http\Controllers\Admin\ServiceDetailController::class, 'update'])->name('admin.services.details.update');
+
     Route::resource('admin/projects', \App\Http\Controllers\Admin\ProjectController::class)->names('admin.projects');
     Route::resource('admin/blogs', \App\Http\Controllers\Admin\BlogController::class)->names('admin.blogs');
     Route::resource('admin/testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->names('admin.testimonials');

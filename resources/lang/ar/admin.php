@@ -48,6 +48,7 @@ return [
 
     // Services
     'services' => 'الخدمات',
+    'all_services' => 'كل الخدمات',
     'services_management' => 'إدارة الخدمات',
     'add_service' => 'إضافة خدمة',
     'edit_service' => 'تعديل خدمة',
@@ -71,6 +72,7 @@ return [
 
     // Projects
     'projects' => 'المشاريع',
+    'all_projects' => 'كل المشاريع',
     'projects_management' => 'إدارة المشاريع',
     'add_project' => 'إضافة مشروع',
     'edit_project' => 'تعديل مشروع',
@@ -110,6 +112,7 @@ return [
 
     // Blogs
     'blogs' => 'المدونة',
+    'all_blogs' => 'كل المقالات',
     'blog_posts' => 'مقالات المدونة',
     'blogs_management' => 'إدارة المدونة',
     'add_blog' => 'إضافة مقال',
@@ -171,6 +174,7 @@ return [
 
     // FAQs
     'faqs' => 'الأسئلة الشائعة',
+    'all_faqs' => 'كل الأسئلة',
     'faqs_management' => 'إدارة الأسئلة الشائعة',
     'add_faq' => 'إضافة سؤال',
     'edit_faq' => 'تعديل سؤال',
@@ -210,6 +214,8 @@ return [
 
     // Settings
     'settings' => 'الإعدادات',
+    'general_settings' => 'الإعدادات العامة',
+    'page_settings' => 'إعدادات الصفحات',
     'settings_management' => 'إدارة الإعدادات',
     'add_setting' => 'إضافة إعداد',
     'edit_setting' => 'تعديل إعداد',
@@ -394,16 +400,21 @@ return [
     'hero_section' => 'قسم البطل الرئيسي',
     'hero_title' => 'العنوان الرئيسي',
     'hero_subtitle' => 'العنوان الفرعي',
+    'contact_email' => 'البريد الإلكتروني للتواصل',
     'hero_image' => 'صورة الخلفية',
     'banner_section' => 'قسم البانر',
     'banner_text' => 'نص البانر',
     'banner_image' => 'صورة البانر',
+    'recent_work_text' => 'نص الأعمال الحديثة',
     'slider_section' => 'قسم السلايدر السفلي',
     'slider_text' => 'نص السلايدر',
     'add_word' => 'إضافة كلمة',
     'english' => 'الإنجليزية',
     'arabic' => 'العربية',
     'settings_updated_successfully' => 'تم تحديث الإعدادات بنجاح',
+    'background_images' => 'صور الخلفية',
+    'background_images_desc' => 'قم برفع حتى 16 صورة خلفية لقسم البطل في صفحة الخدمات. إذا لم يتم رفع صورة، سيتم استخدام الصورة الافتراضية.',
+    'no_image' => 'لا توجد صورة',
 
     // Project Page Settings
     'project_page_settings' => 'إعدادات صفحة المشاريع',
