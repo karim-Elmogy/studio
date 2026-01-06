@@ -43,6 +43,30 @@ class ServiceController extends Controller
             'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'order' => 'required|integer|min:0',
             'is_active' => 'nullable|boolean',
+            // Hero Section
+            'hero_subtitle_en' => 'nullable|string|max:255',
+            'hero_subtitle_ar' => 'nullable|string|max:255',
+            'hero_title_en' => 'nullable|string|max:255',
+            'hero_title_ar' => 'nullable|string|max:255',
+            'hero_description_en' => 'nullable|string',
+            'hero_description_ar' => 'nullable|string',
+            // Process Section
+            'process_title_en' => 'nullable|string|max:255',
+            'process_title_ar' => 'nullable|string|max:255',
+            'process_steps_en' => 'nullable|string',
+            'process_steps_ar' => 'nullable|string',
+            'process_description_en' => 'nullable|string',
+            'process_description_ar' => 'nullable|string',
+            'process_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // Benefits Section
+            'benefits_title_en' => 'nullable|string|max:255',
+            'benefits_title_ar' => 'nullable|string|max:255',
+            'benefits_description_en' => 'nullable|string',
+            'benefits_description_ar' => 'nullable|string',
+            // Features Section
+            'features_title_en' => 'nullable|string|max:255',
+            'features_title_ar' => 'nullable|string|max:255',
+            'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Process features
@@ -54,8 +78,23 @@ class ServiceController extends Controller
             $maxCount = max(count($featuresEn), count($featuresAr));
             for ($i = 0; $i < $maxCount; $i++) {
                 $features[] = [
-                    'en' => $featuresEn[$i] ?? '',
-                    'ar' => $featuresAr[$i] ?? ''
+                    'en' => trim($featuresEn[$i] ?? ''),
+                    'ar' => trim($featuresAr[$i] ?? '')
+                ];
+            }
+        }
+
+        // Process steps
+        $processSteps = [];
+        if ($request->process_steps_en || $request->process_steps_ar) {
+            $stepsEn = array_filter(explode("\n", $request->process_steps_en ?? ''));
+            $stepsAr = array_filter(explode("\n", $request->process_steps_ar ?? ''));
+
+            $maxCount = max(count($stepsEn), count($stepsAr));
+            for ($i = 0; $i < $maxCount; $i++) {
+                $processSteps[] = [
+                    'en' => trim($stepsEn[$i] ?? ''),
+                    'ar' => trim($stepsAr[$i] ?? '')
                 ];
             }
         }
@@ -76,6 +115,16 @@ class ServiceController extends Controller
             $image2Path = $request->file('image_2')->store('services/images', 'public');
         }
 
+        $processImagePath = null;
+        if ($request->hasFile('process_image')) {
+            $processImagePath = $request->file('process_image')->store('services/process', 'public');
+        }
+
+        $featuresImagePath = null;
+        if ($request->hasFile('features_image')) {
+            $featuresImagePath = $request->file('features_image')->store('services/features', 'public');
+        }
+
         Service::create([
             'title' => [
                 'en' => $validated['title_en'],
@@ -90,7 +139,46 @@ class ServiceController extends Controller
             'image' => $imagePath,
             'image_2' => $image2Path,
             'order' => $validated['order'],
-            'is_active' => $request->has('is_active')
+            'is_active' => $request->has('is_active'),
+            // Hero Section
+            'hero_subtitle' => [
+                'en' => $request->hero_subtitle_en,
+                'ar' => $request->hero_subtitle_ar
+            ],
+            'hero_title' => [
+                'en' => $request->hero_title_en,
+                'ar' => $request->hero_title_ar
+            ],
+            'hero_description' => [
+                'en' => $request->hero_description_en,
+                'ar' => $request->hero_description_ar
+            ],
+            // Process Section
+            'process_title' => [
+                'en' => $request->process_title_en,
+                'ar' => $request->process_title_ar
+            ],
+            'process_steps' => $processSteps,
+            'process_description' => [
+                'en' => $request->process_description_en,
+                'ar' => $request->process_description_ar
+            ],
+            'process_image' => $processImagePath,
+            // Benefits Section
+            'benefits_title' => [
+                'en' => $request->benefits_title_en,
+                'ar' => $request->benefits_title_ar
+            ],
+            'benefits_description' => [
+                'en' => $request->benefits_description_en,
+                'ar' => $request->benefits_description_ar
+            ],
+            // Features Section
+            'features_title' => [
+                'en' => $request->features_title_en,
+                'ar' => $request->features_title_ar
+            ],
+            'features_image' => $featuresImagePath,
         ]);
 
         return redirect()->route('admin.services.index')
@@ -133,6 +221,30 @@ class ServiceController extends Controller
             'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'order' => 'required|integer|min:0',
             'is_active' => 'nullable|boolean',
+            // Hero Section
+            'hero_subtitle_en' => 'nullable|string|max:255',
+            'hero_subtitle_ar' => 'nullable|string|max:255',
+            'hero_title_en' => 'nullable|string|max:255',
+            'hero_title_ar' => 'nullable|string|max:255',
+            'hero_description_en' => 'nullable|string',
+            'hero_description_ar' => 'nullable|string',
+            // Process Section
+            'process_title_en' => 'nullable|string|max:255',
+            'process_title_ar' => 'nullable|string|max:255',
+            'process_steps_en' => 'nullable|string',
+            'process_steps_ar' => 'nullable|string',
+            'process_description_en' => 'nullable|string',
+            'process_description_ar' => 'nullable|string',
+            'process_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // Benefits Section
+            'benefits_title_en' => 'nullable|string|max:255',
+            'benefits_title_ar' => 'nullable|string|max:255',
+            'benefits_description_en' => 'nullable|string',
+            'benefits_description_ar' => 'nullable|string',
+            // Features Section
+            'features_title_en' => 'nullable|string|max:255',
+            'features_title_ar' => 'nullable|string|max:255',
+            'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Process features
@@ -150,10 +262,24 @@ class ServiceController extends Controller
             }
         }
 
+        // Process steps
+        $processSteps = [];
+        if ($request->process_steps_en || $request->process_steps_ar) {
+            $stepsEn = array_filter(explode("\n", $request->process_steps_en ?? ''));
+            $stepsAr = array_filter(explode("\n", $request->process_steps_ar ?? ''));
+
+            $maxCount = max(count($stepsEn), count($stepsAr));
+            for ($i = 0; $i < $maxCount; $i++) {
+                $processSteps[] = [
+                    'en' => trim($stepsEn[$i] ?? ''),
+                    'ar' => trim($stepsAr[$i] ?? '')
+                ];
+            }
+        }
+
         // Handle icon upload
         $iconPath = $service->icon;
         if ($request->hasFile('icon')) {
-            // Delete old icon
             if ($service->icon && Storage::disk('public')->exists($service->icon)) {
                 Storage::disk('public')->delete($service->icon);
             }
@@ -163,7 +289,6 @@ class ServiceController extends Controller
         // Handle image upload
         $imagePath = $service->image;
         if ($request->hasFile('image')) {
-            // Delete old image
             if ($service->image && Storage::disk('public')->exists($service->image)) {
                 Storage::disk('public')->delete($service->image);
             }
@@ -173,11 +298,28 @@ class ServiceController extends Controller
         // Handle image_2 upload
         $image2Path = $service->image_2;
         if ($request->hasFile('image_2')) {
-            // Delete old image_2
             if ($service->image_2 && Storage::disk('public')->exists($service->image_2)) {
                 Storage::disk('public')->delete($service->image_2);
             }
             $image2Path = $request->file('image_2')->store('services/images', 'public');
+        }
+
+        // Handle process_image upload
+        $processImagePath = $service->process_image;
+        if ($request->hasFile('process_image')) {
+            if ($service->process_image && Storage::disk('public')->exists($service->process_image)) {
+                Storage::disk('public')->delete($service->process_image);
+            }
+            $processImagePath = $request->file('process_image')->store('services/process', 'public');
+        }
+
+        // Handle features_image upload
+        $featuresImagePath = $service->features_image;
+        if ($request->hasFile('features_image')) {
+            if ($service->features_image && Storage::disk('public')->exists($service->features_image)) {
+                Storage::disk('public')->delete($service->features_image);
+            }
+            $featuresImagePath = $request->file('features_image')->store('services/features', 'public');
         }
 
         $service->update([
@@ -194,7 +336,46 @@ class ServiceController extends Controller
             'image' => $imagePath,
             'image_2' => $image2Path,
             'order' => $validated['order'],
-            'is_active' => $request->has('is_active')
+            'is_active' => $request->has('is_active'),
+            // Hero Section
+            'hero_subtitle' => [
+                'en' => $request->hero_subtitle_en,
+                'ar' => $request->hero_subtitle_ar
+            ],
+            'hero_title' => [
+                'en' => $request->hero_title_en,
+                'ar' => $request->hero_title_ar
+            ],
+            'hero_description' => [
+                'en' => $request->hero_description_en,
+                'ar' => $request->hero_description_ar
+            ],
+            // Process Section
+            'process_title' => [
+                'en' => $request->process_title_en,
+                'ar' => $request->process_title_ar
+            ],
+            'process_steps' => $processSteps,
+            'process_description' => [
+                'en' => $request->process_description_en,
+                'ar' => $request->process_description_ar
+            ],
+            'process_image' => $processImagePath,
+            // Benefits Section
+            'benefits_title' => [
+                'en' => $request->benefits_title_en,
+                'ar' => $request->benefits_title_ar
+            ],
+            'benefits_description' => [
+                'en' => $request->benefits_description_en,
+                'ar' => $request->benefits_description_ar
+            ],
+            // Features Section
+            'features_title' => [
+                'en' => $request->features_title_en,
+                'ar' => $request->features_title_ar
+            ],
+            'features_image' => $featuresImagePath,
         ]);
 
         return redirect()->route('admin.services.index')

@@ -75,38 +75,39 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h3 class="tp-career-title fs-60 pb-40" style="color: white" >{{ __('We think out of the box and follow the working process') }}</h3>
+                            <h3 class="tp-career-title fs-60 pb-40" style="color: white">{{ $service->getTranslatedProcessTitle() ?: __('We think out of the box and follow the working process') }}</h3>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="tp-service-4-process-wrap">
+                            @php
+                                $processSteps = $service->getTranslatedProcessSteps();
+                                if (empty($processSteps)) {
+                                    $processSteps = [
+                                        __('Thinking and research'),
+                                        __('Discovering the problem'),
+                                        __('Scratch, design, and wireframing'),
+                                        __('Implementation and solution')
+                                    ];
+                                }
+                            @endphp
+                            @foreach($processSteps as $index => $step)
                             <div class="tp-service-4-process-list">
-                                <span style="color: white" >01</span>
-                                <p style="color: white" >{{ __('Thinking and research') }}</p>
+                                <span style="color: white">{{ sprintf('%02d', $index + 1) }}</span>
+                                <p style="color: white">{{ $step }}</p>
                             </div>
-                            <div class="tp-service-4-process-list">
-                                <span style="color: white" >02</span>
-                                <p style="color: white" >{{ __('Discovering the problem') }}</p>
-                            </div>
-                            <div class="tp-service-4-process-list">
-                                <span style="color: white" >03</span>
-                                <p style="color: white" >{{ __('Scratch, design, and wireframing') }}</p>
-                            </div>
-                            <div class="tp-service-4-process-list">
-                                <span style="color: white" >04</span>
-                                <p style="color: white" >{{ __('Implementation and solution') }}</p>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-lg-8">
                         <div class="tp-service-4-process-wrapper pl-70 p-relative">
-                            <p class="pl-200 mb-50" style="color: white" >{!! nl2br(e($service->getTranslatedDescription())) !!}</p>
-                            @if($service->image)
+                            <p class="pl-200 mb-50" style="color: white">{!! nl2br(e($service->getTranslatedProcessDescription() ?: $service->getTranslatedDescription())) !!}</p>
+                            @if($service->process_image ?? $service->image)
                                 <div class="tp-service-4-process-thumb fix">
                                     <div class="tp_img_reveal">
-                                        <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->getTranslatedTitle() }}">
+                                        <img src="{{ asset('storage/' . ($service->process_image ?? $service->image)) }}" alt="{{ $service->getTranslatedTitle() }}">
                                     </div>
                                 </div>
                             @endif
@@ -124,8 +125,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tp-benefits-heading tp_fade_anim" data-delay=".3">
-                            <h3 class="tp-career-title fs-60 pb-10" style="color: white" >{{ __('Our Benefits') }}</h3>
-                            <p style="color: white" >{{ __('You need the best person for the job, wherever they\'re located. We provide support, payroll tax management, and compliance management for remote, multi-state, multi-location, and international employees. We believe that the human essential to start any successful project and that this where splendid emotion between the re-generated company.') }}</p>
+                            <h3 class="tp-career-title fs-60 pb-10" style="color: white">{{ $service->getTranslatedBenefitsTitle() ?: __('Our Benefits') }}</h3>
+                            <p style="color: white">{{ $service->getTranslatedBenefitsDescription() ?: __('You need the best person for the job, wherever they\'re located. We provide support, payroll tax management, and compliance management for remote, multi-state, multi-location, and international employees. We believe that the human essential to start any successful project and that this where splendid emotion between the re-generated company.') }}</p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +136,7 @@
 
 
         <!-- features area start -->
-        @if($service->image)
+        @if($service->features_image ?? $service->image)
         <div class="tp-service-5-features-ptb p-relative">
             <div class="container container-1550">
                 <div class="row">
@@ -145,9 +146,9 @@
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
                                                 <path d="M99 74.5858L76 97.5858V25V24H75H2.41421L25.4142 1H99V25V74.5858ZM30.1193 51L1 80.1193V51H30.1193ZM49 99H20.3031L49 70.3032V99Z" stroke="white" stroke-width="2" />
                                             </svg></span>
-                                <h3 class="tp-service-5-feature-title">{{ __('We provide special offers for the best customers') }}</h3>
+                                <h3 class="tp-service-5-feature-title">{{ $service->getTranslatedFeaturesTitle() ?: __('We provide special offers for the best customers') }}</h3>
                             </div>
-                            <img data-speed=".8" src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->getTranslatedTitle() }}">
+                            <img data-speed=".8" src="{{ asset('storage/' . ($service->features_image ?? $service->image)) }}" alt="{{ $service->getTranslatedTitle() }}">
                         </div>
                     </div>
                 </div>

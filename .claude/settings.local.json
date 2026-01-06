@@ -11,7 +11,8 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nFix incorrect translation syntax in Blade views\n\nFixed widespread issue where model properties were incorrectly wrapped with translation functions:\n- Changed @if\\($model->{{ __\\(''admin.is_active''\\) }}\\) to @if\\($model->is_active\\)\n- Fixed checkbox name and ID attributes to use plain property names instead of translation functions\n- Fixed nested translation calls like __\\(''admin.{{ __\\(''admin.is_active''\\) }}''\\) to __\\(''admin.active''\\)\n- Fixed other nested translation patterns in Services views\n\nAffected files:\n- Testimonials: index, show, edit, create\n- FAQs: index, show, edit, create\n- Blogs: show, edit, create\n- Services: edit\n\nThis ensures proper property access on model instances and correct translation key references.\n\nGenerated with Claude Code\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(cat:*)",
       "Bash(timeout:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(rm:*)"
     ]
   }
 }

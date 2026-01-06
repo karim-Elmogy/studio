@@ -144,11 +144,6 @@
                                                 </a>
                                             </div>
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('admin.services.details.edit', $service->id) }}" class="menu-link px-3">
-                                                    <i class="fa-solid fa-list-check me-2"></i>{{ __('Manage Details') }}
-                                                </a>
-                                            </div>
-                                            <div class="menu-item px-3">
                                                 <form action="{{ route('admin.services.destroy', $service->id) }}"
                                                       method="POST"
                                                       onsubmit="return confirm('{{ __('admin.confirm_delete') }}');">
