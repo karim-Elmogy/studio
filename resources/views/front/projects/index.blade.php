@@ -6,7 +6,7 @@
 
         <!-- hero area start -->
         <div class="tp-hero-2-wrapper">
-            <div class="tp-about-us-area include-bg pt-180 pb-150" data-background="{{ $pageSettings->hero_background_image ? asset('storage/' . $pageSettings->hero_background_image) : asset('front/assets/img/home-02/hero/hero-bg.jpg') }}">
+            <div class="tp-about-us-area include-bg pt-180 pb-150" data-background="{{ $pageSettings->hero_background_image ? asset('storage/' . $pageSettings->hero_background_image) : asset('front/assets/img/home-02/hero/hero-bg.webp') }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
