@@ -117,7 +117,104 @@
                     <!-- portfolio details info end -->
                 </div>
 
-                <div class="tp-pd-5-hero-white-anim black-bg-7 p-relative fix">
+
+
+
+{{--       Portfolio Details Step Section --}}
+       @if(!empty($project->mobile_details['portfolio_step_heading'][app()->getLocale()]) || !empty($project->mobile_details['portfolio_step_heading']['en']) || !empty($project->mobile_details['step_1']))
+       <!-- portfolio details step start -->
+       <div class="tp-pd-2-step-ptb pb-70 py-5" >
+           <div class="container container-1230">
+               <div class="row">
+                   <div class="col-lg-12">
+                       <div class="tp-pd-2-step-heading pb-60 tp_fade_anim" data-delay=".3">
+                           <h3 class="tp-pd-2-step-title">
+                               {!! nl2br(e($project->mobile_details['portfolio_step_heading'][app()->getLocale()] ?? ($project->mobile_details['portfolio_step_heading']['en'] ?? ''))) !!}
+                           </h3>
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+                   @if(!empty($project->mobile_details['step_1']['title'][app()->getLocale()]) || !empty($project->mobile_details['step_1']['title']['en']))
+                   <div class="col-lg-4 col-md-6">
+                       <div class="tp-pd-2-step-item mb-30">
+                           <h4 class="tp-pd-2-step-item-title">01. {{ $project->mobile_details['step_1']['title'][app()->getLocale()] ?? ($project->mobile_details['step_1']['title']['en'] ?? '') }}</h4>
+                           <span>{!! nl2br(e($project->mobile_details['step_1']['description'][app()->getLocale()] ?? ($project->mobile_details['step_1']['description']['en'] ?? ''))) !!}</span>
+                       </div>
+                   </div>
+                   @endif
+                   @if(!empty($project->mobile_details['step_2']['title'][app()->getLocale()]) || !empty($project->mobile_details['step_2']['title']['en']))
+                   <div class="col-lg-4 col-md-6">
+                       <div class="tp-pd-2-step-item mb-30">
+                           <h4 class="tp-pd-2-step-item-title">02. {{ $project->mobile_details['step_2']['title'][app()->getLocale()] ?? ($project->mobile_details['step_2']['title']['en'] ?? '') }}</h4>
+                           <span>{!! nl2br(e($project->mobile_details['step_2']['description'][app()->getLocale()] ?? ($project->mobile_details['step_2']['description']['en'] ?? ''))) !!}</span>
+                       </div>
+                   </div>
+                   @endif
+                   @if(!empty($project->mobile_details['step_3']['title'][app()->getLocale()]) || !empty($project->mobile_details['step_3']['title']['en']))
+                   <div class="col-lg-4 col-md-6">
+                       <div class="tp-pd-2-step-item mb-30">
+                           <h4 class="tp-pd-2-step-item-title">03. {{ $project->mobile_details['step_3']['title'][app()->getLocale()] ?? ($project->mobile_details['step_3']['title']['en'] ?? '') }}</h4>
+                           <span>{!! nl2br(e($project->mobile_details['step_3']['description'][app()->getLocale()] ?? ($project->mobile_details['step_3']['description']['en'] ?? ''))) !!}</span>
+                       </div>
+                   </div>
+                   @endif
+               </div>
+           </div>
+       </div>
+       <!-- portfolio details step end -->
+       @endif
+
+
+       {{-- Portfolio Details Thumb Section --}}
+       @if(!empty($project->mobile_details['portfolio_thumb_images']))
+       <!-- portfolio details thumb start -->
+       <div class="tp-pd-2-thumb-ptb pb-120">
+           <div class="container container-1230">
+               <div class="row gx-20">
+                   @foreach($project->mobile_details['portfolio_thumb_images'] as $index => $image)
+                       @if($index == 0)
+                           <div class="col-lg-12">
+                               <div class="tp-pd-2-thumb-item mb-20">
+                                   <img data-speed=".8" src="{{ asset('storage/' . $image) }}" alt="{{ $project->title[app()->getLocale()] ?? $project->title['en'] }}">
+                               </div>
+                           </div>
+                       @elseif($index == 1 || $index == 2)
+                           <div class="col-lg-6">
+                               <div class="tp-pd-2-thumb-item mb-20">
+                                   <img data-speed=".8" src="{{ asset('storage/' . $image) }}" alt="{{ $project->title[app()->getLocale()] ?? $project->title['en'] }}">
+                               </div>
+                           </div>
+                       @else
+                           <div class="col-lg-6">
+                               <div class="tp-pd-2-thumb-item mb-20">
+                                   <img data-speed=".8" src="{{ asset('storage/' . $image) }}" alt="{{ $project->title[app()->getLocale()] ?? $project->title['en'] }}">
+                               </div>
+                           </div>
+                       @endif
+                   @endforeach
+               </div>
+           </div>
+       </div>
+       <!-- portfolio details thumb end -->
+       @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <div class="tp-pd-5-hero-white-anim black-bg-7 p-relative fix">
                     <div class="tp-pd-5-hero-white-overlay"></div>
 
                     <!-- portfolio details mode start -->

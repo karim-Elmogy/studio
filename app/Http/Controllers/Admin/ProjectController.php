@@ -208,6 +208,25 @@ class ProjectController extends Controller
             'mobile_first_content_ar' => 'nullable|string',
             'mobile_first_mockup' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'slider_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            // Portfolio Step Section
+            'portfolio_step_heading_en' => 'nullable|string',
+            'portfolio_step_heading_ar' => 'nullable|string',
+            'step_1_title_en' => 'nullable|string|max:255',
+            'step_1_title_ar' => 'nullable|string|max:255',
+            'step_1_description_en' => 'nullable|string',
+            'step_1_description_ar' => 'nullable|string',
+            'step_2_title_en' => 'nullable|string|max:255',
+            'step_2_title_ar' => 'nullable|string|max:255',
+            'step_2_description_en' => 'nullable|string',
+            'step_2_description_ar' => 'nullable|string',
+            'step_3_title_en' => 'nullable|string|max:255',
+            'step_3_title_ar' => 'nullable|string|max:255',
+            'step_3_description_en' => 'nullable|string',
+            'step_3_description_ar' => 'nullable|string',
+            // Portfolio Thumb Images
+            'portfolio_thumb_image_1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'portfolio_thumb_image_2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'portfolio_thumb_image_3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $mobileDetails = $project->mobile_details ?? [];
@@ -271,6 +290,80 @@ class ProjectController extends Controller
             }
             $mobileDetails['slider_images'] = array_merge($mobileDetails['slider_images'] ?? [], $sliderImages);
         }
+
+        // Handle Portfolio Step Heading
+        $mobileDetails['portfolio_step_heading'] = [
+            'en' => $request->portfolio_step_heading_en ?? '',
+            'ar' => $request->portfolio_step_heading_ar ?? '',
+        ];
+
+        // Handle Step 1
+        $mobileDetails['step_1'] = [
+            'title' => [
+                'en' => $request->step_1_title_en ?? '',
+                'ar' => $request->step_1_title_ar ?? '',
+            ],
+            'description' => [
+                'en' => $request->step_1_description_en ?? '',
+                'ar' => $request->step_1_description_ar ?? '',
+            ],
+        ];
+
+        // Handle Step 2
+        $mobileDetails['step_2'] = [
+            'title' => [
+                'en' => $request->step_2_title_en ?? '',
+                'ar' => $request->step_2_title_ar ?? '',
+            ],
+            'description' => [
+                'en' => $request->step_2_description_en ?? '',
+                'ar' => $request->step_2_description_ar ?? '',
+            ],
+        ];
+
+        // Handle Step 3
+        $mobileDetails['step_3'] = [
+            'title' => [
+                'en' => $request->step_3_title_en ?? '',
+                'ar' => $request->step_3_title_ar ?? '',
+            ],
+            'description' => [
+                'en' => $request->step_3_description_en ?? '',
+                'ar' => $request->step_3_description_ar ?? '',
+            ],
+        ];
+
+        // Handle Portfolio Thumb Images
+        $portfolioThumbImages = $mobileDetails['portfolio_thumb_images'] ?? [];
+        
+        // Handle Thumb Image 1 (Full Width)
+        if ($request->hasFile('portfolio_thumb_image_1')) {
+            if (isset($portfolioThumbImages[0])) {
+                Storage::disk('public')->delete($portfolioThumbImages[0]);
+            }
+            $portfolioThumbImages[0] = $request->file('portfolio_thumb_image_1')->store('projects/mobile/portfolio-thumb', 'public');
+        }
+        
+        // Handle Thumb Image 2 (Half Width)
+        if ($request->hasFile('portfolio_thumb_image_2')) {
+            if (isset($portfolioThumbImages[1])) {
+                Storage::disk('public')->delete($portfolioThumbImages[1]);
+            }
+            $portfolioThumbImages[1] = $request->file('portfolio_thumb_image_2')->store('projects/mobile/portfolio-thumb', 'public');
+        }
+        
+        // Handle Thumb Image 3 (Half Width)
+        if ($request->hasFile('portfolio_thumb_image_3')) {
+            if (isset($portfolioThumbImages[2])) {
+                Storage::disk('public')->delete($portfolioThumbImages[2]);
+            }
+            $portfolioThumbImages[2] = $request->file('portfolio_thumb_image_3')->store('projects/mobile/portfolio-thumb', 'public');
+        }
+        
+        // Save portfolio thumb images (preserve existing if no new files uploaded)
+        $mobileDetails['portfolio_thumb_images'] = array_values(array_filter($portfolioThumbImages, function($value) {
+            return !empty($value);
+        }));
 
         $project->update(['mobile_details' => $mobileDetails]);
 

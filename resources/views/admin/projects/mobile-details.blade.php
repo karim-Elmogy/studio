@@ -317,6 +317,256 @@
                         @enderror
                     </div>
                 </div>
+
+                <div class="separator separator-dashed my-8"></div>
+
+                {{-- Portfolio Details Step Section --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.portfolio_step_heading') }}</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <textarea name="portfolio_step_heading_en" rows="3"
+                                          class="form-control form-control-solid @error('portfolio_step_heading_en') is-invalid @enderror"
+                                          placeholder="{{ __('admin.portfolio_step_heading_en') }}">{{ old('portfolio_step_heading_en', $project->mobile_details['portfolio_step_heading']['en'] ?? '') }}</textarea>
+                                @error('portfolio_step_heading_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="portfolio_step_heading_ar" rows="3"
+                                          class="form-control form-control-solid @error('portfolio_step_heading_ar') is-invalid @enderror"
+                                          placeholder="{{ __('admin.portfolio_step_heading_ar') }}" dir="rtl">{{ old('portfolio_step_heading_ar', $project->mobile_details['portfolio_step_heading']['ar'] ?? '') }}</textarea>
+                                @error('portfolio_step_heading_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Step Item 1 --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.step_item') }} 01</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <input type="text" name="step_1_title_en"
+                                       class="form-control form-control-solid @error('step_1_title_en') is-invalid @enderror"
+                                       placeholder="{{ __('admin.step_title_en') }}"
+                                       value="{{ old('step_1_title_en', $project->mobile_details['step_1']['title']['en'] ?? '') }}" />
+                                @error('step_1_title_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="step_1_title_ar"
+                                       class="form-control form-control-solid @error('step_1_title_ar') is-invalid @enderror"
+                                       placeholder="{{ __('admin.step_title_ar') }}"
+                                       value="{{ old('step_1_title_ar', $project->mobile_details['step_1']['title']['ar'] ?? '') }}" dir="rtl" />
+                                @error('step_1_title_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <textarea name="step_1_description_en" rows="3"
+                                          class="form-control form-control-solid @error('step_1_description_en') is-invalid @enderror"
+                                          placeholder="{{ __('admin.step_description_en') }}">{{ old('step_1_description_en', $project->mobile_details['step_1']['description']['en'] ?? '') }}</textarea>
+                                @error('step_1_description_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="step_1_description_ar" rows="3"
+                                          class="form-control form-control-solid @error('step_1_description_ar') is-invalid @enderror"
+                                          placeholder="{{ __('admin.step_description_ar') }}" dir="rtl">{{ old('step_1_description_ar', $project->mobile_details['step_1']['description']['ar'] ?? '') }}</textarea>
+                                @error('step_1_description_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Step Item 2 --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.step_item') }} 02</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <input type="text" name="step_2_title_en"
+                                       class="form-control form-control-solid @error('step_2_title_en') is-invalid @enderror"
+                                       placeholder="{{ __('admin.step_title_en') }}"
+                                       value="{{ old('step_2_title_en', $project->mobile_details['step_2']['title']['en'] ?? '') }}" />
+                                @error('step_2_title_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="step_2_title_ar"
+                                       class="form-control form-control-solid @error('step_2_title_ar') is-invalid @enderror"
+                                       placeholder="{{ __('admin.step_title_ar') }}"
+                                       value="{{ old('step_2_title_ar', $project->mobile_details['step_2']['title']['ar'] ?? '') }}" dir="rtl" />
+                                @error('step_2_title_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <textarea name="step_2_description_en" rows="3"
+                                          class="form-control form-control-solid @error('step_2_description_en') is-invalid @enderror"
+                                          placeholder="{{ __('admin.step_description_en') }}">{{ old('step_2_description_en', $project->mobile_details['step_2']['description']['en'] ?? '') }}</textarea>
+                                @error('step_2_description_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="step_2_description_ar" rows="3"
+                                          class="form-control form-control-solid @error('step_2_description_ar') is-invalid @enderror"
+                                          placeholder="{{ __('admin.step_description_ar') }}" dir="rtl">{{ old('step_2_description_ar', $project->mobile_details['step_2']['description']['ar'] ?? '') }}</textarea>
+                                @error('step_2_description_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Step Item 3 --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.step_item') }} 03</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <input type="text" name="step_3_title_en"
+                                       class="form-control form-control-solid @error('step_3_title_en') is-invalid @enderror"
+                                       placeholder="{{ __('admin.step_title_en') }}"
+                                       value="{{ old('step_3_title_en', $project->mobile_details['step_3']['title']['en'] ?? '') }}" />
+                                @error('step_3_title_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="step_3_title_ar"
+                                       class="form-control form-control-solid @error('step_3_title_ar') is-invalid @enderror"
+                                       placeholder="{{ __('admin.step_title_ar') }}"
+                                       value="{{ old('step_3_title_ar', $project->mobile_details['step_3']['title']['ar'] ?? '') }}" dir="rtl" />
+                                @error('step_3_title_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <textarea name="step_3_description_en" rows="3"
+                                          class="form-control form-control-solid @error('step_3_description_en') is-invalid @enderror"
+                                          placeholder="{{ __('admin.step_description_en') }}">{{ old('step_3_description_en', $project->mobile_details['step_3']['description']['en'] ?? '') }}</textarea>
+                                @error('step_3_description_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <textarea name="step_3_description_ar" rows="3"
+                                          class="form-control form-control-solid @error('step_3_description_ar') is-invalid @enderror"
+                                          placeholder="{{ __('admin.step_description_ar') }}" dir="rtl">{{ old('step_3_description_ar', $project->mobile_details['step_3']['description']['ar'] ?? '') }}</textarea>
+                                @error('step_3_description_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-8"></div>
+
+                {{-- Portfolio Details Thumb Images --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-semibold fs-6">{{ __('admin.portfolio_thumb_images') }}</label>
+                    <div class="col-lg-10">
+                        <div class="row g-4">
+                            {{-- Thumb Image 1 (Full Width) --}}
+                            <div class="col-12">
+                                <label class="form-label fw-semibold fs-7 mb-2">{{ __('admin.portfolio_thumb_image') }} 1 ({{ __('admin.full_width') }})</label>
+                                @if(!empty($project->mobile_details['portfolio_thumb_images'][0] ?? null))
+                                    <div class="mb-3">
+                                        <img id="portfolio_thumb_1_preview" src="{{ asset('storage/' . $project->mobile_details['portfolio_thumb_images'][0]) }}"
+                                             alt="Portfolio Thumb 1"
+                                             class="img-thumbnail"
+                                             style="max-height: 200px;">
+                                    </div>
+                                @else
+                                    <div class="mb-3">
+                                        <img id="portfolio_thumb_1_preview" src="#" alt="Preview"
+                                             class="img-thumbnail"
+                                             style="max-height: 200px; display: none;">
+                                    </div>
+                                @endif
+                                <input type="file" name="portfolio_thumb_image_1"
+                                       class="form-control form-control-solid @error('portfolio_thumb_image_1') is-invalid @enderror"
+                                       accept="image/*" />
+                                <div class="form-text">{{ __('admin.optional_image') }}</div>
+                                @error('portfolio_thumb_image_1')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Thumb Image 2 (Half Width) --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold fs-7 mb-2">{{ __('admin.portfolio_thumb_image') }} 2 ({{ __('admin.half_width') }})</label>
+                                @if(!empty($project->mobile_details['portfolio_thumb_images'][1] ?? null))
+                                    <div class="mb-3">
+                                        <img id="portfolio_thumb_2_preview" src="{{ asset('storage/' . $project->mobile_details['portfolio_thumb_images'][1]) }}"
+                                             alt="Portfolio Thumb 2"
+                                             class="img-thumbnail"
+                                             style="max-height: 200px;">
+                                    </div>
+                                @else
+                                    <div class="mb-3">
+                                        <img id="portfolio_thumb_2_preview" src="#" alt="Preview"
+                                             class="img-thumbnail"
+                                             style="max-height: 200px; display: none;">
+                                    </div>
+                                @endif
+                                <input type="file" name="portfolio_thumb_image_2"
+                                       class="form-control form-control-solid @error('portfolio_thumb_image_2') is-invalid @enderror"
+                                       accept="image/*" />
+                                <div class="form-text">{{ __('admin.optional_image') }}</div>
+                                @error('portfolio_thumb_image_2')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Thumb Image 3 (Half Width) --}}
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold fs-7 mb-2">{{ __('admin.portfolio_thumb_image') }} 3 ({{ __('admin.half_width') }})</label>
+                                @if(!empty($project->mobile_details['portfolio_thumb_images'][2] ?? null))
+                                    <div class="mb-3">
+                                        <img id="portfolio_thumb_3_preview" src="{{ asset('storage/' . $project->mobile_details['portfolio_thumb_images'][2]) }}"
+                                             alt="Portfolio Thumb 3"
+                                             class="img-thumbnail"
+                                             style="max-height: 200px;">
+                                    </div>
+                                @else
+                                    <div class="mb-3">
+                                        <img id="portfolio_thumb_3_preview" src="#" alt="Preview"
+                                             class="img-thumbnail"
+                                             style="max-height: 200px; display: none;">
+                                    </div>
+                                @endif
+                                <input type="file" name="portfolio_thumb_image_3"
+                                       class="form-control form-control-solid @error('portfolio_thumb_image_3') is-invalid @enderror"
+                                       accept="image/*" />
+                                <div class="form-text">{{ __('admin.optional_image') }}</div>
+                                @error('portfolio_thumb_image_3')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-light btn-active-light-primary me-2">
@@ -410,6 +660,28 @@
         if (sliderInput) {
             sliderInput.addEventListener('change', function() {
                 previewMultipleImages(this, 'slider_preview_container');
+            });
+        }
+
+        // Portfolio Thumb Images
+        const portfolioThumb1Input = document.querySelector('input[name="portfolio_thumb_image_1"]');
+        if (portfolioThumb1Input) {
+            portfolioThumb1Input.addEventListener('change', function() {
+                previewImage(this, 'portfolio_thumb_1_preview');
+            });
+        }
+
+        const portfolioThumb2Input = document.querySelector('input[name="portfolio_thumb_image_2"]');
+        if (portfolioThumb2Input) {
+            portfolioThumb2Input.addEventListener('change', function() {
+                previewImage(this, 'portfolio_thumb_2_preview');
+            });
+        }
+
+        const portfolioThumb3Input = document.querySelector('input[name="portfolio_thumb_image_3"]');
+        if (portfolioThumb3Input) {
+            portfolioThumb3Input.addEventListener('change', function() {
+                previewImage(this, 'portfolio_thumb_3_preview');
             });
         }
     });
