@@ -336,6 +336,7 @@ return [
     'hero_section' => 'Hero Section',
     'hero_title' => 'Hero Title',
     'hero_subtitle' => 'Hero Subtitle',
+    'hero_info_text' => 'Hero Info Text',
     'contact_email' => 'Contact Email',
     'hero_image' => 'Background Image',
     'banner_section' => 'Banner Section',

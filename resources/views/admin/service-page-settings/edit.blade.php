@@ -72,6 +72,29 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('admin.hero_info_text') }} ({{ __('admin.english') }})</label>
+                                        <input type="text" class="form-control @error('hero_info_text_en') is-invalid @enderror"
+                                               name="hero_info_text_en" value="{{ old('hero_info_text_en', $settings->hero_info_text['en'] ?? '') }}">
+                                        @error('hero_info_text_en')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('admin.hero_info_text') }} ({{ __('admin.arabic') }})</label>
+                                        <input type="text" class="form-control @error('hero_info_text_ar') is-invalid @enderror"
+                                               name="hero_info_text_ar" value="{{ old('hero_info_text_ar', $settings->hero_info_text['ar'] ?? '') }}">
+                                        @error('hero_info_text_ar')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">{{ __('admin.contact_email') }}</label>

@@ -109,7 +109,7 @@ if ($("body").not(".is-mobile").hasClass("tp-magic-cursor")) {
         });
     }
     if(document.querySelector('.cursor-bg-red')){
-        myFunction('#FF535B')
+        myFunction('#05a5c5')
     }if(document.querySelector('.cursor-bg-red-2')){
         myFunction('#FF481F')
     }if(document.querySelector('.cursor-white-bg')){

@@ -13,7 +13,10 @@ Route::get('/services', [\App\Http\Controllers\Front\ServiceController::class, '
 Route::get('/services/{id}', [\App\Http\Controllers\Front\ServiceController::class, 'show'])->name('services.show');
 
 // Projects Routes
-Route::get('/projects', [\App\Http\Controllers\Front\ProjectController::class, 'index'])->name('projects.index');
+//Route::get('/projects', [\App\Http\Controllers\Front\ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects', function (){
+    return redirect('/');
+})->name('projects.index');
 Route::get('/projects/{id}', [\App\Http\Controllers\Front\ProjectController::class, 'show'])->name('projects.show');
 
 // Blog Routes

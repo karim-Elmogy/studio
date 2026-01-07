@@ -454,6 +454,7 @@ return [
     'hero_section' => 'قسم البطل الرئيسي',
     'hero_title' => 'العنوان الرئيسي',
     'hero_subtitle' => 'العنوان الفرعي',
+    'hero_info_text' => 'نص معلومات البطل',
     'contact_email' => 'البريد الإلكتروني للتواصل',
     'hero_image' => 'صورة الخلفية',
     'banner_section' => 'قسم البانر',

@@ -408,7 +408,7 @@ li,
     --tp-common-paste: #43d4a0;
     --tp-common-paste-2: #0c5752;
     --tp-common-sky: #c5fcfc;
-    --tp-common-red: #ff4851;
+    --tp-common-red: #05a5c5;
     --tp-common-red-2: #ff481f;
     --tp-common-red-3: #ff5722;
     --tp-common-blue: #7463ff;
@@ -4677,7 +4677,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 
 .cursor-bg-red #ball {
-    background-color: #ff535b !important;
+    background-color: #05a5c5 !important;
 }
 .cursor-bg-red #ball .ball-view {
     color: var(--tp-common-white);
@@ -6383,7 +6383,7 @@ body.tp-magic-cursor #magic-cursor {
     }
 }
 .tp-megamenu-list ul li a span.hot {
-    color: #ff535b;
+    color: #05a5c5;
     background-color: rgba(255, 83, 91, 0.08);
 }
 .tp-megamenu-list ul li a span.new {
@@ -20265,7 +20265,7 @@ body.tp-magic-cursor #magic-cursor {
     font-weight: 600;
     font-size: 20px;
     line-height: 1;
-    color: #ff535b;
+    color: #05a5c5;
     letter-spacing: 0.02em;
     text-transform: uppercase;
     font-family: var(--tp-ff-clash-semibold);
@@ -20281,7 +20281,7 @@ body.tp-magic-cursor #magic-cursor {
     font-size: 400px;
     font-weight: 600;
     line-height: 0.7;
-    color: #ff535b;
+    color: #05a5c5;
     margin-bottom: 0;
     margin-top: 7px;
     letter-spacing: 0.02em;
@@ -20403,7 +20403,7 @@ body.tp-magic-cursor #magic-cursor {
     margin-right: 12px;
     border-radius: 50%;
     display: inline-block;
-    background-color: #ff535b;
+    background-color: #05a5c5;
 }
 .inner-service-1-category-item i {
     transition: 0.3s ease-in-out;

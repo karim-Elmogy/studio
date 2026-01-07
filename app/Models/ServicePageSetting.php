@@ -9,6 +9,7 @@ class ServicePageSetting extends Model
     protected $fillable = [
         'hero_title',
         'hero_subtitle',
+        'hero_info_text',
         'contact_email',
         'hero_image',
         'banner_text',
@@ -36,6 +37,7 @@ class ServicePageSetting extends Model
     protected $casts = [
         'hero_title' => 'array',
         'hero_subtitle' => 'array',
+        'hero_info_text' => 'array',
         'banner_text' => 'array',
         'recent_work_text' => 'array',
         'slider_text' => 'array'
@@ -52,6 +54,12 @@ class ServicePageSetting extends Model
     {
         $locale = $locale ?? app()->getLocale();
         return $this->hero_subtitle[$locale] ?? $this->hero_subtitle['en'] ?? '';
+    }
+
+    public function getTranslatedHeroInfoText($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $this->hero_info_text[$locale] ?? $this->hero_info_text['en'] ?? '';
     }
 
     public function getTranslatedBannerText($locale = null)
@@ -104,6 +112,10 @@ class ServicePageSetting extends Model
                 'hero_subtitle' => [
                     'en' => 'Motion design Studio',
                     'ar' => 'استوديو تصميم الحركة'
+                ],
+                'hero_info_text' => [
+                    'en' => 'test',
+                    'ar' => 'اختبار'
                 ],
                 'contact_email' => 'info@agntix.studio',
                 'banner_text' => [

@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="studio-hero-info z-index-5 d-flex justify-content-md-between justify-content-center align-items-center">
-                                <a href="mailto:{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}">{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}</a>
+                                <span>{{ $pageSettings->getTranslatedHeroInfoText() }}</span>
                                 <span>{{ $pageSettings->getTranslatedHeroSubtitle() }}</span>
                                 <a href="mailto:{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}">{{ $pageSettings->contact_email ?? 'info@agntix.studio' }}</a>
                             </div>

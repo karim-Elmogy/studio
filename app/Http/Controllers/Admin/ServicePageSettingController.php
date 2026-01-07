@@ -22,6 +22,8 @@ class ServicePageSettingController extends Controller
             'hero_title_ar' => 'required|string|max:255',
             'hero_subtitle_en' => 'nullable|string|max:255',
             'hero_subtitle_ar' => 'nullable|string|max:255',
+            'hero_info_text_en' => 'nullable|string|max:255',
+            'hero_info_text_ar' => 'nullable|string|max:255',
             'contact_email' => 'nullable|email|max:255',
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -70,6 +72,12 @@ class ServicePageSettingController extends Controller
         $settings->hero_subtitle = [
             'en' => $request->hero_subtitle_en ?? '',
             'ar' => $request->hero_subtitle_ar ?? ''
+        ];
+
+        // Update hero info text
+        $settings->hero_info_text = [
+            'en' => $request->hero_info_text_en ?? '',
+            'ar' => $request->hero_info_text_ar ?? ''
         ];
 
         // Update contact email
