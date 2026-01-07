@@ -75,7 +75,7 @@
                 </div>
 
                 {{-- Projects Section --}}
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.projects.*') ? 'here show' : '' }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.projects.*', 'admin.project-page-settings.*') ? 'here show' : '' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="fa-solid fa-folder-open fs-2"></i>
@@ -106,6 +106,14 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">{{ __('admin.web_projects') }}</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('admin.project-page-settings.*') ? 'active' : '' }}" href="{{ route('admin.project-page-settings.edit') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">{{ __('admin.project_page_settings') }}</span>
                             </a>
                         </div>
                     </div>

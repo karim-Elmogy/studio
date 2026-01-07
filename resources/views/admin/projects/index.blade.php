@@ -16,6 +16,10 @@
         </ul>
     </div>
     <div class="d-flex align-items-center gap-2 gap-lg-3">
+        <a href="{{ route('admin.project-page-settings.edit') }}" class="btn btn-sm btn-light-info">
+            <i class="fa-solid fa-cog"></i>
+            {{ __('admin.settings') }}
+        </a>
         <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-primary">
             <i class="fa-solid fa-plus"></i>
             {{ __('admin.add_project') }}

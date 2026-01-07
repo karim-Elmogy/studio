@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectPageSetting;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +15,9 @@ class ProjectController extends Controller
             ->orderBy('order')
             ->paginate(12);
 
-        return view('front.projects.index', compact('projects'));
+        $pageSettings = ProjectPageSetting::getSettings();
+
+        return view('front.projects.index', compact('projects', 'pageSettings'));
     }
 
     public function show($id)

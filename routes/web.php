@@ -13,10 +13,7 @@ Route::get('/services', [\App\Http\Controllers\Front\ServiceController::class, '
 Route::get('/services/{id}', [\App\Http\Controllers\Front\ServiceController::class, 'show'])->name('services.show');
 
 // Projects Routes
-//Route::get('/projects', [\App\Http\Controllers\Front\ProjectController::class, 'index'])->name('projects.index');
-Route::get('/projects', function (){
-    return redirect('/');
-})->name('projects.index');
+Route::get('/projects', [\App\Http\Controllers\Front\ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{id}', [\App\Http\Controllers\Front\ProjectController::class, 'show'])->name('projects.show');
 
 // Blog Routes
@@ -88,6 +85,10 @@ Route::middleware(['auth'])->group(function () {
     // Contact Page Settings
     Route::get('admin/contact-page-settings', [\App\Http\Controllers\Admin\ContactPageSettingController::class, 'edit'])->name('admin.contact-page-settings.edit');
     Route::post('admin/contact-page-settings', [\App\Http\Controllers\Admin\ContactPageSettingController::class, 'update'])->name('admin.contact-page-settings.update');
+
+    // Project Page Settings
+    Route::get('admin/project-page-settings', [\App\Http\Controllers\Admin\ProjectPageSettingController::class, 'edit'])->name('admin.project-page-settings.edit');
+    Route::post('admin/project-page-settings', [\App\Http\Controllers\Admin\ProjectPageSettingController::class, 'update'])->name('admin.project-page-settings.update');
 
     // Footer Settings
     Route::get('admin/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'edit'])->name('admin.footer-settings.edit');

@@ -50,7 +50,7 @@
                                         <a href="{{ route('blog.index') }}">{{ __('Blog') }}</a>
                                     </li>
                                     <li>
-                                         <a href="{{ route('home') }}#projects">{{ __('Projects') }}</a>
+                                         <a href="{{ route('projects.index') }}">{{ __('Projects') }}</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('faq.index') }}">{{ __('FAQ') }}</a>
