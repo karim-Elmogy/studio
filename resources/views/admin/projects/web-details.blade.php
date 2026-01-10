@@ -182,20 +182,35 @@
                     <div class="col-lg-10">
                         <div class="row mb-3" id="gallery_preview_container">
                             @if(!empty($project->web_details['gallery_images']))
-                                @foreach($project->web_details['gallery_images'] as $img)
-                                    <div class="col-md-3 mb-2">
-                                        <img src="{{ asset('storage/' . $img) }}"
-                                             alt="Gallery"
-                                             class="img-thumbnail"
-                                             style="max-height: 150px;">
+                                @foreach($project->web_details['gallery_images'] as $index => $img)
+                                    <div class="col-md-3 mb-2" id="gallery_image_{{ $index }}" draggable="true" data-index="{{ $index }}">
+                                        <div class="position-relative">
+                                            <img src="{{ asset('storage/' . $img) }}"
+                                                 alt="Gallery"
+                                                 class="img-thumbnail"
+                                                 style="max-height: 150px; width: 100%; cursor: move;">
+                                            <form method="POST" action="{{ route('admin.projects.web-details.update', $project) }}" id="delete_gallery_form_{{ $index }}" style="display: inline;">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="delete_gallery_image" value="{{ $img }}">
+                                            </form>
+                                            <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+                                                    onclick="showDeleteModal('delete_gallery_form_{{ $index }}')"
+                                                    title="حذف">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                            <span class="badge badge-secondary position-absolute bottom-0 start-0 m-2">{{ $index + 1 }}</span>
+                                        </div>
                                     </div>
                                 @endforeach
                             @endif
                         </div>
+                        <input type="hidden" name="gallery_images_order" id="gallery_images_order" value="">
                         <input type="file" name="gallery_images[]"
                                class="form-control form-control-solid @error('gallery_images') is-invalid @enderror"
                                accept="image/*" multiple />
-                        <div class="form-text">{{ __('admin.multiple_images_help') }}</div>
+                        <div class="form-text">{{ __('admin.multiple_images_help') }} - اسحب الصور لتغيير الترتيب</div>
                         @error('gallery_images')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
@@ -320,20 +335,35 @@
                     <div class="col-lg-10">
                         <div class="row mb-3" id="additional_gallery_preview_container">
                             @if(!empty($project->web_details['additional_gallery']))
-                                @foreach($project->web_details['additional_gallery'] as $img)
-                                    <div class="col-md-3 mb-2">
-                                        <img src="{{ asset('storage/' . $img) }}"
-                                             alt="Additional Gallery"
-                                             class="img-thumbnail"
-                                             style="max-height: 150px;">
+                                @foreach($project->web_details['additional_gallery'] as $index => $img)
+                                    <div class="col-md-3 mb-2" id="additional_gallery_image_{{ $index }}" draggable="true" data-index="{{ $index }}">
+                                        <div class="position-relative">
+                                            <img src="{{ asset('storage/' . $img) }}"
+                                                 alt="Additional Gallery"
+                                                 class="img-thumbnail"
+                                                 style="max-height: 150px; width: 100%; cursor: move;">
+                                            <form method="POST" action="{{ route('admin.projects.web-details.update', $project) }}" id="delete_additional_form_{{ $index }}" style="display: inline;">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="delete_additional_gallery_image" value="{{ $img }}">
+                                            </form>
+                                            <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+                                                    onclick="showDeleteModal('delete_additional_form_{{ $index }}')"
+                                                    title="حذف">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                            <span class="badge badge-secondary position-absolute bottom-0 start-0 m-2">{{ $index + 1 }}</span>
+                                        </div>
                                     </div>
                                 @endforeach
                             @endif
                         </div>
+                        <input type="hidden" name="additional_gallery_order" id="additional_gallery_order" value="">
                         <input type="file" name="additional_gallery[]"
                                class="form-control form-control-solid @error('additional_gallery') is-invalid @enderror"
                                accept="image/*" multiple />
-                        <div class="form-text">{{ __('admin.multiple_images_help') }}</div>
+                        <div class="form-text">{{ __('admin.multiple_images_help') }} - اسحب الصور لتغيير الترتيب</div>
                         @error('additional_gallery')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
@@ -351,10 +381,50 @@
             </div>
         </div>
     </form>
+
+    {{-- Delete Confirmation Modal --}}
+    <div class="modal fade" id="deleteImageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="fw-bold">تأكيد الحذف</h2>
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark fs-1"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-5">
+                        <i class="fa-solid fa-triangle-exclamation fs-5x text-warning mb-5"></i>
+                        <p class="fs-4 fw-semibold text-gray-800">هل أنت متأكد من حذف هذه الصورة؟</p>
+                        <p class="fs-6 text-gray-600">لن تتمكن من استرجاع الصورة بعد الحذف</p>
+                    </div>
+                </div>
+                <div class="modal-footer flex-center">
+                    <button type="button" class="btn btn-light me-3" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                        إلغاء
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                        <i class="fa-solid fa-trash"></i>
+                        حذف الصورة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
 <script>
+    // Delete Modal
+    let formToSubmit = null;
+
+    function showDeleteModal(formId) {
+        formToSubmit = document.getElementById(formId);
+        const modal = new bootstrap.Modal(document.getElementById('deleteImageModal'));
+        modal.show();
+    }
+
     // Preview single image
     function previewImage(input, previewId) {
         const file = input.files[0];
@@ -401,8 +471,141 @@
         }
     }
 
+    // Drag and Drop functionality
+    function initializeDragAndDrop(containerId, orderInputId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        let draggedElement = null;
+
+        const draggableElements = container.querySelectorAll('[draggable="true"]');
+
+        draggableElements.forEach(element => {
+            element.addEventListener('dragstart', function(e) {
+                draggedElement = this;
+                this.style.opacity = '0.5';
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            element.addEventListener('dragend', function() {
+                this.style.opacity = '1';
+                updateOrder(containerId, orderInputId);
+            });
+
+            element.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+
+                if (this !== draggedElement) {
+                    const rect = this.getBoundingClientRect();
+                    const midpoint = rect.left + rect.width / 2;
+
+                    if (e.clientX < midpoint) {
+                        this.parentNode.insertBefore(draggedElement, this);
+                    } else {
+                        this.parentNode.insertBefore(draggedElement, this.nextSibling);
+                    }
+                }
+            });
+        });
+    }
+
+    // Update order after drag and drop
+    function updateOrder(containerId, orderInputId) {
+        const container = document.getElementById(containerId);
+        const orderInput = document.getElementById(orderInputId);
+        if (!container || !orderInput) return;
+
+        const items = container.querySelectorAll('[data-index]');
+        const order = Array.from(items).map(item => item.getAttribute('data-index'));
+        orderInput.value = JSON.stringify(order);
+
+        // Update badge numbers
+        items.forEach((item, index) => {
+            const badge = item.querySelector('.badge');
+            if (badge) {
+                badge.textContent = index + 1;
+            }
+        });
+
+        // Save order automatically via AJAX
+        const galleryType = containerId === 'gallery_preview_container' ? 'gallery' : 'additional';
+        saveOrderAjax(galleryType, order);
+    }
+
+    // Save order via AJAX
+    function saveOrderAjax(galleryType, order) {
+        const form = document.querySelector('form[action*="web-details"]');
+        const url = form.action;
+        const csrfToken = document.querySelector('input[name="_token"]').value;
+
+        const formData = new FormData();
+        formData.append('_token', csrfToken);
+        formData.append('_method', 'PUT');
+        formData.append('save_order_only', '1');
+
+        if (galleryType === 'gallery') {
+            formData.append('gallery_images_order', JSON.stringify(order));
+        } else {
+            formData.append('additional_gallery_order', JSON.stringify(order));
+        }
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                showToast('تم حفظ الترتيب بنجاح!', 'success');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('حدث خطأ أثناء حفظ الترتيب', 'error');
+        });
+    }
+
+    // Show toast notification
+    function showToast(message, type) {
+        // Remove existing toast if any
+        const existingToast = document.querySelector('.order-toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'order-toast alert alert-' + (type === 'success' ? 'success' : 'danger');
+        toast.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+        toast.innerHTML = `
+            <i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+            ${message}
+        `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.transition = 'opacity 0.5s';
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
+    }
+
     // Initialize preview listeners
     document.addEventListener('DOMContentLoaded', function() {
+        // Delete Modal Confirm Button
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', function() {
+                if (formToSubmit) {
+                    formToSubmit.submit();
+                }
+            });
+        }
+
         // Hero Banner
         const heroBannerInput = document.querySelector('input[name="hero_banner"]');
         if (heroBannerInput) {
@@ -442,6 +645,12 @@
                 previewMultipleImages(this, 'additional_gallery_preview_container');
             });
         }
+
+        // Initialize Drag and Drop for Gallery Images
+        initializeDragAndDrop('gallery_preview_container', 'gallery_images_order');
+
+        // Initialize Drag and Drop for Additional Gallery
+        initializeDragAndDrop('additional_gallery_preview_container', 'additional_gallery_order');
     });
 </script>
 @endpush

@@ -191,6 +191,74 @@ class ProjectController extends Controller
                 ->with('error', 'This project is not a mobile project.');
         }
 
+        $mobileDetails = $project->mobile_details ?? [];
+
+        // Handle Save Order Only (AJAX Request)
+        if ($request->has('save_order_only')) {
+            // Handle Light Mode Images Order
+            if ($request->filled('light_mode_images_order')) {
+                $orderArray = json_decode($request->light_mode_images_order, true);
+                if (is_array($orderArray) && !empty($mobileDetails['light_mode_images'])) {
+                    $currentImages = $mobileDetails['light_mode_images'];
+                    $reorderedImages = [];
+                    foreach ($orderArray as $index) {
+                        if (isset($currentImages[$index])) {
+                            $reorderedImages[] = $currentImages[$index];
+                        }
+                    }
+                    $mobileDetails['light_mode_images'] = $reorderedImages;
+                }
+            }
+
+            // Handle Slider Images Order
+            if ($request->filled('slider_images_order')) {
+                $orderArray = json_decode($request->slider_images_order, true);
+                if (is_array($orderArray) && !empty($mobileDetails['slider_images'])) {
+                    $currentImages = $mobileDetails['slider_images'];
+                    $reorderedImages = [];
+                    foreach ($orderArray as $index) {
+                        if (isset($currentImages[$index])) {
+                            $reorderedImages[] = $currentImages[$index];
+                        }
+                    }
+                    $mobileDetails['slider_images'] = $reorderedImages;
+                }
+            }
+
+            $project->update(['mobile_details' => $mobileDetails]);
+            return response()->json(['success' => true, 'message' => 'تم حفظ الترتيب بنجاح!']);
+        }
+
+        // Handle Delete Light Mode Image
+        if ($request->has('delete_light_mode_image')) {
+            $imageToDelete = $request->delete_light_mode_image;
+            Storage::disk('public')->delete($imageToDelete);
+
+            $currentLightModeImages = $mobileDetails['light_mode_images'] ?? [];
+            $mobileDetails['light_mode_images'] = array_values(array_filter($currentLightModeImages, function($img) use ($imageToDelete) {
+                return $img !== $imageToDelete;
+            }));
+
+            $project->update(['mobile_details' => $mobileDetails]);
+            return redirect()->route('admin.projects.mobile-details.edit', $project)
+                ->with('success', 'تم حذف الصورة بنجاح!');
+        }
+
+        // Handle Delete Slider Image
+        if ($request->has('delete_slider_image')) {
+            $imageToDelete = $request->delete_slider_image;
+            Storage::disk('public')->delete($imageToDelete);
+
+            $currentSliderImages = $mobileDetails['slider_images'] ?? [];
+            $mobileDetails['slider_images'] = array_values(array_filter($currentSliderImages, function($img) use ($imageToDelete) {
+                return $img !== $imageToDelete;
+            }));
+
+            $project->update(['mobile_details' => $mobileDetails]);
+            return redirect()->route('admin.projects.mobile-details.edit', $project)
+                ->with('success', 'تم حذف الصورة بنجاح!');
+        }
+
         $validated = $request->validate([
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'problem_en' => 'nullable|string',
@@ -389,6 +457,74 @@ class ProjectController extends Controller
                 ->with('error', 'This project is not a web project.');
         }
 
+        $webDetails = $project->web_details ?? [];
+
+        // Handle Save Order Only (AJAX Request)
+        if ($request->has('save_order_only')) {
+            // Handle Gallery Images Order
+            if ($request->filled('gallery_images_order')) {
+                $orderArray = json_decode($request->gallery_images_order, true);
+                if (is_array($orderArray) && !empty($webDetails['gallery_images'])) {
+                    $currentImages = $webDetails['gallery_images'];
+                    $reorderedImages = [];
+                    foreach ($orderArray as $index) {
+                        if (isset($currentImages[$index])) {
+                            $reorderedImages[] = $currentImages[$index];
+                        }
+                    }
+                    $webDetails['gallery_images'] = $reorderedImages;
+                }
+            }
+
+            // Handle Additional Gallery Order
+            if ($request->filled('additional_gallery_order')) {
+                $orderArray = json_decode($request->additional_gallery_order, true);
+                if (is_array($orderArray) && !empty($webDetails['additional_gallery'])) {
+                    $currentImages = $webDetails['additional_gallery'];
+                    $reorderedImages = [];
+                    foreach ($orderArray as $index) {
+                        if (isset($currentImages[$index])) {
+                            $reorderedImages[] = $currentImages[$index];
+                        }
+                    }
+                    $webDetails['additional_gallery'] = $reorderedImages;
+                }
+            }
+
+            $project->update(['web_details' => $webDetails]);
+            return response()->json(['success' => true, 'message' => 'تم حفظ الترتيب بنجاح!']);
+        }
+
+        // Handle Delete Gallery Image
+        if ($request->has('delete_gallery_image')) {
+            $imageToDelete = $request->delete_gallery_image;
+            Storage::disk('public')->delete($imageToDelete);
+
+            $currentGalleryImages = $webDetails['gallery_images'] ?? [];
+            $webDetails['gallery_images'] = array_values(array_filter($currentGalleryImages, function($img) use ($imageToDelete) {
+                return $img !== $imageToDelete;
+            }));
+
+            $project->update(['web_details' => $webDetails]);
+            return redirect()->route('admin.projects.web-details.edit', $project)
+                ->with('success', 'تم حذف الصورة بنجاح!');
+        }
+
+        // Handle Delete Additional Gallery Image
+        if ($request->has('delete_additional_gallery_image')) {
+            $imageToDelete = $request->delete_additional_gallery_image;
+            Storage::disk('public')->delete($imageToDelete);
+
+            $currentAdditionalGallery = $webDetails['additional_gallery'] ?? [];
+            $webDetails['additional_gallery'] = array_values(array_filter($currentAdditionalGallery, function($img) use ($imageToDelete) {
+                return $img !== $imageToDelete;
+            }));
+
+            $project->update(['web_details' => $webDetails]);
+            return redirect()->route('admin.projects.web-details.edit', $project)
+                ->with('success', 'تم حذف الصورة بنجاح!');
+        }
+
         $validated = $request->validate([
             'hero_banner' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'subtitle_en' => 'nullable|string|max:255',
@@ -399,6 +535,7 @@ class ProjectController extends Controller
             'service_ar' => 'nullable|string|max:255',
             'website_url' => 'nullable|url',
             'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'gallery_images_order' => 'nullable|string',
             'challenge_en' => 'nullable|string',
             'challenge_ar' => 'nullable|string',
             'challenge_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -406,9 +543,8 @@ class ProjectController extends Controller
             'solution_ar' => 'nullable|string',
             'solution_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'additional_gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'additional_gallery_order' => 'nullable|string',
         ]);
-
-        $webDetails = $project->web_details ?? [];
 
         // Handle Hero Banner
         if ($request->hasFile('hero_banner')) {
@@ -441,6 +577,21 @@ class ProjectController extends Controller
         ];
         $webDetails['website_url'] = $request->website_url ?? '';
 
+        // Handle Gallery Images Order
+        if ($request->filled('gallery_images_order')) {
+            $orderArray = json_decode($request->gallery_images_order, true);
+            if (is_array($orderArray) && !empty($webDetails['gallery_images'])) {
+                $currentImages = $webDetails['gallery_images'];
+                $reorderedImages = [];
+                foreach ($orderArray as $index) {
+                    if (isset($currentImages[$index])) {
+                        $reorderedImages[] = $currentImages[$index];
+                    }
+                }
+                $webDetails['gallery_images'] = $reorderedImages;
+            }
+        }
+
         // Handle Gallery Images
         if ($request->hasFile('gallery_images')) {
             $galleryImages = [];
@@ -464,6 +615,21 @@ class ProjectController extends Controller
                 Storage::disk('public')->delete($webDetails['solution_image']);
             }
             $webDetails['solution_image'] = $request->file('solution_image')->store('projects/web', 'public');
+        }
+
+        // Handle Additional Gallery Order
+        if ($request->filled('additional_gallery_order')) {
+            $orderArray = json_decode($request->additional_gallery_order, true);
+            if (is_array($orderArray) && !empty($webDetails['additional_gallery'])) {
+                $currentImages = $webDetails['additional_gallery'];
+                $reorderedImages = [];
+                foreach ($orderArray as $index) {
+                    if (isset($currentImages[$index])) {
+                        $reorderedImages[] = $currentImages[$index];
+                    }
+                }
+                $webDetails['additional_gallery'] = $reorderedImages;
+            }
         }
 
         // Handle Additional Gallery
