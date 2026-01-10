@@ -1,6 +1,59 @@
 @extends('front.layout.app')
 
 @section('content')
+    <style>
+
+        .tp-service-4-process-list span {
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        .tp-service-4-process-list span {
+            position: relative;
+            font-size: 18px;
+            font-weight: 500;
+            color: #111013;
+            display: grid;
+            height: 70px;
+            width: 70px;
+            margin-right: 20px;
+            border-radius: 50%;
+            place-content: center;
+            border: 1px solid rgba(17, 16, 19, 0.08);
+        }
+
+        .tp-service-4-process-list:not(:last-child) span::before {
+            position: absolute;
+            content: "";
+            height: 40px;
+            width: 1px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            top: calc(100% + 10px);
+            background-color: rgba(17, 16, 19, 0.08);
+        }
+        .tp-service-4-process-list:not(:last-child) span::before {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        .tp-service-4-process-list p {
+            font-size: 26px;
+            font-weight: 500;
+            color: #111013;
+            line-height: 1.2;
+            letter-spacing: -0.26px;
+        }
+
+        @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
+            .tp-service-4-process-wrap {
+                padding-top: 0;
+            }
+        }
+        @media (max-width: 767px) {
+            .tp-service-4-process-list {
+                padding-bottom: 30px;
+            }
+        }
+    </style>
     <main>
 
         <!-- hero area start -->

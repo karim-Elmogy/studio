@@ -118,7 +118,7 @@
                                         <div class="col-xl-8">
                                             <div class="inner-service-1-text">
                                                 <span>{{ $service->getTranslatedTitle() }}</span>
-                                                <div>{!! nl2br(e($service->getTranslatedDescription())) !!}</div>
+                                                <div style="color: white">{!! nl2br(e($service->getTranslatedDescription())) !!}</div>
                                             </div>
                                             @if($service->getTranslatedFeatures())
                                                 <div class="inner-service-1-category">
