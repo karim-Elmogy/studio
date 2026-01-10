@@ -17,6 +17,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
 
+
+
+    @if(app()->getLocale() == 'ar')
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    @endif
     <!-- CSS here -->
     <!-- CSS here -->
         <link rel="stylesheet" href="{{ asset('front/assets/css/bootstrap.css') }}">
@@ -33,6 +40,12 @@
     @if(app()->getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('front/assets-ar/css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('front/assets-ar/css/rtl-fixes.css') }}">
+
+        <style>
+            body{
+                font-family: 'Tajawal', sans-serif;
+            }
+        </style>
     @else
         <link rel="stylesheet" href="{{ asset('front/assets/css/main.css') }}">
     @endif
