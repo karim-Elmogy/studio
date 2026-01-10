@@ -229,34 +229,17 @@ class ProjectController extends Controller
             return response()->json(['success' => true, 'message' => 'تم حفظ الترتيب بنجاح!']);
         }
 
-        // Handle Delete Light Mode Image
-        if ($request->has('delete_light_mode_image')) {
-            $imageToDelete = $request->delete_light_mode_image;
-            Storage::disk('public')->delete($imageToDelete);
-
-            $currentLightModeImages = $mobileDetails['light_mode_images'] ?? [];
-            $mobileDetails['light_mode_images'] = array_values(array_filter($currentLightModeImages, function($img) use ($imageToDelete) {
-                return $img !== $imageToDelete;
-            }));
-
-            $project->update(['mobile_details' => $mobileDetails]);
-            return redirect()->route('admin.projects.mobile-details.edit', $project)
-                ->with('success', 'تم حذف الصورة بنجاح!');
+        // Handle Delete Operations
+        // Only process delete if the field exists AND has a non-empty value
+        // This prevents false positives when the form is submitted normally
+        $deleteLightModeImage = $request->input('delete_light_mode_image');
+        if (!empty($deleteLightModeImage) && is_string($deleteLightModeImage) && strlen(trim($deleteLightModeImage)) > 0) {
+            return $this->deleteImageFromArray($project, $mobileDetails, 'light_mode_images', $deleteLightModeImage);
         }
 
-        // Handle Delete Slider Image
-        if ($request->has('delete_slider_image')) {
-            $imageToDelete = $request->delete_slider_image;
-            Storage::disk('public')->delete($imageToDelete);
-
-            $currentSliderImages = $mobileDetails['slider_images'] ?? [];
-            $mobileDetails['slider_images'] = array_values(array_filter($currentSliderImages, function($img) use ($imageToDelete) {
-                return $img !== $imageToDelete;
-            }));
-
-            $project->update(['mobile_details' => $mobileDetails]);
-            return redirect()->route('admin.projects.mobile-details.edit', $project)
-                ->with('success', 'تم حذف الصورة بنجاح!');
+        $deleteSliderImage = $request->input('delete_slider_image');
+        if (!empty($deleteSliderImage) && is_string($deleteSliderImage) && strlen(trim($deleteSliderImage)) > 0) {
+            return $this->deleteImageFromArray($project, $mobileDetails, 'slider_images', $deleteSliderImage);
         }
 
         $validated = $request->validate([
@@ -297,141 +280,177 @@ class ProjectController extends Controller
             'portfolio_thumb_image_3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $mobileDetails = $project->mobile_details ?? [];
-
-        // Handle Hero Image
-        if ($request->hasFile('hero_image')) {
-            if (isset($mobileDetails['hero_image'])) {
-                Storage::disk('public')->delete($mobileDetails['hero_image']);
-            }
-            $mobileDetails['hero_image'] = $request->file('hero_image')->store('projects/mobile', 'public');
+        // CRITICAL: Preserve existing images BEFORE any updates
+        // Get current mobile_details from database (don't use $mobileDetails from line 194 as it may be outdated)
+        $currentMobileDetails = $project->mobile_details ?? [];
+        
+        // Store existing images in a separate variable to ensure they're preserved
+        // This is the source of truth for existing images
+        $existingImages = [
+            'hero_image' => $currentMobileDetails['hero_image'] ?? null,
+            'light_mode_images' => $currentMobileDetails['light_mode_images'] ?? [],
+            'mobile_first_mockup' => $currentMobileDetails['mobile_first_mockup'] ?? null,
+            'slider_images' => $currentMobileDetails['slider_images'] ?? [],
+            'portfolio_thumb_images' => $currentMobileDetails['portfolio_thumb_images'] ?? [],
+        ];
+        
+        // Ensure arrays are properly formatted and filter out empty values
+        if (!is_array($existingImages['light_mode_images'])) {
+            $existingImages['light_mode_images'] = [];
+        } else {
+            $existingImages['light_mode_images'] = array_values(array_filter($existingImages['light_mode_images'], function($img) {
+                return !empty($img) && is_string($img);
+            }));
         }
+        
+        if (!is_array($existingImages['slider_images'])) {
+            $existingImages['slider_images'] = [];
+        } else {
+            $existingImages['slider_images'] = array_values(array_filter($existingImages['slider_images'], function($img) {
+                return !empty($img) && is_string($img);
+            }));
+        }
+        
+        if (!is_array($existingImages['portfolio_thumb_images'])) {
+            $existingImages['portfolio_thumb_images'] = [];
+        } else {
+            $existingImages['portfolio_thumb_images'] = array_values(array_filter($existingImages['portfolio_thumb_images'], function($img) {
+                return !empty($img) && is_string($img);
+            }));
+        }
+        
+        // Start with fresh mobileDetails from database
+        $mobileDetails = $currentMobileDetails;
+
+        // Handle Hero Image - preserve existing if no new file uploaded
+        $mobileDetails['hero_image'] = $this->handleSingleImage(
+            $request,
+            'hero_image',
+            $existingImages['hero_image'],
+            'projects/mobile'
+        );
 
         // Handle Text Fields
         $mobileDetails['problem'] = [
-            'en' => $request->problem_en ?? '',
-            'ar' => $request->problem_ar ?? '',
+            'en' => $request->problem_en ?? ($mobileDetails['problem']['en'] ?? ''),
+            'ar' => $request->problem_ar ?? ($mobileDetails['problem']['ar'] ?? ''),
         ];
         $mobileDetails['approach'] = [
-            'en' => $request->approach_en ?? '',
-            'ar' => $request->approach_ar ?? '',
+            'en' => $request->approach_en ?? ($mobileDetails['approach']['en'] ?? ''),
+            'ar' => $request->approach_ar ?? ($mobileDetails['approach']['ar'] ?? ''),
         ];
         $mobileDetails['solution'] = [
-            'en' => $request->solution_en ?? '',
-            'ar' => $request->solution_ar ?? '',
+            'en' => $request->solution_en ?? ($mobileDetails['solution']['en'] ?? ''),
+            'ar' => $request->solution_ar ?? ($mobileDetails['solution']['ar'] ?? ''),
         ];
         $mobileDetails['light_mode_title'] = [
-            'en' => $request->light_mode_title_en ?? '',
-            'ar' => $request->light_mode_title_ar ?? '',
+            'en' => $request->light_mode_title_en ?? ($mobileDetails['light_mode_title']['en'] ?? ''),
+            'ar' => $request->light_mode_title_ar ?? ($mobileDetails['light_mode_title']['ar'] ?? ''),
         ];
         $mobileDetails['mobile_first_title'] = [
-            'en' => $request->mobile_first_title_en ?? '',
-            'ar' => $request->mobile_first_title_ar ?? '',
+            'en' => $request->mobile_first_title_en ?? ($mobileDetails['mobile_first_title']['en'] ?? ''),
+            'ar' => $request->mobile_first_title_ar ?? ($mobileDetails['mobile_first_title']['ar'] ?? ''),
         ];
         $mobileDetails['mobile_first_content'] = [
-            'en' => $request->mobile_first_content_en ?? '',
-            'ar' => $request->mobile_first_content_ar ?? '',
+            'en' => $request->mobile_first_content_en ?? ($mobileDetails['mobile_first_content']['en'] ?? ''),
+            'ar' => $request->mobile_first_content_ar ?? ($mobileDetails['mobile_first_content']['ar'] ?? ''),
         ];
 
-        // Handle Light Mode Images
-        if ($request->hasFile('light_mode_images')) {
-            $lightModeImages = [];
-            foreach ($request->file('light_mode_images') as $image) {
-                $lightModeImages[] = $image->store('projects/mobile/light-mode', 'public');
-            }
-            $mobileDetails['light_mode_images'] = array_merge($mobileDetails['light_mode_images'] ?? [], $lightModeImages);
-        }
+        // Handle Light Mode Images - preserve existing and merge with new ones
+        $mobileDetails['light_mode_images'] = $this->handleMultipleImages(
+            $request,
+            'light_mode_images',
+            $existingImages['light_mode_images'],
+            'projects/mobile/light-mode'
+        );
 
-        // Handle Mobile First Mockup
-        if ($request->hasFile('mobile_first_mockup')) {
-            if (isset($mobileDetails['mobile_first_mockup'])) {
-                Storage::disk('public')->delete($mobileDetails['mobile_first_mockup']);
-            }
-            $mobileDetails['mobile_first_mockup'] = $request->file('mobile_first_mockup')->store('projects/mobile', 'public');
-        }
+        // Handle Mobile First Mockup - preserve existing if no new file uploaded
+        $mobileDetails['mobile_first_mockup'] = $this->handleSingleImage(
+            $request,
+            'mobile_first_mockup',
+            $existingImages['mobile_first_mockup'],
+            'projects/mobile'
+        );
 
-        // Handle Slider Images
-        if ($request->hasFile('slider_images')) {
-            $sliderImages = [];
-            foreach ($request->file('slider_images') as $image) {
-                $sliderImages[] = $image->store('projects/mobile/slider', 'public');
-            }
-            $mobileDetails['slider_images'] = array_merge($mobileDetails['slider_images'] ?? [], $sliderImages);
-        }
+        // Handle Slider Images - preserve existing and merge with new ones
+        $mobileDetails['slider_images'] = $this->handleMultipleImages(
+            $request,
+            'slider_images',
+            $existingImages['slider_images'],
+            'projects/mobile/slider'
+        );
 
         // Handle Portfolio Step Heading
         $mobileDetails['portfolio_step_heading'] = [
-            'en' => $request->portfolio_step_heading_en ?? '',
-            'ar' => $request->portfolio_step_heading_ar ?? '',
+            'en' => $request->portfolio_step_heading_en ?? ($mobileDetails['portfolio_step_heading']['en'] ?? ''),
+            'ar' => $request->portfolio_step_heading_ar ?? ($mobileDetails['portfolio_step_heading']['ar'] ?? ''),
         ];
 
         // Handle Step 1
         $mobileDetails['step_1'] = [
             'title' => [
-                'en' => $request->step_1_title_en ?? '',
-                'ar' => $request->step_1_title_ar ?? '',
+                'en' => $request->step_1_title_en ?? ($mobileDetails['step_1']['title']['en'] ?? ''),
+                'ar' => $request->step_1_title_ar ?? ($mobileDetails['step_1']['title']['ar'] ?? ''),
             ],
             'description' => [
-                'en' => $request->step_1_description_en ?? '',
-                'ar' => $request->step_1_description_ar ?? '',
+                'en' => $request->step_1_description_en ?? ($mobileDetails['step_1']['description']['en'] ?? ''),
+                'ar' => $request->step_1_description_ar ?? ($mobileDetails['step_1']['description']['ar'] ?? ''),
             ],
         ];
 
         // Handle Step 2
         $mobileDetails['step_2'] = [
             'title' => [
-                'en' => $request->step_2_title_en ?? '',
-                'ar' => $request->step_2_title_ar ?? '',
+                'en' => $request->step_2_title_en ?? ($mobileDetails['step_2']['title']['en'] ?? ''),
+                'ar' => $request->step_2_title_ar ?? ($mobileDetails['step_2']['title']['ar'] ?? ''),
             ],
             'description' => [
-                'en' => $request->step_2_description_en ?? '',
-                'ar' => $request->step_2_description_ar ?? '',
+                'en' => $request->step_2_description_en ?? ($mobileDetails['step_2']['description']['en'] ?? ''),
+                'ar' => $request->step_2_description_ar ?? ($mobileDetails['step_2']['description']['ar'] ?? ''),
             ],
         ];
 
         // Handle Step 3
         $mobileDetails['step_3'] = [
             'title' => [
-                'en' => $request->step_3_title_en ?? '',
-                'ar' => $request->step_3_title_ar ?? '',
+                'en' => $request->step_3_title_en ?? ($mobileDetails['step_3']['title']['en'] ?? ''),
+                'ar' => $request->step_3_title_ar ?? ($mobileDetails['step_3']['title']['ar'] ?? ''),
             ],
             'description' => [
-                'en' => $request->step_3_description_en ?? '',
-                'ar' => $request->step_3_description_ar ?? '',
+                'en' => $request->step_3_description_en ?? ($mobileDetails['step_3']['description']['en'] ?? ''),
+                'ar' => $request->step_3_description_ar ?? ($mobileDetails['step_3']['description']['ar'] ?? ''),
             ],
         ];
 
-        // Handle Portfolio Thumb Images
-        $portfolioThumbImages = $mobileDetails['portfolio_thumb_images'] ?? [];
-        
-        // Handle Thumb Image 1 (Full Width)
-        if ($request->hasFile('portfolio_thumb_image_1')) {
-            if (isset($portfolioThumbImages[0])) {
-                Storage::disk('public')->delete($portfolioThumbImages[0]);
-            }
-            $portfolioThumbImages[0] = $request->file('portfolio_thumb_image_1')->store('projects/mobile/portfolio-thumb', 'public');
+        // Handle Portfolio Thumb Images - preserve existing if no new files uploaded
+        $mobileDetails['portfolio_thumb_images'] = $this->handlePortfolioThumbImages(
+            $request,
+            $existingImages['portfolio_thumb_images']
+        );
+
+        // Final check: Ensure all images are preserved
+        // This is a safety net to ensure images are never lost
+        // Only override if the field is truly empty/null and we have existing images
+        if (($mobileDetails['hero_image'] === null || $mobileDetails['hero_image'] === '') && 
+            !empty($existingImages['hero_image'])) {
+            $mobileDetails['hero_image'] = $existingImages['hero_image'];
         }
-        
-        // Handle Thumb Image 2 (Half Width)
-        if ($request->hasFile('portfolio_thumb_image_2')) {
-            if (isset($portfolioThumbImages[1])) {
-                Storage::disk('public')->delete($portfolioThumbImages[1]);
-            }
-            $portfolioThumbImages[1] = $request->file('portfolio_thumb_image_2')->store('projects/mobile/portfolio-thumb', 'public');
+        if (($mobileDetails['mobile_first_mockup'] === null || $mobileDetails['mobile_first_mockup'] === '') && 
+            !empty($existingImages['mobile_first_mockup'])) {
+            $mobileDetails['mobile_first_mockup'] = $existingImages['mobile_first_mockup'];
         }
-        
-        // Handle Thumb Image 3 (Half Width)
-        if ($request->hasFile('portfolio_thumb_image_3')) {
-            if (isset($portfolioThumbImages[2])) {
-                Storage::disk('public')->delete($portfolioThumbImages[2]);
-            }
-            $portfolioThumbImages[2] = $request->file('portfolio_thumb_image_3')->store('projects/mobile/portfolio-thumb', 'public');
+        if ((empty($mobileDetails['light_mode_images']) || !is_array($mobileDetails['light_mode_images'])) && 
+            !empty($existingImages['light_mode_images']) && is_array($existingImages['light_mode_images'])) {
+            $mobileDetails['light_mode_images'] = $existingImages['light_mode_images'];
         }
-        
-        // Save portfolio thumb images (preserve existing if no new files uploaded)
-        $mobileDetails['portfolio_thumb_images'] = array_values(array_filter($portfolioThumbImages, function($value) {
-            return !empty($value);
-        }));
+        if ((empty($mobileDetails['slider_images']) || !is_array($mobileDetails['slider_images'])) && 
+            !empty($existingImages['slider_images']) && is_array($existingImages['slider_images'])) {
+            $mobileDetails['slider_images'] = $existingImages['slider_images'];
+        }
+        if ((empty($mobileDetails['portfolio_thumb_images']) || !is_array($mobileDetails['portfolio_thumb_images'])) && 
+            !empty($existingImages['portfolio_thumb_images']) && is_array($existingImages['portfolio_thumb_images'])) {
+            $mobileDetails['portfolio_thumb_images'] = $existingImages['portfolio_thumb_images'];
+        }
 
         $project->update(['mobile_details' => $mobileDetails]);
 
@@ -496,31 +515,45 @@ class ProjectController extends Controller
         }
 
         // Handle Delete Gallery Image
-        if ($request->has('delete_gallery_image')) {
-            $imageToDelete = $request->delete_gallery_image;
-            Storage::disk('public')->delete($imageToDelete);
+        // Only process delete if the field exists AND has a non-empty value
+        $deleteGalleryImage = $request->input('delete_gallery_image');
+        if (!empty($deleteGalleryImage) && is_string($deleteGalleryImage) && strlen(trim($deleteGalleryImage)) > 0) {
+            Storage::disk('public')->delete($deleteGalleryImage);
 
             $currentGalleryImages = $webDetails['gallery_images'] ?? [];
-            $webDetails['gallery_images'] = array_values(array_filter($currentGalleryImages, function($img) use ($imageToDelete) {
-                return $img !== $imageToDelete;
+            $webDetails['gallery_images'] = array_values(array_filter($currentGalleryImages, function($img) use ($deleteGalleryImage) {
+                return $img !== $deleteGalleryImage && !empty($img);
             }));
 
             $project->update(['web_details' => $webDetails]);
+            
+            // Check if this is an AJAX request
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => true, 'message' => 'تم حذف الصورة بنجاح!']);
+            }
+            
             return redirect()->route('admin.projects.web-details.edit', $project)
                 ->with('success', 'تم حذف الصورة بنجاح!');
         }
 
         // Handle Delete Additional Gallery Image
-        if ($request->has('delete_additional_gallery_image')) {
-            $imageToDelete = $request->delete_additional_gallery_image;
-            Storage::disk('public')->delete($imageToDelete);
+        // Only process delete if the field exists AND has a non-empty value
+        $deleteAdditionalGalleryImage = $request->input('delete_additional_gallery_image');
+        if (!empty($deleteAdditionalGalleryImage) && is_string($deleteAdditionalGalleryImage) && strlen(trim($deleteAdditionalGalleryImage)) > 0) {
+            Storage::disk('public')->delete($deleteAdditionalGalleryImage);
 
             $currentAdditionalGallery = $webDetails['additional_gallery'] ?? [];
-            $webDetails['additional_gallery'] = array_values(array_filter($currentAdditionalGallery, function($img) use ($imageToDelete) {
-                return $img !== $imageToDelete;
+            $webDetails['additional_gallery'] = array_values(array_filter($currentAdditionalGallery, function($img) use ($deleteAdditionalGalleryImage) {
+                return $img !== $deleteAdditionalGalleryImage && !empty($img);
             }));
 
             $project->update(['web_details' => $webDetails]);
+            
+            // Check if this is an AJAX request
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => true, 'message' => 'تم حذف الصورة بنجاح!']);
+            }
+            
             return redirect()->route('admin.projects.web-details.edit', $project)
                 ->with('success', 'تم حذف الصورة بنجاح!');
         }
@@ -645,5 +678,157 @@ class ProjectController extends Controller
 
         return redirect()->route('admin.projects.web-details.edit', $project)
             ->with('success', 'Web project details updated successfully!');
+    }
+
+    /**
+     * Delete an image from a specific array in mobile_details
+     * 
+     * @param Project $project
+     * @param array $mobileDetails
+     * @param string $arrayKey The key in mobile_details array (e.g., 'light_mode_images', 'slider_images')
+     * @param string $imageToDelete The image path to delete
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    private function deleteImageFromArray(Project $project, array $mobileDetails, string $arrayKey, string $imageToDelete)
+    {
+        // Delete the physical file from storage
+        if (!empty($imageToDelete)) {
+            Storage::disk('public')->delete($imageToDelete);
+        }
+
+        // Get current images array
+        $currentImages = $mobileDetails[$arrayKey] ?? [];
+        
+        // Remove the image from array
+        $updatedImages = array_values(array_filter($currentImages, function($img) use ($imageToDelete) {
+            return $img !== $imageToDelete && !empty($img);
+        }));
+
+        // Update mobile_details
+        $mobileDetails[$arrayKey] = $updatedImages;
+        $project->update(['mobile_details' => $mobileDetails]);
+
+        // Check if this is an AJAX request
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json(['success' => true, 'message' => 'تم حذف الصورة بنجاح!']);
+        }
+
+        return redirect()->route('admin.projects.mobile-details.edit', $project)
+            ->with('success', 'تم حذف الصورة بنجاح!');
+    }
+
+    /**
+     * Handle single image upload - preserve existing if no new file uploaded
+     * 
+     * @param Request $request
+     * @param string $fieldName The form field name
+     * @param string|null $existingImage The existing image path
+     * @param string $storagePath The storage path for new images
+     * @return string|null The image path or null
+     */
+    private function handleSingleImage(Request $request, string $fieldName, ?string $existingImage, string $storagePath): ?string
+    {
+        if ($request->hasFile($fieldName)) {
+            // Delete existing image if present
+            if (!empty($existingImage)) {
+                Storage::disk('public')->delete($existingImage);
+            }
+            // Store new image
+            return $request->file($fieldName)->store($storagePath, 'public');
+        }
+        
+        // Preserve existing image
+        return $existingImage;
+    }
+
+    /**
+     * Handle multiple images upload - preserve existing and merge with new ones
+     * 
+     * @param Request $request
+     * @param string $fieldName The form field name (should be array, e.g., 'light_mode_images[]')
+     * @param array $existingImages Array of existing image paths
+     * @param string $storagePath The storage path for new images
+     * @return array Array of image paths
+     */
+    private function handleMultipleImages(Request $request, string $fieldName, array $existingImages, string $storagePath): array
+    {
+        // Ensure existingImages is an array
+        if (!is_array($existingImages)) {
+            $existingImages = [];
+        }
+        
+        // Filter out any null or empty values from existing images
+        $existingImages = array_filter($existingImages, function($img) {
+            return !empty($img) && is_string($img);
+        });
+        
+        if ($request->hasFile($fieldName)) {
+            $newImages = [];
+            foreach ($request->file($fieldName) as $image) {
+                $newImages[] = $image->store($storagePath, 'public');
+            }
+            // Merge existing with new images
+            return array_merge(array_values($existingImages), $newImages);
+        }
+        
+        // Preserve existing images - return as indexed array
+        return array_values($existingImages);
+    }
+
+    /**
+     * Handle portfolio thumb images - preserve existing if no new files uploaded
+     * 
+     * @param Request $request
+     * @param array $existingImages Array of existing image paths
+     * @return array Array of cleaned image paths
+     */
+    private function handlePortfolioThumbImages(Request $request, array $existingImages): array
+    {
+        // Ensure existingImages is an array
+        if (!is_array($existingImages)) {
+            $existingImages = [];
+        }
+        
+        // Start with existing images - preserve them
+        $portfolioThumbImages = array_values(array_filter($existingImages, function($img) {
+            return !empty($img) && is_string($img);
+        }));
+        
+        // Handle Thumb Image 1 (Full Width)
+        if ($request->hasFile('portfolio_thumb_image_1')) {
+            // Delete old image at index 0 if exists
+            if (isset($portfolioThumbImages[0]) && !empty($portfolioThumbImages[0])) {
+                Storage::disk('public')->delete($portfolioThumbImages[0]);
+            }
+            $portfolioThumbImages[0] = $request->file('portfolio_thumb_image_1')->store('projects/mobile/portfolio-thumb', 'public');
+        }
+        
+        // Handle Thumb Image 2 (Half Width)
+        if ($request->hasFile('portfolio_thumb_image_2')) {
+            // Delete old image at index 1 if exists
+            if (isset($portfolioThumbImages[1]) && !empty($portfolioThumbImages[1])) {
+                Storage::disk('public')->delete($portfolioThumbImages[1]);
+            }
+            $portfolioThumbImages[1] = $request->file('portfolio_thumb_image_2')->store('projects/mobile/portfolio-thumb', 'public');
+        }
+        
+        // Handle Thumb Image 3 (Half Width)
+        if ($request->hasFile('portfolio_thumb_image_3')) {
+            // Delete old image at index 2 if exists
+            if (isset($portfolioThumbImages[2]) && !empty($portfolioThumbImages[2])) {
+                Storage::disk('public')->delete($portfolioThumbImages[2]);
+            }
+            $portfolioThumbImages[2] = $request->file('portfolio_thumb_image_3')->store('projects/mobile/portfolio-thumb', 'public');
+        }
+        
+        // Ensure array is properly indexed and contains only valid images
+        $cleanedThumbImages = [];
+        foreach ($portfolioThumbImages as $image) {
+            if (!empty($image) && $image !== null && is_string($image)) {
+                $cleanedThumbImages[] = $image;
+            }
+        }
+        
+        return $cleanedThumbImages;
     }
 }

@@ -189,14 +189,9 @@
                                                  alt="Gallery"
                                                  class="img-thumbnail"
                                                  style="max-height: 150px; width: 100%; cursor: move;">
-                                            <form method="POST" action="{{ route('admin.projects.web-details.update', $project) }}" id="delete_gallery_form_{{ $index }}" style="display: inline;">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="delete_gallery_image" value="{{ $img }}">
-                                            </form>
                                             <button type="button"
                                                     class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
-                                                    onclick="showDeleteModal('delete_gallery_form_{{ $index }}')"
+                                                    onclick="showDeleteModal('gallery_images', '{{ $img }}', {{ $index }})"
                                                     title="حذف">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -342,14 +337,9 @@
                                                  alt="Additional Gallery"
                                                  class="img-thumbnail"
                                                  style="max-height: 150px; width: 100%; cursor: move;">
-                                            <form method="POST" action="{{ route('admin.projects.web-details.update', $project) }}" id="delete_additional_form_{{ $index }}" style="display: inline;">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="delete_additional_gallery_image" value="{{ $img }}">
-                                            </form>
                                             <button type="button"
                                                     class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
-                                                    onclick="showDeleteModal('delete_additional_form_{{ $index }}')"
+                                                    onclick="showDeleteModal('additional_gallery', '{{ $img }}', {{ $index }})"
                                                     title="حذف">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -417,10 +407,14 @@
 @push('scripts')
 <script>
     // Delete Modal
-    let formToSubmit = null;
+    let deleteImageData = null;
 
-    function showDeleteModal(formId) {
-        formToSubmit = document.getElementById(formId);
+    function showDeleteModal(imageType, imagePath, imageIndex) {
+        deleteImageData = {
+            type: imageType,
+            path: imagePath,
+            index: imageIndex
+        };
         const modal = new bootstrap.Modal(document.getElementById('deleteImageModal'));
         modal.show();
     }
@@ -600,9 +594,57 @@
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
         if (confirmDeleteBtn) {
             confirmDeleteBtn.addEventListener('click', function() {
-                if (formToSubmit) {
-                    formToSubmit.submit();
+                if (deleteImageData) {
+                    deleteImage(deleteImageData.type, deleteImageData.path, deleteImageData.index);
                 }
+            });
+        }
+
+        // Delete Image via AJAX
+        function deleteImage(imageType, imagePath, imageIndex) {
+            const formData = new FormData();
+            formData.append('_token', document.querySelector('input[name="_token"]').value);
+            formData.append('_method', 'PUT');
+            
+            if (imageType === 'gallery_images') {
+                formData.append('delete_gallery_image', imagePath);
+            } else if (imageType === 'additional_gallery') {
+                formData.append('delete_additional_gallery_image', imagePath);
+            }
+
+            fetch('{{ route('admin.projects.web-details.update', $project) }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data && data.success) {
+                    // Remove image from DOM
+                    const imageElement = document.getElementById(imageType === 'gallery_images' ? 'gallery_image_' + imageIndex : 'additional_gallery_image_' + imageIndex);
+                    if (imageElement) {
+                        imageElement.remove();
+                    }
+                    // Close modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteImageModal'));
+                    if (modal) {
+                        modal.hide();
+                    }
+                    // Reload page to refresh images
+                    window.location.reload();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء حذف الصورة');
             });
         }
 
