@@ -668,25 +668,40 @@
         const container = document.getElementById(containerId);
         if (!container) return;
 
-        // Clear previous previews
-        const existingPreviews = container.querySelectorAll('.preview-item');
-        existingPreviews.forEach(item => item.remove());
-
         const files = input.files;
+        if (!files || files.length === 0) return;
+
+        // Get existing items count to calculate new indices
+        const existingItems = container.querySelectorAll('[data-index]');
+        let currentIndex = existingItems.length;
+        let processedCount = 0;
+
+        // Process new files only
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             if (file && file.type.startsWith('image/')) {
                 const reader = new FileReader();
+                const fileIndex = currentIndex + processedCount;
+                processedCount++;
+                
                 reader.onload = function(e) {
                     const div = document.createElement('div');
                     div.className = 'col-md-3 mb-2 preview-item';
+                    div.setAttribute('draggable', 'true');
+                    div.setAttribute('data-index', fileIndex);
+                    div.setAttribute('id', containerId === 'light_mode_preview_container' ? 'light_mode_image_new_' + fileIndex : 'slider_image_new_' + fileIndex);
                     div.innerHTML = `
                         <div class="position-relative">
-                            <img src="${e.target.result}" alt="Preview" class="img-thumbnail" style="max-height: 150px;">
-                            <span class="badge badge-success position-absolute top-0 end-0 m-1">New</span>
+                            <img src="${e.target.result}" alt="Preview" class="img-thumbnail" style="max-height: 150px; width: 100%; cursor: move;">
+                            <span class="badge badge-success position-absolute top-0 end-0 m-2">New</span>
+                            <span class="badge badge-secondary position-absolute bottom-0 start-0 m-2">${fileIndex + 1}</span>
                         </div>
                     `;
                     container.appendChild(div);
+                    
+                    // Update order after adding new image
+                    const orderInputId = containerId === 'light_mode_preview_container' ? 'light_mode_images_order' : 'slider_images_order';
+                    updateOrder(containerId, orderInputId);
                 }
                 reader.readAsDataURL(file);
             }
@@ -694,42 +709,65 @@
     }
 
     // Drag and Drop functionality
+    let dragAndDropInitialized = {
+        light_mode_preview_container: false,
+        slider_preview_container: false
+    };
+
     function initializeDragAndDrop(containerId, orderInputId) {
         const container = document.getElementById(containerId);
         if (!container) return;
 
-        let draggedElement = null;
+        // Use event delegation to handle all draggable elements
+        if (!dragAndDropInitialized[containerId]) {
+            let draggedElement = null;
 
-        const draggableElements = container.querySelectorAll('[draggable="true"]');
+            container.addEventListener('dragstart', function(e) {
+                if (e.target.closest('[draggable="true"]')) {
+                    draggedElement = e.target.closest('[draggable="true"]');
+                    draggedElement.style.opacity = '0.5';
+                    e.dataTransfer.effectAllowed = 'move';
+                }
+            }, true);
 
-        draggableElements.forEach(element => {
-            element.addEventListener('dragstart', function(e) {
-                draggedElement = this;
-                this.style.opacity = '0.5';
-                e.dataTransfer.effectAllowed = 'move';
-            });
+            container.addEventListener('dragend', function(e) {
+                if (draggedElement) {
+                    draggedElement.style.opacity = '1';
+                    updateOrder(containerId, orderInputId);
+                    draggedElement = null;
+                }
+            }, true);
 
-            element.addEventListener('dragend', function() {
-                this.style.opacity = '1';
-                updateOrder(containerId, orderInputId);
-            });
+            container.addEventListener('dragover', function(e) {
+                const target = e.target.closest('[draggable="true"]');
+                if (!target || target === draggedElement) return;
 
-            element.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'move';
 
-                if (this !== draggedElement) {
-                    const rect = this.getBoundingClientRect();
+                if (draggedElement) {
+                    const rect = target.getBoundingClientRect();
                     const midpoint = rect.left + rect.width / 2;
 
                     if (e.clientX < midpoint) {
-                        this.parentNode.insertBefore(draggedElement, this);
+                        target.parentNode.insertBefore(draggedElement, target);
                     } else {
-                        this.parentNode.insertBefore(draggedElement, this.nextSibling);
+                        target.parentNode.insertBefore(draggedElement, target.nextSibling);
                     }
                 }
-            });
-        });
+            }, true);
+
+            container.addEventListener('drop', function(e) {
+                e.preventDefault();
+                if (draggedElement) {
+                    draggedElement.style.opacity = '1';
+                    updateOrder(containerId, orderInputId);
+                    draggedElement = null;
+                }
+            }, true);
+
+            dragAndDropInitialized[containerId] = true;
+        }
     }
 
     // Update order after drag and drop
@@ -742,11 +780,13 @@
         const order = Array.from(items).map(item => item.getAttribute('data-index'));
         orderInput.value = JSON.stringify(order);
 
-        // Update badge numbers
+        // Update badge numbers (find the badge at bottom-left, not the "New" badge)
         items.forEach((item, index) => {
-            const badge = item.querySelector('.badge');
-            if (badge) {
-                badge.textContent = index + 1;
+            const badges = item.querySelectorAll('.badge');
+            // The number badge is typically the last one or the one with class badge-secondary
+            const numberBadge = Array.from(badges).find(b => b.classList.contains('badge-secondary')) || badges[badges.length - 1];
+            if (numberBadge && !numberBadge.classList.contains('badge-success')) {
+                numberBadge.textContent = index + 1;
             }
         });
 
@@ -938,3 +978,4 @@
     });
 </script>
 @endpush
+
