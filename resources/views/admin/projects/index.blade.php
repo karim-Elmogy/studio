@@ -20,10 +20,12 @@
             <i class="fa-solid fa-cog"></i>
             {{ __('admin.settings') }}
         </a>
-        <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-primary">
-            <i class="fa-solid fa-plus"></i>
-            {{ __('admin.add_project') }}
-        </a>
+        @if(isset(request()->type))
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-sm btn-primary">
+                <i class="fa-solid fa-plus"></i>
+                {{ __('admin.add_project') }}
+            </a>
+        @endif
     </div>
 @endsection
 
