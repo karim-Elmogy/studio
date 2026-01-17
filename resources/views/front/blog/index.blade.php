@@ -43,7 +43,7 @@
                             <div class="tp-blog-masonry-item-top d-flex justify-content-between align-items-center mb-30">
                                 <div class="tp-blog-masonry-item-user d-flex align-items-center">
                                     <div class="tp-blog-masonry-item-user-thumb">
-                                        <img src="{{ $blog->author_image ? asset('storage/' . $blog->author_image) : asset('front/assets/img/blog/blog-masonry/blog-masonry-user-1.jpg') }}" alt="{{ $blog->author_name }}">
+                                        <img style="max-width: 50px" src="{{ $blog->author_image ? asset('storage/' . $blog->author_image) : asset('front/assets/img/blog/blog-masonry/blog-masonry-user-1.jpg') }}" alt="{{ $blog->author_name }}">
                                     </div>
                                     <div class="tp-blog-masonry-item-user-content">
                                         <span>{{ $blog->author_name ?? __('Admin') }}</span>

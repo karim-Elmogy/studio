@@ -94,16 +94,18 @@
                     <div class="col-lg-10">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <textarea name="content_en" rows="8"
-                                          class="form-control form-control-solid @error('content_en') is-invalid @enderror"
+                                <label class="form-label">{{ __('admin.content_en') }}</label>
+                                <textarea name="content_en" id="content_en" rows="8"
+                                          class="form-control @error('content_en') is-invalid @enderror"
                                           placeholder="{{ __('admin.content_en') }}" required>{{ old('content_en') }}</textarea>
                                 @error('content_en')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <textarea name="content_ar" rows="8"
-                                          class="form-control form-control-solid @error('content_ar') is-invalid @enderror"
+                                <label class="form-label">{{ __('admin.content_ar') }}</label>
+                                <textarea name="content_ar" id="content_ar" rows="8"
+                                          class="form-control @error('content_ar') is-invalid @enderror"
                                           placeholder="{{ __('admin.content_ar') }}" required dir="rtl">{{ old('content_ar') }}</textarea>
                                 @error('content_ar')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -284,3 +286,42 @@
         </div>
     </form>
 @endsection
+
+@push('styles')
+<style>
+    .ck-editor__editable {
+        min-height: 300px;
+    }
+    .ck-editor__editable[dir="rtl"] {
+        text-align: right;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<script>
+    // CKEditor for English content
+    ClassicEditor
+        .create(document.querySelector('#content_en'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+            language: 'en'
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    // CKEditor for Arabic content
+    ClassicEditor
+        .create(document.querySelector('#content_ar'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'blockQuote', 'insertTable', 'undo', 'redo'],
+            language: {
+                ui: 'ar',
+                content: 'ar'
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+@endpush
