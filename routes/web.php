@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\App;
+Route::middleware(['auth'])->group(function () {
+        // Front-end Routes
+    Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'index'])->name('home');
 
-// Front-end Routes
-Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'index'])->name('home');
+});
 
 // Services Routes
 Route::get('/services', [\App\Http\Controllers\Front\ServiceController::class, 'index'])->name('services.index');
