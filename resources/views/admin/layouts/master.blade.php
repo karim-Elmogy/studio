@@ -279,7 +279,7 @@
                     {{-- Begin::Content --}}
                     <div id="kt_app_content" class="app-content flex-column-fluid">
                         <div id="kt_app_content_container" class="app-container container-xxl">
-                            @if(filled($seoPageKey ?? null))
+                            @if(filled($seoPageKey ?? null) && !($hideLayoutSeoPanel ?? false))
                                 <x-admin.seo-meta-panel :page-key="$seoPageKey" />
                             @endif
                             @yield('content')

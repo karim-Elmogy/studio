@@ -221,8 +221,9 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $seoPageKey = 'services.show:'.$service->id;
+        $hideLayoutSeoPanel = true;
 
-        return view('admin.services.edit', compact('service', 'seoPageKey'));
+        return view('admin.services.edit', compact('service', 'seoPageKey', 'hideLayoutSeoPanel'));
     }
 
     /**
@@ -235,7 +236,7 @@ class ServiceController extends Controller
             'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
         ]);
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
             'slug_en' => ['required', 'string', 'max:255', Rule::unique('services', 'slug_en')->ignore($service->id)],
@@ -274,7 +275,7 @@ class ServiceController extends Controller
             'features_title_en' => 'nullable|string|max:255',
             'features_title_ar' => 'nullable|string|max:255',
             'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         // Process features
         $features = [];
@@ -418,6 +419,8 @@ class ServiceController extends Controller
             ],
             'features_image' => $featuresImagePath,
         ]);
+
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'services.show:'.$service->id);
 
         return redirect()->route('admin.services.index')
             ->with('success', __('Service updated successfully'));

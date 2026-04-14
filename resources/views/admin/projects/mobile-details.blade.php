@@ -588,6 +588,9 @@
                     </div>
                 </div>
             </div>
+
+            <x-admin.seo-meta-panel embedded :page-key="$seoPageKey" />
+
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-light btn-active-light-primary me-2">
                     {{ __('admin.cancel') }}

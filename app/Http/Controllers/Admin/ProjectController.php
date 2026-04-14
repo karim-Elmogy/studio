@@ -110,8 +110,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $seoPageKey = 'projects.show:'.$project->id;
+        $hideLayoutSeoPanel = true;
 
-        return view('admin.projects.edit', compact('project', 'seoPageKey'));
+        return view('admin.projects.edit', compact('project', 'seoPageKey', 'hideLayoutSeoPanel'));
     }
 
     public function update(Request $request, Project $project)
@@ -121,7 +122,7 @@ class ProjectController extends Controller
             'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
         ]);
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
             'slug_en' => ['required', 'string', 'max:255', Rule::unique('projects', 'slug_en')->ignore($project->id)],
@@ -138,7 +139,7 @@ class ProjectController extends Controller
             'order' => 'nullable|integer',
             'is_featured' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         if ($request->hasFile('image')) {
             if ($project->image) {
@@ -183,6 +184,8 @@ class ProjectController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'projects.show:'.$project->id);
+
         return redirect()->route('admin.projects.index')
             ->with('success', 'Project updated successfully!');
     }
@@ -208,8 +211,9 @@ class ProjectController extends Controller
         }
 
         $seoPageKey = 'projects.show:'.$project->id;
+        $hideLayoutSeoPanel = true;
 
-        return view('admin.projects.mobile-details', compact('project', 'seoPageKey'));
+        return view('admin.projects.mobile-details', compact('project', 'seoPageKey', 'hideLayoutSeoPanel'));
     }
 
     public function updateMobileDetails(Request $request, Project $project)
@@ -270,7 +274,7 @@ class ProjectController extends Controller
             return $this->deleteImageFromArray($project, $mobileDetails, 'slider_images', $deleteSliderImage);
         }
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'problem_en' => 'nullable|string',
             'problem_ar' => 'nullable|string',
@@ -306,7 +310,7 @@ class ProjectController extends Controller
             'portfolio_thumb_image_1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'portfolio_thumb_image_2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'portfolio_thumb_image_3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         // CRITICAL: Preserve existing images BEFORE any updates
         // Get current mobile_details from database (don't use $mobileDetails from line 194 as it may be outdated)
@@ -482,6 +486,8 @@ class ProjectController extends Controller
 
         $project->update(['mobile_details' => $mobileDetails]);
 
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'projects.show:'.$project->id);
+
         return redirect()->route('admin.projects.mobile-details.edit', $project)
             ->with('success', 'Mobile project details updated successfully!');
     }
@@ -495,8 +501,9 @@ class ProjectController extends Controller
         }
 
         $seoPageKey = 'projects.show:'.$project->id;
+        $hideLayoutSeoPanel = true;
 
-        return view('admin.projects.web-details', compact('project', 'seoPageKey'));
+        return view('admin.projects.web-details', compact('project', 'seoPageKey', 'hideLayoutSeoPanel'));
     }
 
     public function updateWebDetails(Request $request, Project $project)
@@ -588,7 +595,7 @@ class ProjectController extends Controller
                 ->with('success', 'تم حذف الصورة بنجاح!');
         }
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'hero_banner' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'subtitle_en' => 'nullable|string|max:255',
             'subtitle_ar' => 'nullable|string|max:255',
@@ -607,7 +614,7 @@ class ProjectController extends Controller
             'solution_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'additional_gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'additional_gallery_order' => 'nullable|string',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         // Handle Hero Banner
         if ($request->hasFile('hero_banner')) {
@@ -705,6 +712,8 @@ class ProjectController extends Controller
         }
 
         $project->update(['web_details' => $webDetails]);
+
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'projects.show:'.$project->id);
 
         return redirect()->route('admin.projects.web-details.edit', $project)
             ->with('success', 'Web project details updated successfully!');

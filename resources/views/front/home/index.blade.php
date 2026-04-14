@@ -16,6 +16,49 @@
         .creative-2-hero-title img {
             transform: translateY(-10px);
         }
+
+        .creative-2-hero-title--ar {
+            text-transform: none;
+            letter-spacing: 0;
+            line-height: 1.12;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 5vw + 1.25rem, 100px);
+            color: #ffffff;
+            margin: 0;
+            text-wrap: balance;
+            -webkit-font-smoothing: antialiased;
+            text-shadow:
+                0 0 48px rgba(5, 165, 197, 0.45),
+                0 8px 32px rgba(0, 0, 0, 0.42),
+                0 2px 0 rgba(255, 255, 255, 0.12);
+        }
+
+        .creative-2-hero-title--ar::after {
+            content: '';
+            display: block;
+            width: min(7.5rem, 42%);
+            height: 4px;
+            margin-top: clamp(0.85rem, 2vw, 1.35rem);
+            border-radius: 999px;
+            background: linear-gradient(90deg, #05a5c5 0%, #5fd4ea 55%, rgba(255, 255, 255, 0.92) 100%);
+            box-shadow: 0 0 20px rgba(5, 165, 197, 0.55);
+        }
+
+        .creative-2-hero-title--ar[dir="rtl"]::after {
+            margin-inline-start: auto;
+            margin-inline-end: 0;
+        }
+
+        @media (max-width: 767.98px) {
+            .creative-2-hero-title--ar {
+                line-height: 1.18;
+            }
+
+            .creative-2-hero-title--ar::after {
+                width: min(5rem, 55%);
+            }
+        }
+
         @media (min-width: 768px) {
             .d-md-inline-block {
                 display: inline-block !important;
@@ -114,11 +157,15 @@
                             <div class="row align-items-end">
                                 <div class="col-xl-6">
                                     <div class="creative-2-hero-title-box">
-                                        <h2 class="creative-2-hero-title">
-                                            Scale
-                                            y<img class="d-none d-md-inline-block" src="{{asset('front/assets/img/home-04/hero/hero-shape-1.png')}}" alt="">ur
-                                            Business
-                                        </h2>
+                                        @if(app()->getLocale() === 'ar')
+                                            <h2 dir="rtl" class="creative-2-hero-title creative-2-hero-title--ar">{{ $pageSettings->getTranslatedHeroTitle() }}</h2>
+                                        @else
+                                            <h2 class="creative-2-hero-title">
+                                                Scale
+                                                y<img class="d-none d-md-inline-block" src="{{asset('front/assets/img/home-04/hero/hero-shape-1.png')}}" alt="">ur
+                                                Business
+                                            </h2>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-xl-6">

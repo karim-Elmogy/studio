@@ -115,8 +115,9 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {
         $seoPageKey = 'blog.show:'.$blog->id;
+        $hideLayoutSeoPanel = true;
 
-        return view('admin.blogs.edit', compact('blog', 'seoPageKey'));
+        return view('admin.blogs.edit', compact('blog', 'seoPageKey', 'hideLayoutSeoPanel'));
     }
 
     public function update(Request $request, Blog $blog)
@@ -126,7 +127,7 @@ class BlogController extends Controller
             'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
         ]);
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
             'slug_en' => ['required', 'string', 'max:255', Rule::unique('blogs', 'slug_en')->ignore($blog->id)],
@@ -146,7 +147,7 @@ class BlogController extends Controller
             'tags' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         if ($request->hasFile('image')) {
             if ($blog->image) {
@@ -205,6 +206,8 @@ class BlogController extends Controller
             'is_featured' => $request->has('is_featured'),
             'is_active' => $request->has('is_active'),
         ]);
+
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'blog.show:'.$blog->id);
 
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Blog updated successfully!');

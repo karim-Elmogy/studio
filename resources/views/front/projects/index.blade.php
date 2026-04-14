@@ -2,19 +2,47 @@
 
 @section('content')
 
+    @if(app()->getLocale() === 'ar')
+        <style>
+            .projects-hero--ar .tp-hero-2-title.about-us {
+                font-family: 'Tajawal', sans-serif !important;
+                text-transform: none;
+                letter-spacing: 0;
+                line-height: 1.15;
+                font-weight: 700;
+                font-size: clamp(2rem, 5.5vw + 0.75rem, 4.5rem) !important;
+                overflow-wrap: break-word;
+                word-break: normal;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .projects-hero--ar .tp-hero-2-subtitle {
+                font-family: 'Tajawal', sans-serif !important;
+                letter-spacing: 0;
+                line-height: 1.35;
+                font-size: clamp(1.05rem, 2.2vw, 1.65rem) !important;
+                max-width: 38rem;
+                margin-inline: auto;
+                display: block;
+            }
+        </style>
+    @endif
+
     <main>
 
         <!-- hero area start -->
         <div class="tp-hero-2-wrapper">
-            <div class="tp-about-us-area include-bg pt-180 pb-150" data-background="{{ $pageSettings->hero_background_image ? asset('storage/' . $pageSettings->hero_background_image) : asset('front/assets/img/home-02/hero/hero-bg.webp') }}">
+            <div class="tp-about-us-area include-bg pt-180 {{ app()->getLocale() === 'ar' ? 'pb-200' : 'pb-150' }}" data-background="{{ $pageSettings->hero_background_image ? asset('storage/' . $pageSettings->hero_background_image) : asset('front/assets/img/home-02/hero/hero-bg.webp') }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="tp-hero-2-content text-center mb-25">
-                                        <span class="tp-hero-2-subtitle tp_fade_anim" data-delay=".3">
-                                            {!! $pageSettings->getTranslatedHeroSubtitle() !!}
-                                        </span>
-                                <h1 class="tp-hero-2-title about-us tp_fade_anim text-scale-anim" data-delay=".5">{{ $pageSettings->getTranslatedHeroTitle() }}</h1>
+                            <div class="tp-hero-2-content text-center mb-25 @if(app()->getLocale() === 'ar') projects-hero--ar @endif">
+                                <span class="tp-hero-2-subtitle tp_fade_anim" data-delay=".3" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+                                    {!! $pageSettings->getTranslatedHeroSubtitle() !!}
+                                </span>
+                                <h1 class="tp-hero-2-title about-us tp_fade_anim @if(app()->getLocale() !== 'ar') text-scale-anim @endif"
+                                    data-delay=".5"
+                                    @if(app()->getLocale() === 'ar') dir="rtl" @endif>{{ $pageSettings->getTranslatedHeroTitle() }}</h1>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,9 @@ class SeoMetaPanel extends Component
         public bool $embedded = false,
     ) {
         if ($this->embedded) {
-            $this->meta = new PageSeoMeta;
+            $this->meta = filled($this->pageKey)
+                ? PageSeoMeta::firstOrNew(['page_key' => $this->pageKey])
+                : new PageSeoMeta;
 
             return;
         }

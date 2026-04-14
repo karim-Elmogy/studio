@@ -61,3 +61,38 @@
     margin-left: 35px !important;
     margin-right: 0 !important;
 }
+
+/*
+ * Hero under absolute header (projects + similar)
+ * .header-transparent is position:absolute; z-index:9 while .tp-hero-2-title uses z-index:99,
+ * so hero text can paint over the navbar. Arabic menu is often taller, so overlap looks worse.
+ */
+html[dir="rtl"] #header-sticky.header-transparent,
+html[dir="rtl"] #header-sticky.header-sticky {
+    z-index: 120 !important;
+}
+
+/*
+ * Projects hero (RTL): header is position:absolute — push the whole block down.
+ * Only wrapper padding (no background-clip / no huge inner padding overrides).
+ */
+html[dir="rtl"] .tp-hero-2-wrapper {
+    padding-top: 92px;
+}
+
+@media (max-width: 991px) {
+    html[dir="rtl"] .tp-hero-2-wrapper {
+        padding-top: 80px;
+    }
+}
+
+/* FAQ + Contact hero: same absolute header; push block below nav in RTL */
+html[dir="rtl"] .tp-contact-us-ptb.p-relative {
+    padding-top: 92px;
+}
+
+@media (max-width: 991px) {
+    html[dir="rtl"] .tp-contact-us-ptb.p-relative {
+        padding-top: 80px;
+    }
+}

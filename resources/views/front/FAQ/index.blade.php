@@ -3,6 +3,77 @@
 
 @section('content')
 
+    <style>
+        /* Dark FAQ card: inline #0a0a0a was fighting .faq-inner-style (black text) → unreadable */
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style .ai-faq-accordion-wrap .accordion {
+            background-color: #121214 !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style
+            .ai-faq-accordion-wrap
+            .accordion
+            .accordion-items:not(:last-child) {
+            border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style
+            .ai-faq-accordion-wrap
+            .accordion
+            .accordion-items
+            .accordion-header
+            .accordion-buttons {
+            color: #f5f5f7 !important;
+        }
+
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style
+            .ai-faq-accordion-wrap
+            .accordion
+            .accordion-items
+            .accordion-body
+            p {
+            color: rgba(245, 245, 247, 0.82) !important;
+        }
+
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style
+            .ai-faq-accordion-wrap
+            .accordion
+            .accordion-items
+            .accordion-header
+            .accordion-buttons
+            .accordion-icon {
+            background-color: rgba(255, 255, 255, 0.12) !important;
+        }
+
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style
+            .ai-faq-accordion-wrap
+            .accordion
+            .accordion-items
+            .accordion-header
+            .accordion-buttons
+            .accordion-icon::before,
+        .ai-faq-accordion-dark-wrap.app-faq-wrap.faq-inner-style
+            .ai-faq-accordion-wrap
+            .accordion
+            .accordion-items
+            .accordion-header
+            .accordion-buttons
+            .accordion-icon::after {
+            background-color: #f5f5f7 !important;
+        }
+
+        /* CTA on dark photo: theme may leave title/body dark → low contrast */
+        .tp-cta-area .tp-cta-bg .tp-cta-content .tp-cta-title,
+        .tp-cta-area .tp-cta-bg .tp-cta-content p {
+            color: #f5f5f7 !important;
+            text-shadow: 0 1px 16px rgba(0, 0, 0, 0.55);
+        }
+
+        #down {
+            scroll-margin-top: 96px;
+        }
+    </style>
+
     <main>
 
         <!-- hero area start -->
@@ -64,13 +135,13 @@
 
 
         <!-- faq area start -->
-        <div class="app-faq-area p-relative pb-120" >
+        <div id="down" class="app-faq-area p-relative pb-120">
             <div class="container container-1230">
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="ai-faq-accordion-dark-wrap app-faq-wrap faq-inner-style">
                             <div class="ai-faq-accordion-wrap">
-                                <div class="accordion" id="accordionExample1" style="background-color: #0a0a0a">
+                                <div class="accordion" id="accordionExample1">
                                     @forelse($faqs as $index => $faq)
                                     <div class="accordion-items">
                                         <h2 class="accordion-header">
@@ -111,8 +182,7 @@
                                 <div class="tp-cta-btn">
                                     <a class="tp-btn-white" href="{{ route('contact.index') }}">
                                         <span>
-                                            <span class="text-1">{{ __('Contact Us') }}</span>
-                                            <span class="text-2">{{ __('Contact Us') }}</span>
+                                            <span class="text-2 text-white ">{{ __('Contact Us') }}</span>
                                         </span>
                                     </a>
                                 </div>
