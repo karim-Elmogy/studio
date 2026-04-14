@@ -11,7 +11,9 @@ class FaqPageSettingController extends Controller
     public function edit()
     {
         $settings = FaqPageSetting::getSettings();
-        return view('admin.faq-page-settings.edit', compact('settings'));
+        $seoPageKey = 'faq.index';
+
+        return view('admin.faq-page-settings.edit', compact('settings', 'seoPageKey'));
     }
 
     public function update(Request $request)

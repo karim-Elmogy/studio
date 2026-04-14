@@ -72,6 +72,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('admin/service-page-settings', [\App\Http\Controllers\Admin\ServicePageSettingController::class, 'edit'])->name('admin.service-page-settings.edit');
     Route::post('admin/service-page-settings', [\App\Http\Controllers\Admin\ServicePageSettingController::class, 'update'])->name('admin.service-page-settings.update');
 
+    Route::post('admin/page-seo-meta', [\App\Http\Controllers\Admin\PageSeoMetaController::class, 'update'])->name('admin.page-seo-meta.update');
+
     // Home Page Settings
     Route::get('admin/home-page-settings', [\App\Http\Controllers\Admin\HomePageSettingController::class, 'edit'])->name('admin.home-page-settings.edit');
     Route::post('admin/home-page-settings', [\App\Http\Controllers\Admin\HomePageSettingController::class, 'update'])->name('admin.home-page-settings.update');

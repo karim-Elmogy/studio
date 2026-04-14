@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdatePageSeoMetaRequest;
 use App\Models\Project;
+use App\Support\Seo\PageSeoMetaSync;
 use App\Support\UrlSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +39,7 @@ class ProjectController extends Controller
             'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
         ]);
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
             'slug_en' => ['required', 'string', 'max:255', Rule::unique('projects', 'slug_en')],
@@ -54,7 +56,7 @@ class ProjectController extends Controller
             'order' => 'nullable|integer',
             'is_featured' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('projects', 'public');
@@ -69,7 +71,7 @@ class ProjectController extends Controller
             }
         }
 
-        Project::create([
+        $project = Project::create([
             'slug_en' => $validated['slug_en'],
             'slug_ar' => $validated['slug_ar'],
             'title' => [
@@ -94,6 +96,8 @@ class ProjectController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'projects.show:'.$project->id);
+
         return redirect()->route('admin.projects.index')
             ->with('success', 'Project created successfully!');
     }
@@ -105,7 +109,9 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $seoPageKey = 'projects.show:'.$project->id;
+
+        return view('admin.projects.edit', compact('project', 'seoPageKey'));
     }
 
     public function update(Request $request, Project $project)
@@ -201,7 +207,9 @@ class ProjectController extends Controller
                 ->with('error', 'This project is not a mobile project.');
         }
 
-        return view('admin.projects.mobile-details', compact('project'));
+        $seoPageKey = 'projects.show:'.$project->id;
+
+        return view('admin.projects.mobile-details', compact('project', 'seoPageKey'));
     }
 
     public function updateMobileDetails(Request $request, Project $project)
@@ -486,7 +494,9 @@ class ProjectController extends Controller
                 ->with('error', 'This project is not a web project.');
         }
 
-        return view('admin.projects.web-details', compact('project'));
+        $seoPageKey = 'projects.show:'.$project->id;
+
+        return view('admin.projects.web-details', compact('project', 'seoPageKey'));
     }
 
     public function updateWebDetails(Request $request, Project $project)

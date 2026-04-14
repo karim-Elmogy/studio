@@ -6,8 +6,14 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ __('VELARYON STUDIO') }}</title>
-    <meta name="description" content="">
+    <title>{{ $frontSeoTitle ?? __('VELARYON STUDIO') }}</title>
+    @if(filled($frontSeoTitle ?? null))
+        <meta name="title" content="{{ $frontSeoTitle }}">
+    @endif
+    <meta name="description" content="{{ $frontSeoDescription ?? '' }}">
+    @if(filled($frontSeoKeywords ?? null))
+        <meta name="keywords" content="{{ $frontSeoKeywords }}">
+    @endif
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico in the root directory -->

@@ -11,7 +11,9 @@ class ContactPageSettingController extends Controller
     public function edit()
     {
         $settings = ContactPageSetting::getSettings();
-        return view('admin.contact-page-settings.edit', compact('settings'));
+        $seoPageKey = 'contact.index';
+
+        return view('admin.contact-page-settings.edit', compact('settings', 'seoPageKey'));
     }
 
     public function update(Request $request)

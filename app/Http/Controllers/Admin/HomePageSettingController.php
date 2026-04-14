@@ -11,7 +11,9 @@ class HomePageSettingController extends Controller
     public function edit()
     {
         $settings = HomePageSetting::getSettings();
-        return view('admin.home-page-settings.edit', compact('settings'));
+        $seoPageKey = 'home';
+
+        return view('admin.home-page-settings.edit', compact('settings', 'seoPageKey'));
     }
 
     public function update(Request $request)

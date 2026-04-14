@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdatePageSeoMetaRequest;
 use App\Models\Service;
+use App\Support\Seo\PageSeoMetaSync;
 use App\Support\UrlSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -38,7 +40,7 @@ class ServiceController extends Controller
             'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
         ]);
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
             'slug_en' => ['required', 'string', 'max:255', Rule::unique('services', 'slug_en')],
@@ -77,7 +79,7 @@ class ServiceController extends Controller
             'features_title_en' => 'nullable|string|max:255',
             'features_title_ar' => 'nullable|string|max:255',
             'features_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         // Process features
         $features = [];
@@ -140,7 +142,7 @@ class ServiceController extends Controller
             $featuresImagePath = $request->file('features_image')->store('services/features', 'public');
         }
 
-        Service::create([
+        $service = Service::create([
             'slug_en' => $validated['slug_en'],
             'slug_ar' => $validated['slug_ar'],
             'title' => [
@@ -199,6 +201,8 @@ class ServiceController extends Controller
             'features_image' => $featuresImagePath,
         ]);
 
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'services.show:'.$service->id);
+
         return redirect()->route('admin.services.index')
             ->with('success', __('Service created successfully'));
     }
@@ -216,7 +220,9 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('admin.services.edit', compact('service'));
+        $seoPageKey = 'services.show:'.$service->id;
+
+        return view('admin.services.edit', compact('service', 'seoPageKey'));
     }
 
     /**

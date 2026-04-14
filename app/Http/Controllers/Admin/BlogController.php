@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdatePageSeoMetaRequest;
 use App\Models\Blog;
+use App\Support\Seo\PageSeoMetaSync;
 use App\Support\UrlSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +31,7 @@ class BlogController extends Controller
             'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
         ]);
 
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
             'slug_en' => ['required', 'string', 'max:255', Rule::unique('blogs', 'slug_en')],
@@ -49,7 +51,7 @@ class BlogController extends Controller
             'tags' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
-        ]);
+        ], UpdatePageSeoMetaRequest::metaFieldRules()));
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('blogs', 'public');
@@ -69,7 +71,7 @@ class BlogController extends Controller
             }
         }
 
-        Blog::create([
+        $blog = Blog::create([
             'slug_en' => $validated['slug_en'],
             'slug_ar' => $validated['slug_ar'],
             'title' => [
@@ -99,6 +101,8 @@ class BlogController extends Controller
             'is_active' => $request->has('is_active'),
         ]);
 
+        PageSeoMetaSync::syncOptionalFromRequest($request, 'blog.show:'.$blog->id);
+
         return redirect()->route('admin.blogs.index')
             ->with('success', 'Blog created successfully!');
     }
@@ -110,7 +114,9 @@ class BlogController extends Controller
 
     public function edit(Blog $blog)
     {
-        return view('admin.blogs.edit', compact('blog'));
+        $seoPageKey = 'blog.show:'.$blog->id;
+
+        return view('admin.blogs.edit', compact('blog', 'seoPageKey'));
     }
 
     public function update(Request $request, Blog $blog)

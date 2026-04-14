@@ -12,7 +12,9 @@ class BlogPageSettingController extends Controller
     public function edit()
     {
         $settings = BlogPageSetting::getSettings();
-        return view('admin.blog-page-settings.edit', compact('settings'));
+        $seoPageKey = 'blog.index';
+
+        return view('admin.blog-page-settings.edit', compact('settings', 'seoPageKey'));
     }
 
     public function update(Request $request)

@@ -12,7 +12,9 @@ class ServicePageSettingController extends Controller
     public function edit()
     {
         $settings = ServicePageSetting::getSettings();
-        return view('admin.service-page-settings.edit', compact('settings'));
+        $seoPageKey = 'services.index';
+
+        return view('admin.service-page-settings.edit', compact('settings', 'seoPageKey'));
     }
 
     public function update(Request $request)

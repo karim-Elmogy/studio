@@ -448,4 +448,16 @@ return [
     'current_image' => 'Current Image',
     'current_images' => 'Current Images',
     'confirm_delete_image' => 'Are you sure you want to delete this image?',
+
+    'seo_panel_title' => 'SEO (search engines)',
+    'seo_panel_hint' => 'Shown in the public site <head> for this page. Uses the active language with fallback to the other.',
+    'seo_embedded_hint' => 'These values are saved together when you submit this form. Leave blank to use the default page titles and descriptions on the public site.',
+    'seo_meta_title_en' => 'Meta title (English)',
+    'seo_meta_title_ar' => 'Meta title (Arabic)',
+    'seo_meta_keywords_en' => 'Meta keywords (English)',
+    'seo_meta_keywords_ar' => 'Meta keywords (Arabic)',
+    'seo_meta_description_en' => 'Meta description (English)',
+    'seo_meta_description_ar' => 'Meta description (Arabic)',
+    'seo_save' => 'Save SEO',
+    'seo_saved' => 'SEO settings saved.',
 ];

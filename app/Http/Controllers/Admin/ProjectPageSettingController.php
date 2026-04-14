@@ -12,7 +12,9 @@ class ProjectPageSettingController extends Controller
     public function edit()
     {
         $settings = ProjectPageSetting::getSettings();
-        return view('admin.projects.settings', compact('settings'));
+        $seoPageKey = 'projects.index';
+
+        return view('admin.projects.settings', compact('settings', 'seoPageKey'));
     }
 
     public function update(Request $request)

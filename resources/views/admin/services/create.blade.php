@@ -540,6 +540,8 @@
             </div>
         </div>
 
+        <x-admin.seo-meta-panel embedded />
+
         {{-- Action Buttons --}}
         <div class="card shadow-sm mt-5">
             <div class="card-body">
