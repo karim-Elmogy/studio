@@ -1,5 +1,6 @@
 {{-- Begin::Sidebar --}}
-<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="{{ app()->getLocale() == 'ar' ? 'end' : 'start' }}" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+{{-- Use logical "start": LTR = left edge, RTL = right edge — matches fixed .app-sidebar in both bundles. "end" in RTL opened the drawer from the wrong side. --}}
+<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
 
     {{-- Begin::Logo --}}
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">

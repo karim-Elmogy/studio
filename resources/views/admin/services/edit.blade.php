@@ -28,7 +28,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('admin.services.update', $service->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.services.update', $service) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -66,6 +66,34 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {{-- URL slugs (front: Arabic uses slug_ar, English uses slug_en) --}}
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label required fw-semibold fs-6">{{ __('admin.url_slug') }}</label>
+                    <div class="col-lg-10">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" name="slug_en"
+                                       class="form-control form-control-lg form-control-solid @error('slug_en') is-invalid @enderror"
+                                       placeholder="{{ __('admin.slug_en') }}"
+                                       value="{{ old('slug_en', $service->slug_en) }}" required />
+                                @error('slug_en')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="slug_ar"
+                                       class="form-control form-control-lg form-control-solid @error('slug_ar') is-invalid @enderror"
+                                       placeholder="{{ __('admin.slug_ar') }}"
+                                       value="{{ old('slug_ar', $service->slug_ar) }}" required dir="rtl" />
+                                @error('slug_ar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-text">{{ __('admin.slug_help') }}</div>
                     </div>
                 </div>
 
@@ -572,7 +600,7 @@
                         {{ __('admin.back') }}
                     </a>
                     <div class="d-flex gap-3">
-                        <a href="{{ route('services.show', $service->id) }}" class="btn btn-info" target="_blank">
+                        <a href="{{ route('services.show', $service->getFrontSlug()) }}" class="btn btn-info" target="_blank">
                             <i class="fa-solid fa-eye"></i>
                             {{ __('Preview') }}
                         </a>

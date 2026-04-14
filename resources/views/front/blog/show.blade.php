@@ -22,7 +22,7 @@
                                                     </i>
                                                     {{ $blog->getTranslatedCategory() }}
                                                 </span>
-                                        <span>4 min read</span>
+                                        <span>{{ __('4 min read') }}</span>
                                     </div>
                                     <h4 class="postbox-title fs-80">{!! nl2br(e($blog->getTranslatedTitle())) !!}</h4>
                                     <div class="postbox-details-meta d-flex align-items-center justify-content-center">
@@ -35,7 +35,7 @@
                                                 @endif
                                             </div>
                                             <div class="postbox-author-info">
-                                                <h4 class="postbox-author-name">{{ $blog->author_name ?? 'Admin' }}</h4>
+                                                <h4 class="postbox-author-name">{{ $blog->author_name ?? __('Admin') }}</h4>
                                             </div>
                                         </div>
                                         <div class="postbox-meta">
@@ -52,7 +52,7 @@
                                                     <path d="M17 8.55557C17.003 9.72878 16.7289 10.8861 16.2 11.9333C15.5728 13.1882 14.6086 14.2437 13.4155 14.9816C12.2223 15.7195 10.8473 16.1106 9.44443 16.1111C8.27122 16.1142 7.11387 15.8401 6.06666 15.3111L1 17L2.68889 11.9333C2.15994 10.8861 1.88583 9.72878 1.88889 8.55557C1.88943 7.15269 2.28054 5.77766 3.01841 4.58451C3.75629 3.39135 4.81178 2.42719 6.06666 1.80002C7.11387 1.27107 8.27122 0.996966 9.44443 1.00003H9.88887C11.7416 1.10224 13.4916 1.88426 14.8037 3.19634C16.1157 4.50843 16.8978 6.25837 17 8.11113V8.55557Z" stroke="white" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </i>
-                                            <span>0 comments</span>
+                                            <span>{{ __('0 comments') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                             </div>
                             <div class="postbox-details-tag-wrap d-flex justify-content-between align-items-center">
                                 <div class="postbox-details-tag d-flex align-items-center mb-0">
-                                    <span>Tagged with :</span>
+                                    <span>{{ __('Tagged with :') }}</span>
                                     <div class="tagcloud">
                                         @if($blog->tags)
                                             @foreach($blog->tags as $tag)
@@ -174,8 +174,8 @@
                                     </div>
                                     <div class="postbox-details-content">
                                         <div class="sidebar-widget-author-content">
-                                            <span>About Author</span>
-                                            <h4 class="sidebar-widget-author-name">{{ $blog->author_name ?? 'Admin' }}</h4>
+                                            <span>{{ __('About Author') }}</span>
+                                            <h4 class="sidebar-widget-author-name">{{ $blog->author_name ?? __('Admin') }}</h4>
                                             <p>
                                                 {{ $blog->author_role ?? '' }}
                                             </p>
@@ -222,7 +222,7 @@
             <div class="container container-1750">
                 <div class="row justify-content-center">
                     <div class="col-xl-12">
-                        <a href="{{ route('blog.show', $relatedBlogs->first()->id) }}">
+                        <a href="{{ route('blog.show', $relatedBlogs->first()->getFrontSlug()) }}">
                             <div class="postbox-details-nevigation-wrap p-relative">
                                 <div class="postbox-details-nevigation-thumb-bg">
                                     <div class="postbox-details-nevigation-thumb">
@@ -230,7 +230,7 @@
                                     </div>
                                 </div>
                                 <div class="postbox-details-nevigation-content">
-                                    <span>Next Post</span>
+                                    <span>{{ __('Next Post') }}</span>
                                     <h4 class="postbox-details-nevigation-title">{!! nl2br(e($relatedBlogs->first()->getTranslatedTitle())) !!}</h4>
                                 </div>
                             </div>

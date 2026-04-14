@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasLocalizedSlugs;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
+    use HasLocalizedSlugs;
+
     protected $fillable = [
+        'slug_ar',
+        'slug_en',
         'title',
         'description',
         'features',

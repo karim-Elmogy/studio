@@ -73,6 +73,8 @@ return [
     'Blog' => 'Blog',
     'Contact' => 'Contact',
     'Contact Us' => 'Contact Us',
+    'Projects' => 'Projects',
+    'FAQ' => 'FAQ',
 ];
 
 

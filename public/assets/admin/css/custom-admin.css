@@ -1,5 +1,28 @@
 /* Custom Admin Panel Styles */
 
+/* Reduce horizontal overflow (100vw in theme + scrollbar) that can throw off fixed layout when resizing / DevTools */
+html,
+body.app-default {
+    overflow-x: hidden;
+}
+
+/* Admin header: two columns — start block grows; do NOT use flex `order` in RTL (breaks Metronic + centers the toolbar). */
+#kt_app_header_wrapper {
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+#kt_app_header_start {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+#kt_app_header_wrapper > .app-navbar {
+    flex: 0 0 auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
 /* Card Improvements */
 .card {
     border-radius: 12px;

@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LanguageSwitcherController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\App;
 Route::middleware(['auth'])->group(function () {
         // Front-end Routes
     Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'index'])->name('home');
@@ -12,15 +12,15 @@ Route::middleware(['auth'])->group(function () {
 
 // Services Routes
 Route::get('/services', [\App\Http\Controllers\Front\ServiceController::class, 'index'])->name('services.index');
-Route::get('/services/{id}', [\App\Http\Controllers\Front\ServiceController::class, 'show'])->name('services.show');
+Route::get('/services/{slug}', [\App\Http\Controllers\Front\ServiceController::class, 'show'])->name('services.show');
 
 // Projects Routes
 Route::get('/projects', [\App\Http\Controllers\Front\ProjectController::class, 'index'])->name('projects.index');
-Route::get('/projects/{id}', [\App\Http\Controllers\Front\ProjectController::class, 'show'])->name('projects.show');
+Route::get('/projects/{slug}', [\App\Http\Controllers\Front\ProjectController::class, 'show'])->name('projects.show');
 
 // Blog Routes
 Route::get('/blog', [\App\Http\Controllers\Front\BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{id}', [\App\Http\Controllers\Front\BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/{slug}', [\App\Http\Controllers\Front\BlogController::class, 'show'])->name('blog.show');
 
 // Contact Route
 Route::get('/contact', [\App\Http\Controllers\Front\ContactController::class, 'index'])->name('contact.index');
@@ -103,13 +103,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('admin/contacts/{contact}/status', [\App\Http\Controllers\Admin\ContactController::class, 'updateStatus'])->name('admin.contacts.updateStatus');
 });
 
-// Language switcher
-Route::get('/lang/{locale}', function (string $locale) {
-    $allowed = ['en', 'ar'];
-    if (! in_array($locale, $allowed, true)) {
-        $locale = config('app.locale');
-    }
-    session(['locale' => $locale]);
-    App::setLocale($locale);
-    return redirect()->back();
-})->name('lang.switch');
+// Language switcher (detail pages redirect to the slug for the new locale)
+Route::get('/lang/{locale}', [LanguageSwitcherController::class, 'switch'])->name('lang.switch');

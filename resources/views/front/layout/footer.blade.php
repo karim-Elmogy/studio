@@ -86,7 +86,7 @@
                         </div>
                         @if($footerSettings->footer_address || $footerSettings->getTranslatedFooterAddressText())
                         <div class="tp-footer-widget-info">
-                            <a href="{{ $footerSettings->footer_address ?: 'https://www.google.com/maps/' }}" target="_blank">{!! nl2br(e($footerSettings->getTranslatedFooterAddressText() ?: '4517 Washington Ave. Manchester, Kentucky 39495')) !!}</a>
+                            <a href="{{ $footerSettings->footer_address ?: 'https://www.google.com/maps/' }}" target="_blank">{!! nl2br(e($footerSettings->getTranslatedFooterAddressText() ?: __('4517 Washington Ave. Manchester, Kentucky 39495'))) !!}</a>
                         </div>
                         @endif
                     </div>
@@ -107,12 +107,12 @@
             <div class="tp-copyright-bottom">
                 <div class="row">
                     <div class="col-lg-5">
-                        <div class="tp-copyright-left text-center text-lg-start">
-                            <span>{{ $footerSettings->footer_copyright_text ?: '©2025 Agntix Design Studio.' }}</span>
+                        <div class="tp-copyright-left text-center {{ app()->getLocale() == 'ar' ? 'text-lg-end' : 'text-lg-start' }}">
+                            <span>{{ $footerSettings->footer_copyright_text ?: __('©2025 Agntix Design Studio.') }}</span>
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <div class="tp-copyright-right text-center text-lg-end">
+                        <div class="tp-copyright-right text-center {{ app()->getLocale() == 'ar' ? 'text-lg-start' : 'text-lg-end' }}">
                             <a href="{{ $footerSettings->footer_terms_url ?: '#' }}">{{ $footerSettings->getTranslatedFooterTermsText() ?: __('Terms and Conditions') }}</a>
                             <a href="{{ $footerSettings->footer_privacy_url ?: '#' }}">{{ $footerSettings->getTranslatedFooterPrivacyText() ?: __('Privacy Policy') }}</a>
                         </div>

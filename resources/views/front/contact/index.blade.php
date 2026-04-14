@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="tp-contact-us-text d-none d-md-block text-md-end">
+                            <div class="tp-contact-us-text d-none d-md-block {{ app()->getLocale() == 'ar' ? 'text-md-start' : 'text-md-end' }}">
                                 <p>{{ $pageSettings->getTranslatedMapText() }}</p>
                             </div>
                         </div>

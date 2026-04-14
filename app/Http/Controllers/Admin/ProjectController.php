@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Support\UrlSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -30,9 +32,16 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'slug_en' => UrlSlug::normalize((string) $request->input('slug_en')),
+            'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
+        ]);
+
         $validated = $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
+            'slug_en' => ['required', 'string', 'max:255', Rule::unique('projects', 'slug_en')],
+            'slug_ar' => ['required', 'string', 'max:255', Rule::unique('projects', 'slug_ar')],
             'description_en' => 'nullable|string',
             'description_ar' => 'nullable|string',
             'category_en' => 'required|string|max:255',
@@ -61,6 +70,8 @@ class ProjectController extends Controller
         }
 
         Project::create([
+            'slug_en' => $validated['slug_en'],
+            'slug_ar' => $validated['slug_ar'],
             'title' => [
                 'en' => $validated['title_en'],
                 'ar' => $validated['title_ar'],
@@ -99,9 +110,16 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project)
     {
+        $request->merge([
+            'slug_en' => UrlSlug::normalize((string) $request->input('slug_en')),
+            'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
+        ]);
+
         $validated = $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
+            'slug_en' => ['required', 'string', 'max:255', Rule::unique('projects', 'slug_en')->ignore($project->id)],
+            'slug_ar' => ['required', 'string', 'max:255', Rule::unique('projects', 'slug_ar')->ignore($project->id)],
             'description_en' => 'nullable|string',
             'description_ar' => 'nullable|string',
             'category_en' => 'required|string|max:255',
@@ -135,6 +153,8 @@ class ProjectController extends Controller
         }
 
         $project->update([
+            'slug_en' => $validated['slug_en'],
+            'slug_ar' => $validated['slug_ar'],
             'title' => [
                 'en' => $validated['title_en'],
                 'ar' => $validated['title_ar'],

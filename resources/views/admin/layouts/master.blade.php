@@ -127,11 +127,7 @@
                 font-family: "Tajawal", sans-serif;
             }
 
-            /* RTL Custom Fixes */
-            .app-sidebar {
-                right: 0;
-                left: auto;
-            }
+            /* RTL Custom Fixes — sidebar position comes from style.bundle.rtl.css; avoid duplicating fixed/right rules (conflicts with drawer + resize). */
 
             .app-sidebar-toggle {
                 transform: scaleX(-1);
@@ -334,6 +330,26 @@
 {{-- Additional Scripts --}}
 @stack('scripts')
 <script src="{{ asset('assets/js/accounting-tree.js') }}"></script>
+
+{{-- Re-run Metronic resize handlers when viewport changes (e.g. docked DevTools) so fixed sidebar / drawer math stays correct --}}
+<script>
+    (function () {
+        var timer;
+        window.addEventListener('resize', function () {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                if (typeof KTUtil === 'undefined') {
+                    return;
+                }
+                if (typeof KTUtil.runResizeHandlers === 'function') {
+                    KTUtil.runResizeHandlers();
+                } else if (typeof KTUtil.resize === 'function') {
+                    KTUtil.resize();
+                }
+            }, 150);
+        });
+    })();
+</script>
 
 </body>
 </html>

@@ -224,8 +224,8 @@
                 <div class="row gx-20">
                     @foreach($relatedProjects->take(2) as $relatedProject)
                     <div class="col-lg-6">
-                        <div class="tp-pd-3-navigation-thumb-wrap tp-pd-3-navigation-thumb-overlay p-relative not-hide-cursor mb-20" data-cursor="View<br>Demo">
-                            <a class="cursor-hide" href="{{ route('projects.show', $relatedProject->id) }}">
+                        <div class="tp-pd-3-navigation-thumb-wrap tp-pd-3-navigation-thumb-overlay p-relative not-hide-cursor mb-20" data-cursor="{!! __('View<br>Demo') !!}">
+                            <a class="cursor-hide" href="{{ route('projects.show', $relatedProject->getFrontSlug()) }}">
                                 <div class="tp-pd-3-navigation-thumb">
                                     <img src="{{ asset('storage/' . $relatedProject->image) }}" alt="{{ $relatedProject->title[app()->getLocale()] ?? $relatedProject->title['en'] }}">
                                 </div>

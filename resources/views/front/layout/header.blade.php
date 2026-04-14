@@ -62,8 +62,8 @@
                                     <li class="has-dropdown">
                                         <a href="#">{{ strtoupper(app()->getLocale()) }}</a>
                                         <ul class="tp-submenu submenu">
-                                            <li><a href="{{ route('lang.switch', 'en') }}" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">English</a></li>
-                                            <li><a href="{{ route('lang.switch', 'ar') }}" class="{{ app()->getLocale() == 'ar' ? 'active' : '' }}">Arabic</a></li>
+                                            <li><a href="{{ route('lang.switch', ['locale' => 'en', 'return' => request()->getRequestUri()]) }}" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">{{ __('English') }}</a></li>
+                                            <li><a href="{{ route('lang.switch', ['locale' => 'ar', 'return' => request()->getRequestUri()]) }}" class="{{ app()->getLocale() == 'ar' ? 'active' : '' }}">{{ __('Arabic') }}</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -85,7 +85,7 @@
                                             </svg>
                                         </span>
                                     <span class="tp-btn-black-filter d-inline-flex align-items-center" style="filter: url(#buttonFilter)">
-                                            <span class="tp-btn-black-text">Get in Touch</span>
+                                            <span class="tp-btn-black-text">{{ __('Get in Touch') }}</span>
                                             <span class="tp-btn-black-circle">
                                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1 9L9 1M9 1H1M9 1V9" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

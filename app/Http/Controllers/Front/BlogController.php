@@ -20,13 +20,13 @@ class BlogController extends Controller
         return view('front.blog.index', compact('blogs', 'pageSettings'));
     }
 
-    public function show($id)
+    public function show(string $slug)
     {
-        $blog = Blog::where('is_active', true)->findOrFail($id);
+        $blog = Blog::activeByRouteSlug($slug)->firstOrFail();
 
         // Get related blog posts
         $relatedBlogs = Blog::where('is_active', true)
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $blog->id)
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();

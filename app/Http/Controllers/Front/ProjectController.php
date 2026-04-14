@@ -20,13 +20,13 @@ class ProjectController extends Controller
         return view('front.projects.index', compact('projects', 'pageSettings'));
     }
 
-    public function show($id)
+    public function show(string $slug)
     {
-        $project = Project::where('is_active', true)->findOrFail($id);
+        $project = Project::activeByRouteSlug($slug)->firstOrFail();
 
         // Get related projects
         $relatedProjects = Project::where('is_active', true)
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $project->id)
             ->orderBy('order')
             ->limit(3)
             ->get();

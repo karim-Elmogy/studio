@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Support\UrlSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class BlogController extends Controller
 {
@@ -22,9 +24,16 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'slug_en' => UrlSlug::normalize((string) $request->input('slug_en')),
+            'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
+        ]);
+
         $validated = $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
+            'slug_en' => ['required', 'string', 'max:255', Rule::unique('blogs', 'slug_en')],
+            'slug_ar' => ['required', 'string', 'max:255', Rule::unique('blogs', 'slug_ar')],
             'content_en' => 'required|string',
             'content_ar' => 'required|string',
             'excerpt_en' => 'nullable|string',
@@ -61,6 +70,8 @@ class BlogController extends Controller
         }
 
         Blog::create([
+            'slug_en' => $validated['slug_en'],
+            'slug_ar' => $validated['slug_ar'],
             'title' => [
                 'en' => $validated['title_en'],
                 'ar' => $validated['title_ar'],
@@ -104,9 +115,16 @@ class BlogController extends Controller
 
     public function update(Request $request, Blog $blog)
     {
+        $request->merge([
+            'slug_en' => UrlSlug::normalize((string) $request->input('slug_en')),
+            'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
+        ]);
+
         $validated = $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
+            'slug_en' => ['required', 'string', 'max:255', Rule::unique('blogs', 'slug_en')->ignore($blog->id)],
+            'slug_ar' => ['required', 'string', 'max:255', Rule::unique('blogs', 'slug_ar')->ignore($blog->id)],
             'content_en' => 'required|string',
             'content_ar' => 'required|string',
             'excerpt_en' => 'nullable|string',
@@ -153,6 +171,8 @@ class BlogController extends Controller
         }
 
         $blog->update([
+            'slug_en' => $validated['slug_en'],
+            'slug_ar' => $validated['slug_ar'],
             'title' => [
                 'en' => $validated['title_en'],
                 'ar' => $validated['title_ar'],

@@ -73,6 +73,8 @@ return [
     'Blog' => 'المدونة',
     'Contact' => 'اتصل بنا',
     'Contact Us' => 'اتصل بنا',
+    'Projects' => 'المشاريع',
+    'FAQ' => 'الأسئلة الشائعة',
 
     // Additional Actions
     'View' => 'عرض',

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Support\UrlSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ServiceController extends Controller
 {
@@ -31,9 +33,16 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'slug_en' => UrlSlug::normalize((string) $request->input('slug_en')),
+            'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
+        ]);
+
         $validated = $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
+            'slug_en' => ['required', 'string', 'max:255', Rule::unique('services', 'slug_en')],
+            'slug_ar' => ['required', 'string', 'max:255', Rule::unique('services', 'slug_ar')],
             'description_en' => 'required|string',
             'description_ar' => 'required|string',
             'features_en' => 'nullable|string',
@@ -132,6 +141,8 @@ class ServiceController extends Controller
         }
 
         Service::create([
+            'slug_en' => $validated['slug_en'],
+            'slug_ar' => $validated['slug_ar'],
             'title' => [
                 'en' => $validated['title_en'],
                 'ar' => $validated['title_ar']
@@ -203,22 +214,26 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Service $service)
     {
-        $service = Service::findOrFail($id);
         return view('admin.services.edit', compact('service'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Service $service)
     {
-        $service = Service::findOrFail($id);
+        $request->merge([
+            'slug_en' => UrlSlug::normalize((string) $request->input('slug_en')),
+            'slug_ar' => UrlSlug::normalize((string) $request->input('slug_ar')),
+        ]);
 
         $validated = $request->validate([
             'title_en' => 'required|string|max:255',
             'title_ar' => 'required|string|max:255',
+            'slug_en' => ['required', 'string', 'max:255', Rule::unique('services', 'slug_en')->ignore($service->id)],
+            'slug_ar' => ['required', 'string', 'max:255', Rule::unique('services', 'slug_ar')->ignore($service->id)],
             'description_en' => 'required|string',
             'description_ar' => 'required|string',
             'features_en' => 'nullable|string',
@@ -340,6 +355,8 @@ class ServiceController extends Controller
         }
 
         $service->update([
+            'slug_en' => $validated['slug_en'],
+            'slug_ar' => $validated['slug_ar'],
             'title' => [
                 'en' => $validated['title_en'],
                 'ar' => $validated['title_ar']
@@ -403,9 +420,8 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Service $service)
     {
-        $service = Service::findOrFail($id);
 
         // Delete associated files
         if ($service->icon && Storage::disk('public')->exists($service->icon)) {

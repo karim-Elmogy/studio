@@ -3,11 +3,23 @@
     <div class="app-container container-xxl d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
 
 
-        {{-- Begin::Header wrapper --}}
-        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
+        {{-- Begin::Header wrapper: #kt_app_header_start grows; .app-navbar uses ms-auto for trailing edge in both LTR and RTL --}}
+        <div class="d-flex align-items-stretch flex-lg-grow-1 w-100" id="kt_app_header_wrapper">
+
+            <div class="d-flex align-items-stretch flex-grow-1 min-w-0" id="kt_app_header_start">
+
+            {{-- Sidebar drawer toggle: must match #kt_app_sidebar data-kt-drawer-toggle (hidden on lg+ where sidebar is always visible) --}}
+            <div class="d-flex align-items-center d-lg-none ms-n2 me-2 flex-shrink-0" title="{{ __('admin.open_sidebar') }}">
+                <div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
+                    <i class="ki-duotone ki-abstract-14 fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </div>
+            </div>
 
             {{-- Begin::Menu wrapper --}}
-            <div class="app-header-menu app-header-mobile-drawer align-items-stretch"
+            <div class="app-header-menu app-header-mobile-drawer align-items-stretch flex-grow-1 min-w-0"
                  data-kt-drawer="true"
                  data-kt-drawer-name="app-header-menu"
                  data-kt-drawer-activate="{default: true, lg: false}"
@@ -28,11 +40,14 @@
             </div>
             {{-- End::Menu wrapper --}}
 
-            {{-- Begin::Navbar --}}
-            <div class="app-navbar flex-shrink-0">
+            </div>
+            {{-- End::kt_app_header_start --}}
+
+            {{-- Begin::Navbar: ms-auto = trailing edge (right in LTR, left in RTL) — same pattern as Metronic --}}
+            <div class="app-navbar flex-shrink-0 align-items-center gap-2 gap-md-3 ms-auto">
 
                 {{-- Begin::Search --}}
-                <div class="app-navbar-item align-items-stretch ms-1 ms-md-3">
+                <div class="app-navbar-item align-items-stretch">
                     <div id="kt_header_search" class="header-search d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'bottom-start' : 'bottom-end' }}">
                         <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
                             <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
@@ -47,7 +62,7 @@
                 {{-- End::Search --}}
 
                 {{-- Begin::Activities --}}
-                <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="app-navbar-item">
                     <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" id="kt_activities_toggle">
                         <i class="ki-duotone ki-chart-simple fs-2 fs-lg-1">
                             <span class="path1"></span>
@@ -60,7 +75,7 @@
                 {{-- End::Activities --}}
 
                 {{-- Begin::Notifications --}}
-                <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="app-navbar-item">
                     <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'bottom-start' : 'bottom-end' }}">
                         <i class="ki-duotone ki-abstract-4 fs-2 fs-lg-1">
                             <span class="path1"></span>
@@ -71,7 +86,7 @@
                 {{-- End::Notifications --}}
 
                 {{-- Begin::Chat --}}
-                <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="app-navbar-item">
                     <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
                         <i class="ki-duotone ki-message-text-2 fs-2 fs-lg-1">
                             <span class="path1"></span>
@@ -84,7 +99,7 @@
                 {{-- End::Chat --}}
 
                 {{-- Begin::My apps --}}
-                <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="app-navbar-item">
                     <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'bottom-start' : 'bottom-end' }}">
                         <i class="ki-duotone ki-element-11 fs-2 fs-lg-1">
                             <span class="path1"></span>
@@ -97,7 +112,7 @@
                 {{-- End::My apps --}}
 
                 {{-- Begin::Theme mode --}}
-                <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="app-navbar-item">
                     <a href="#" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'bottom-start' : 'bottom-end' }}">
                         <i class="ki-duotone ki-night-day theme-light-show fs-2 fs-lg-1">
                             <span class="path1"></span>
@@ -166,7 +181,7 @@
                 {{-- End::Theme mode --}}
 
                 {{-- Begin::Language Switcher --}}
-                <div class="app-navbar-item ms-1 ms-md-3">
+                <div class="app-navbar-item">
                     <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'bottom-start' : 'bottom-end' }}">
                         <i class="ki-duotone ki-global fs-2 fs-lg-1">
                             <span class="path1"></span>
@@ -212,7 +227,7 @@
                 {{-- End::Language Switcher --}}
 
                 {{-- Begin::User menu --}}
-                <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
+                <div class="app-navbar-item" id="kt_header_user_menu_toggle">
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'bottom-start' : 'bottom-end' }}">
                         <img src="{{ asset('assets/media/avatars/300-1.jpg') }}" alt="user" />
                     </div>
@@ -255,7 +270,7 @@
                 </div>
                 {{-- End::User menu --}}
 
-                {{-- Begin::Header menu toggle --}}
+                <!-- {{-- Begin::Header menu toggle --}}
                 <div class="app-navbar-item d-lg-none ms-2 me-n2" title="Show header menu">
                     <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px" id="kt_app_header_menu_toggle">
                         <i class="ki-duotone ki-element-4 fs-1">
@@ -264,7 +279,7 @@
                         </i>
                     </div>
                 </div>
-                {{-- End::Header menu toggle --}}
+                {{-- End::Header menu toggle --}} -->
 
             </div>
             {{-- End::Navbar --}}

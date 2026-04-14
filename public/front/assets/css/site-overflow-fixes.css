@@ -1,0 +1,15 @@
+/*
+ * Horizontal overflow fixes (hero mega-type, image-trail layer, ScrollSmoother).
+ * Without this, refresh can show a bottom horizontal scrollbar when fonts/JS finish layout.
+ */
+html {
+    overflow-x: hidden;
+}
+
+#smooth-wrapper {
+    overflow-x: hidden;
+}
+
+.studio-hero-area {
+    overflow-x: hidden;
+}

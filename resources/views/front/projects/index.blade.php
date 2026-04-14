@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="tp-hero-2-btn-box text-center text-md-end tp_fade_anim" data-delay=".7" data-on-scroll="3">
+                            <div class="tp-hero-2-btn-box text-center {{ app()->getLocale() == 'ar' ? 'text-md-start' : 'text-md-end' }} tp_fade_anim" data-delay=".7" data-on-scroll="3">
                                 <a class="tp-btn-border" href="{{ $pageSettings->button_url ?? '#' }}">
                                     {{ $pageSettings->getTranslatedButtonText() }}
                                     <span>
@@ -60,8 +60,8 @@
                     <div class="col-xl-12">
                         <div class="showcase-portfolio-wrap pt-130 pb-60">
                             @forelse($projects as $project)
-                                <div class="des-portfolio-item showcase-portfolio-panel p-relative not-hide-cursor mb-30" data-cursor="View<br>Demo">
-                                    <a class="cursor-hide" href="{{ route('projects.show', $project->id) }}">
+                                <div class="des-portfolio-item showcase-portfolio-panel p-relative not-hide-cursor mb-30" data-cursor="{!! __('View<br>Demo') !!}">
+                                    <a class="cursor-hide" href="{{ route('projects.show', $project->getFrontSlug()) }}">
                                         <div class="des-portfolio-thumb p-relative">
                                             @if($project->image)
                                                 <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->getTranslatedTitle() }}">
@@ -93,8 +93,8 @@
                                 <div class="col-12 text-center py-10">
                                     <div class="d-flex flex-column align-items-center">
                                         <i class="fa-solid fa-folder-open fs-3x text-gray-400 mb-4"></i>
-                                        <span class="text-gray-600 fs-4 fw-bold mb-2">لا توجد مشاريع</span>
-                                        <span class="text-muted fs-6">لم يتم إضافة أي مشاريع بعد</span>
+                                        <span class="text-gray-600 fs-4 fw-bold mb-2">{{ __('No projects available') }}</span>
+                                        <span class="text-muted fs-6">{{ __('No projects have been added yet.') }}</span>
                                     </div>
                                 </div>
                             @endforelse

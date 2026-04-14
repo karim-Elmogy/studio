@@ -123,7 +123,7 @@
                                             @if($service->getTranslatedFeatures())
                                                 <div class="inner-service-1-category">
                                                     @foreach($service->getTranslatedFeatures() as $feature)
-                                                        <a href="{{ route('services.show', $service->id) }}" class="inner-service-1-category-item d-flex justify-content-between align-items-center">
+                                                        <a href="{{ route('services.show', $service->getFrontSlug()) }}" class="inner-service-1-category-item d-flex justify-content-between align-items-center">
                                                             <span>{{ $feature }}</span>
                                                             <i>
                                                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

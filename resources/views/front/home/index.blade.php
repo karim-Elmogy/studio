@@ -126,7 +126,7 @@
                                         <div class="row">
 
                                             <div class="col-xl-12">
-                                                <div class="creative-2-hero-btn-wrap text-xl-end">
+                                                <div class="creative-2-hero-btn-wrap {{ app()->getLocale() == 'ar' ? 'text-xl-start' : 'text-xl-end' }}">
                                                     <div class="creative-2-hero-btn">
                                                         <a href="{{ $pageSettings->hero_button1_url ?? '#' }}" class="tp-btn-black btn-green-light-bg pb-10 pr-15">
                                                             <span class="tp-btn-black-filter-blur">
@@ -284,7 +284,7 @@
                                      </div>
                                  </div>
                                  <div class="col-lg-4">
-                                     <div class="creative-project-2-btn text-lg-end tp_fade_anim" data-fade-from="top" data-delay=".3" data-ease="bounce">
+                                     <div class="creative-project-2-btn {{ app()->getLocale() == 'ar' ? 'text-lg-start' : 'text-lg-end' }} tp_fade_anim" data-fade-from="top" data-delay=".3" data-ease="bounce">
                                          <a href="{{ $pageSettings->projects_button_url ?? '#' }}" class="tp-btn-black btn-green-light-bg mb-20">
                                                         <span class="tp-btn-black-filter-blur">
                                                             <svg width="0" height="0">
@@ -316,8 +316,8 @@
                                  <div class="col-lg-6">
                                      <div class="creative-project-item mb-100 {{ $loop->iteration % 2 == 0 ? 'fix' : '' }}">
                                          <div class="creative-project-thumb anim-zoomin-wrap p-relative">
-                                             <div class="anim-zoomin not-hide-cursor" data-cursor="View<br>Demo">
-                                                 <a class="cursor-hide" href="{{ route('projects.show', $project->id) }}">
+                                             <div class="anim-zoomin not-hide-cursor" data-cursor="{!! __('View<br>Demo') !!}">
+                                                 <a class="cursor-hide" href="{{ route('projects.show', $project->getFrontSlug()) }}">
                                                      <img src="{{ $project->getImageUrl() }}" alt="{{ $project->getTranslatedTitle() }}">
                                                  </a>
                                              </div>
@@ -332,7 +332,7 @@
                                                  <span>{{ $project->year }}</span>
                                                  <span>{{ $project->client }}</span>
                                              </div>
-                                             <h4 class="creative-project-title-sm"><a class="tp-line-white" href="{{ route('projects.show', $project->id) }}">{{ $project->getTranslatedTitle() }}</a></h4>
+                                             <h4 class="creative-project-title-sm"><a class="tp-line-white" href="{{ route('projects.show', $project->getFrontSlug()) }}">{{ $project->getTranslatedTitle() }}</a></h4>
                                          </div>
                                      </div>
                                  </div>
@@ -400,7 +400,7 @@
                                             <span>({{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }})</span>
                                             <div class="creative-service-title-info">
                                                 <h4 class="creative-service-title">
-                                                    <a href="{{ route('services.show', $service->id) }}">
+                                                    <a href="{{ route('services.show', $service->getFrontSlug()) }}">
                                                         {{ $service->getTranslatedTitle() }}
                                                     </a>
                                                 </h4>
@@ -414,7 +414,7 @@
                                             </div>
                                         </div>
                                         <div class="creative-service-link">
-                                            <a href="{{ route('services.show', $service->id) }}">
+                                            <a href="{{ route('services.show', $service->getFrontSlug()) }}">
                                                 <span>
                                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M1 13L13 1M13 1H1M13 1V13" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -668,7 +668,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-6">
-                                    <div class="creative-blog-top-content text-lg-end">
+                                    <div class="creative-blog-top-content {{ app()->getLocale() == 'ar' ? 'text-lg-start' : 'text-lg-end' }}">
                                         <a href="{{ $pageSettings->blog_button_url ?? route('blog.index') }}" class="tp-btn-black btn-green-light-bg pr-15">
                                             <span class="tp-btn-black-filter-blur">
                                                 <svg width="0" height="0">

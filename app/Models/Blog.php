@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasLocalizedSlugs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class Blog extends Model
 {
+    use HasLocalizedSlugs;
+
     protected $fillable = [
+        'slug_ar',
+        'slug_en',
         'title',
         'content',
         'excerpt',
@@ -88,7 +93,7 @@ class Blog extends Model
      */
     public function getUrl(): string
     {
-        return route('blog.show', $this->id);
+        return route('blog.show', $this->getFrontSlug());
     }
 
     /**

@@ -9,7 +9,7 @@
     <div class="separator my-2"></div>
 
     <div class="menu-item px-3">
-        <a href="{{ route('lang.switch', 'en') }}"
+        <a href="{{ route('lang.switch', ['locale' => 'en', 'return' => request()->getRequestUri()]) }}"
            class="menu-link px-3 {{ app()->getLocale() == 'en' ? 'active' : '' }}">
             <span class="menu-icon">
                 <span class="fi fi-us fs-4"></span>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="menu-item px-3">
-        <a href="{{ route('lang.switch', 'ar') }}"
+        <a href="{{ route('lang.switch', ['locale' => 'ar', 'return' => request()->getRequestUri()]) }}"
            class="menu-link px-3 {{ app()->getLocale() == 'ar' ? 'active' : '' }}">
             <span class="menu-icon">
                 <span class="fi fi-sa fs-4"></span>

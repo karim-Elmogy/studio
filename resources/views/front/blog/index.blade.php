@@ -66,7 +66,7 @@
                                     </a>
                                 </div>
                                 @endif
-                                <a href="{{ route('blog.show', $blog->id) }}"><img src="{{ $blog->getImageUrl() }}" alt="{{ $blog->getTranslatedTitle() }}"></a>
+                                <a href="{{ route('blog.show', $blog->getFrontSlug()) }}"><img src="{{ $blog->getImageUrl() }}" alt="{{ $blog->getTranslatedTitle() }}"></a>
                             </div>
                             <div class="tp-blog-masonry-content">
                                 <div class="tp-blog-masonry-tag mb-15">
@@ -74,9 +74,9 @@
                                             <path d="M4.39012 4.13048H4.39847M13.6056 8.14369L8.74375 12.6328C8.6178 12.7492 8.46823 12.8415 8.30359 12.9046C8.13896 12.9676 7.96248 13 7.78426 13C7.60604 13 7.42956 12.9676 7.26493 12.9046C7.10029 12.8415 6.95072 12.7492 6.82477 12.6328L1 7.2609V1H7.78087L13.6056 6.37811C13.8582 6.61273 14 6.93009 14 7.2609C14 7.59171 13.8582 7.90908 13.6056 8.14369Z" stroke="white" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg> {{ $blog->getTranslatedCategory() }}</span>
                                 </div>
-                                <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="{{ route('blog.show', $blog->id) }}">{{ $blog->getTranslatedTitle() }}</a></h4>
+                                <h4 class="tp-blog-masonry-title fs-30"><a class="tp-line-white" href="{{ route('blog.show', $blog->getFrontSlug()) }}">{{ $blog->getTranslatedTitle() }}</a></h4>
                                 <div class="tp-blog-masonry-btn">
-                                    <a href="{{ route('blog.show', $blog->id) }}">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <a href="{{ route('blog.show', $blog->getFrontSlug()) }}">{{ __('Read More') }} <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                 <path d="M1 11L11 1M11 1H1M11 1V11" stroke="#05a5c5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">

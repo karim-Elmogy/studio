@@ -259,8 +259,8 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="tp-service-5-price-item-head text-lg-end">
-                                <a href="{{ route('services.show', $relatedService->id) }}" class="tp-btn-border" style="color: white" >{{ __('View Details') }}</a>
+                            <div class="tp-service-5-price-item-head {{ app()->getLocale() == 'ar' ? 'text-lg-start' : 'text-lg-end' }}">
+                                <a href="{{ route('services.show', $relatedService->getFrontSlug()) }}" class="tp-btn-border" style="color: white" >{{ __('View Details') }}</a>
                             </div>
                         </div>
                     </div>

@@ -20,13 +20,13 @@ class ServiceController extends Controller
         return view('front.services.index', compact('services', 'pageSettings'));
     }
 
-    public function show($id)
+    public function show(string $slug)
     {
-        $service = Service::where('is_active', true)->findOrFail($id);
+        $service = Service::activeByRouteSlug($slug)->firstOrFail();
 
         // Get related services
         $relatedServices = Service::where('is_active', true)
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $service->id)
             ->orderBy('order')
             ->limit(3)
             ->get();
