@@ -415,6 +415,28 @@ return [
     'terms_url' => 'Terms URL',
     'privacy_url' => 'Privacy URL',
 
+    // WhatsApp floating widget
+    'whatsapp_widget_settings' => 'WhatsApp floating button',
+    'whatsapp_widget_enable' => 'Show WhatsApp button on the website',
+    'whatsapp_widget_enable_help' => 'When enabled, a tilted floating WhatsApp icon appears on all public pages (if a valid number is set).',
+    'whatsapp_widget_phone' => 'WhatsApp number',
+    'whatsapp_widget_phone_help' => 'Country code and number. Spaces and + are allowed; only digits are sent to WhatsApp.',
+    'whatsapp_widget_phone_required_when_enabled' => 'Enter a phone number when the button is enabled.',
+    'whatsapp_widget_default_message' => 'Prefilled message (optional)',
+    'whatsapp_widget_default_message_help' => 'Opens the chat with this text already in the message field.',
+    'whatsapp_widget_position' => 'Horizontal position',
+    'whatsapp_widget_position_right' => 'Right',
+    'whatsapp_widget_position_left' => 'Left',
+    'whatsapp_widget_page_subtitle' => 'Control the floating WhatsApp button on all public pages.',
+    'whatsapp_widget_section_status' => 'Visibility',
+    'whatsapp_widget_section_chat' => 'Chat link',
+    'whatsapp_widget_section_appearance' => 'Placement',
+    'whatsapp_widget_tips_title' => 'Quick tips',
+    'whatsapp_widget_tip_1' => 'Include your country code (e.g. 966 for Saudi Arabia). Spaces and + are fine.',
+    'whatsapp_widget_tip_2' => 'The button sits above the “back to top” control so both stay easy to reach.',
+    'whatsapp_widget_tip_3' => 'Leave the prefilled message empty if you prefer an empty compose field.',
+    'whatsapp_widget_position_help' => 'Right is the usual choice; pick Left if it clashes with another fixed widget.',
+
     // Home Page Settings - New Sections
     'projects_section' => 'Projects Section',
     'projects_subtitle' => 'Projects Subtitle',

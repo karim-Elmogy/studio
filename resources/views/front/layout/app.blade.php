@@ -57,6 +57,7 @@
     @endif
 
     <link rel="stylesheet" href="{{ asset('front/assets/css/site-overflow-fixes.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/whatsapp-float.css') }}">
 
 </head>
 
@@ -209,6 +210,8 @@
                 @include('front.layout.footer')
             </div>
         </div>
+
+        @include('front.layout.whatsapp-float')
 
         <script src="{{ asset('front/assets/js/vendor/jquery.js') }}"></script>
         <script src="{{ asset('front/assets/js/bootstrap-bundle.js') }}"></script>

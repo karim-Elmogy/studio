@@ -82,4 +82,6 @@ return [
     'results' => 'نتيجة',
     'no_results' => 'لا توجد نتائج',
     'loading' => 'جاري التحميل...',
+
+    'whatsapp_open_chat' => 'تواصل عبر واتساب',
 ];

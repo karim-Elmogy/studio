@@ -533,6 +533,28 @@ return [
     'terms_url' => 'رابط الشروط',
     'privacy_url' => 'رابط الخصوصية',
 
+    // WhatsApp floating widget
+    'whatsapp_widget_settings' => 'زر واتساب عائم',
+    'whatsapp_widget_enable' => 'إظهار زر واتساب على الموقع',
+    'whatsapp_widget_enable_help' => 'عند التفعيل يظهر زر واتساب مائل على كل الصفحات العامة (بعد إدخال رقم صالح).',
+    'whatsapp_widget_phone' => 'رقم واتساب',
+    'whatsapp_widget_phone_help' => 'رمز الدولة ثم الرقم. يمكن استخدام المسافات و +؛ يُرسل إلى واتساب الأرقام فقط.',
+    'whatsapp_widget_phone_required_when_enabled' => 'أدخل رقم الهاتف عند تفعيل الزر.',
+    'whatsapp_widget_default_message' => 'رسالة جاهزة (اختياري)',
+    'whatsapp_widget_default_message_help' => 'تفتح المحادثة وهذه الرسالة مكتوبة مسبقاً في حقل الرسالة.',
+    'whatsapp_widget_position' => 'الموضع أفقياً',
+    'whatsapp_widget_position_right' => 'يمين',
+    'whatsapp_widget_position_left' => 'يسار',
+    'whatsapp_widget_page_subtitle' => 'تحكّم في زر واتساب العائم على كل الصفحات العامة للموقع.',
+    'whatsapp_widget_section_status' => 'حالة الزر',
+    'whatsapp_widget_section_chat' => 'رابط المحادثة',
+    'whatsapp_widget_section_appearance' => 'موضع الزر',
+    'whatsapp_widget_tips_title' => 'نصائح سريعة',
+    'whatsapp_widget_tip_1' => 'أدخل رمز الدولة مع الرقم (مثلاً 966 للسعودية). المسافات و + مسموحة.',
+    'whatsapp_widget_tip_2' => 'الزر يظهر أعلى زر العودة للأعلى قليلاً حتى يبقى الاثنان سهل الاستخدام.',
+    'whatsapp_widget_tip_3' => 'يمكنك ترك الرسالة الجاهزة فارغة لفتح محادثة بدون نص مسبق.',
+    'whatsapp_widget_position_help' => 'اليمين هو الأكثر شيوعاً؛ اختر اليسار لو كان يتعارض مع عنصر ثابت آخر على الصفحة.',
+
     // Home Page Settings - New Sections
     'projects_section' => 'قسم المشاريع',
     'projects_subtitle' => 'عنوان فرعي للمشاريع',

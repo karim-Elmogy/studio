@@ -82,4 +82,6 @@ return [
     'results' => 'results',
     'no_results' => 'No results found',
     'loading' => 'Loading...',
+
+    'whatsapp_open_chat' => 'Chat on WhatsApp',
 ];

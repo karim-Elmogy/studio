@@ -242,6 +242,15 @@
                     </div>
                 </div>
 
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.whatsapp-widget-settings.*') ? 'active' : '' }}" href="{{ route('admin.whatsapp-widget-settings.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fa-brands fa-whatsapp fs-2"></i>
+                        </span>
+                        <span class="menu-title">{{ __('admin.whatsapp_widget_settings') }}</span>
+                    </a>
+                </div>
+
                 {{-- General Settings --}}
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
