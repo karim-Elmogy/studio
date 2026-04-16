@@ -1075,6 +1075,10 @@ input[type="color"] {
     border-radius: 9999px;
     color: var(--tp-common-white);
     background-color: var(--tp-common-black);
+    overflow: hidden;
+  text-overflow: ellipsis;   
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
     .tp-btn-black-text {
@@ -1103,6 +1107,10 @@ input[type="color"] {
     transition-duration: 0.9s;
     background: var(--tp-common-black);
     transition-timing-function: cubic-bezier(0.135, 0.9, 0.15, 1);
+    overflow: hidden;
+  text-overflow: ellipsis; 
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
 }
 .tp-btn-black-circle > svg {
     width: 14px;
