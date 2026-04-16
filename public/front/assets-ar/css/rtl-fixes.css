@@ -86,6 +86,16 @@ html[dir="rtl"] .tp-hero-2-wrapper {
     }
 }
 
+/*
+ * Home hero button (RTL): the circle is on the LEFT in RTL, so pr-15 gives
+ * extra space on the wrong side and the gooey filter clips on mobile.
+ * Swap padding-right → padding-left so the filter has room on the left.
+ */
+.creative-2-hero-btn .tp-btn-black.btn-green-light-bg.pr-15 {
+    padding-right: 0 !important;
+    padding-left: 15px !important;
+}
+
 /* FAQ + Contact hero: same absolute header; push block below nav in RTL */
 html[dir="rtl"] .tp-contact-us-ptb.p-relative {
     padding-top: 92px;
