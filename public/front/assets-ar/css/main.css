@@ -1076,6 +1076,10 @@ input[type="color"] {
     border-radius: 9999px;
     color: var(--tp-common-white);
     background-color: var(--tp-common-black);
+        overflow: hidden;
+  text-overflow: ellipsis; 
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
     .tp-btn-black-text {
