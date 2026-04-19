@@ -1,3 +1,8 @@
+<style>
+    .creative-footer-style .tp-footer-widget-title {
+        font-size: clamp(1.5rem, 3vw + 0.75rem, 48px) !important;
+    }
+</style>
 <footer class="creative-footer-style black-bg-8 p-relative z-index-1">
 
     <div class="tp-footer-widget-social">
@@ -100,7 +105,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="tp-copyright-content text-center">
-                        <h2 class="tp-copyright-big-text" style="font-size: 132px">{{ $footerSettings->footer_logo_text ?: 'Agntix.studio' }}</h2>
+                        <h2 class="tp-copyright-big-text" style="font-size: clamp(2.5rem, 12vw + 1rem, 132px)">{{ $footerSettings->footer_logo_text ?: 'Agntix.studio' }}</h2>
                     </div>
                 </div>
             </div>

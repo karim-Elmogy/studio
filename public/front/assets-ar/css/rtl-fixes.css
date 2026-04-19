@@ -1,5 +1,12 @@
 /* RTL Fixes for Arabic Language */
 
+/* Preloader fix: force physical left position so spans stay centered in RTL */
+.preloader span {
+    left: 0;
+    right: auto;
+}
+
+
 /* Swap padding-left with padding-right */
 .pl-55 {
     padding-right: 55px !important;

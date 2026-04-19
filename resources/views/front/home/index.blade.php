@@ -5,7 +5,7 @@
     <style>
         .creative-2-hero-title {
             font-weight: 600;
-            font-size: 100px;
+            font-size: clamp(2.5rem, 8vw + 1rem, 100px);
             line-height: 1;
             margin-bottom: 0;
             letter-spacing: -0.04em;
@@ -49,13 +49,61 @@
             margin-inline-end: 0;
         }
 
-        @media (max-width: 767.98px) {
+        @media (max-width: 575.98px) {
+            .creative-service-title {
+                font-size: 26px !important;
+                letter-spacing: -0.02em;
+            }
+
             .creative-2-hero-title--ar {
-                line-height: 1.18;
+                line-height: 3.18 !important;
+            }
+
+            .creative-2-hero-title {
+                margin: 20px 0 !important;
             }
 
             .creative-2-hero-title--ar::after {
                 width: min(5rem, 55%);
+            }
+
+            .creative-project-2-top {
+                margin-bottom: 40px;
+            }
+
+            .creative-project-2-top .tp-section-subtitle {
+                margin-bottom: 30px;
+            }
+
+            .creative-service-2-style .tp-section-subtitle {
+                margin-bottom: 30px;
+            }
+
+            .creative-2-hero-wrap.pt-180 {
+                padding-top: 100px;
+            }
+
+            .creative-service-wrap .offset-xl-3 {
+                margin-left: 0;
+            }
+
+            .creative-blog-title-box {
+                padding-left: 0;
+            }
+
+            .creative-service-content {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .creative-service-title-info {
+                min-width: 0;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .creative-service-title {
+                font-size: 38px !important;
             }
         }
 
@@ -86,7 +134,7 @@
 
         .creative-service-title {
             font-weight: 400;
-            font-size: 134px;
+            font-size: clamp(1.5rem, 5vw + 0.5rem, 134px);
             line-height: 1;
             margin-bottom: 20px;
             letter-spacing: -0.04em;
@@ -94,16 +142,17 @@
         }
         .tp-section-title.fs-44 {
             font-weight: 600;
-            font-size: 44px;
+            font-size: clamp(1.5rem, 3vw + 0.75rem, 44px);
             line-height: 1.18;
             margin-bottom: 0;
+            padding-bottom : 20px;
             letter-spacing: -0.03em;
             text-transform: capitalize;
             color: white;
         }
 
         .creative-blog-title-box {
-            padding-left: 80px;
+            padding-left: clamp(0px, 5vw, 80px);
         }
 
         .creative-service-item.about-us-4 .creative-service-title a {

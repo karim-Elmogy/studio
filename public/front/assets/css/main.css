@@ -7451,7 +7451,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .postbox-title.fs-80 {
-        font-size: 45px;
+        font-size: 22px !important;
         letter-spacing: 0;
     }
 }
@@ -9371,7 +9371,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .tp-blog-title {
-        font-size: 55px;
+        font-size: 40px !important;
         letter-spacing: 0;
     }
 }
@@ -21804,7 +21804,8 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .des-portfolio-title {
-        font-size: 60px;
+       font-size: 35px !important;
+        margin-bottom: 35px;
     }
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
@@ -35853,7 +35854,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .tp-career-title.fs-60 {
-        font-size: 50px;
+        font-size: 30px !important;
     }
 }
 .tp-career-shape-1 {
@@ -36689,6 +36690,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .tp-contact-us-heading .tp-career-title {
+        font-size: 35px !important;
         padding-bottom: 20px;
     }
 }
@@ -36837,7 +36839,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .cn-contactform-support-text span {
-        font-size: 40px;
+        font-size: 26px;
     }
 }
 
@@ -38659,7 +38661,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .tp-pd-5-hero-title {
-        font-size: 60px;
+        font-size: 35px;
         letter-spacing: 0;
     }
 }
