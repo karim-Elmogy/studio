@@ -12,7 +12,10 @@
       "Bash(cat:*)",
       "Bash(timeout:*)",
       "Bash(echo:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(sed -n '20869,20900p' d:/studio/public/front/assets-ar/css/main.css)",
+      "Bash(sed -n '8848,8875p' d:/studio/public/front/assets-ar/css/main.css)",
+      "Bash(sed -n '20407,20420p' d:/studio/public/front/assets-ar/css/main.css)"
     ]
   }
 }

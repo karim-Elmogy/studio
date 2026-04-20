@@ -176,11 +176,11 @@
             color: white;
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
-        .creative-service-category span:not(:last-child) {
+        /* .creative-service-category span:not(:last-child) {
             padding-right: 13px;
             margin-right: 13px;
             position: relative;
-        }
+        } */
 
         .creative-service-category span {
             font-weight: 500;

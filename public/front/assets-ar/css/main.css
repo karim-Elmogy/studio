@@ -16084,7 +16084,7 @@ body.tp-magic-cursor #magic-cursor {
 }
 @media (max-width: 767px) {
     .creative-about-text p {
-        font-size: 29px;
+        font-size: 18px;
     }
 }
 .creative-about-text p span {
@@ -18901,12 +18901,20 @@ body.tp-magic-cursor #magic-cursor {
     transition: 0.5s ease-in-out;
     padding-right: 15px;
 }
+.creative-service-category {
+    display: block;
+}
 .creative-service-category span {
+    display: block;
     font-weight: 500;
     font-size: 16px;
-    line-height: 1;
+    line-height: 1.5;
     letter-spacing: -0.02em;
     color: var(--tp-common-white);
+    margin-bottom: 6px;
+    padding-right: 0;
+    margin-right: 0;
+    position: static;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
     .creative-service-category span {
@@ -18919,20 +18927,22 @@ body.tp-magic-cursor #magic-cursor {
     }
 }
 .creative-service-category span:not(:last-child) {
-    padding-right: 13px;
-    margin-right: 13px;
-    position: relative;
+    padding-right: 0;
+    margin-right: 0;
+    position: static;
 }
-.creative-service-category span:not(:last-child)::before {
-    position: absolute;
-    top: 5px;
-    right: -3px;
-    content: "";
+.creative-service-category span::before {
+    position: static !important;
+    display: inline-block !important;
+    content: "" !important;
     height: 6px;
     width: 6px;
     border-radius: 50%;
-    transform: translateY(3px);
+    transform: translateY(-1px);
     background-color: var(--tp-common-white);
+    margin-left: 10px;
+    flex-shrink: 0;
+    vertical-align: middle;
 }
 .creative-service-link {
     margin-top: 20px;
@@ -19028,10 +19038,10 @@ body.tp-magic-cursor #magic-cursor {
     color: #111013;
 }
 .creative-service-item.about-us-4 .creative-service-category span {
-    color: #111013;
+    color: white;
 }
 .creative-service-item.about-us-4 .creative-service-category span::before {
-    background-color: #111013;
+    background-color: white;
 }
 .creative-service-item.about-us-4 .creative-service-link a {
     color: #000000;
@@ -51026,17 +51036,18 @@ body.tp-magic-cursor #magic-cursor {
 }
 
 .creative-service-item.about-us-4 .creative-service-category span {
-    display: inline-block;
+    display: block;
 }
 
 .creative-service-category span:not(:last-child)::before {
-    left: -3px;
+    position: static !important;
+    left: auto;
     right: auto;
 }
 
 .creative-service-category span:not(:last-child) {
-    padding-left: 13px;
-    margin-left: 13px;
+    padding-left: 0;
+    margin-left: 0;
     margin-right: 0;
     padding-right: 0;
 }
