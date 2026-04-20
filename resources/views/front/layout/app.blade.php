@@ -101,9 +101,9 @@
             <div class="tp-offcanvas-wrapper offcanvas-black-bg">
                 <div class="tp-offcanvas-top d-flex align-items-center justify-content-between">
                     <div class="tp-offcanvas-logo">
-                        <a href="index.html">
-                            <img class="logo-1" data-width="120" src="assets/img/logo/logo-black.png" alt="">
-                            <img class="logo-2" data-width="120" src="assets/img/logo/logo-white.png" alt="">
+                        <a href="{{ url('/') }}" class="logo-text">
+                            <span class="main">VELARYON</span>
+                            <span class="sub">Studio</span>
                         </a>
                     </div>
                     <div class="tp-offcanvas-close">
