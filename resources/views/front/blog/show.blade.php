@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-xxl-8 col-xl-8 col-lg-8">
                         <div class="postbox-wrapper mb-115">
-                            <div class="postbox-details-text mb-45" style="color : #FFFF">
+                            <div class="postbox-details-text mb-45" style="color : #FFFF important">
                                 {!! $blog->getTranslatedContent() !!}
                             </div>
                             <div class="postbox-details-tag-wrap d-flex justify-content-between align-items-center">

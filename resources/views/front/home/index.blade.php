@@ -807,6 +807,8 @@
                                     <h4 class="creative-blog-title-sm">
                                         <a class="tp-line-white" href="{{ $blog->getUrl() }}">{{ $blog->getTranslatedTitle() }}</a>
                                     </h4>
+
+                                    <p class="creative-blog-excerpt" style="color:#FFFF">{{ $blog->getTranslatedExcerpt() }}</p>
                                 </div>
                             </div>
                             @empty

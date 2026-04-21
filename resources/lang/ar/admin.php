@@ -159,7 +159,7 @@ return [
     'service' => 'الخدمة',
     'service_en' => 'نوع الخدمة (إنجليزي)',
     'service_ar' => 'نوع الخدمة (عربي)',
-    'website_url' => 'رابط الموقع',
+    'website_url' => 'رقم الجوال',
     'gallery_images' => 'صور المعرض',
     'challenge' => 'التحدي',
     'challenge_en' => 'التحدي (إنجليزي)',
