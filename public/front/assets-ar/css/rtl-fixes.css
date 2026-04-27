@@ -113,3 +113,40 @@ html[dir="rtl"] .tp-contact-us-ptb.p-relative {
         padding-top: 80px;
     }
 }
+
+/* ── Testimonial slider ─────────────────────────────────────────────────────
+   In LTR the slider uses margin-right: -370px to "bleed" right and peek at
+   the next slide. In RTL that pushes the active slide off-screen to the right,
+   so we flip the extension to the left instead.
+─────────────────────────────────────────────────────────────────────────── */
+.creative-testimonial-active {
+    margin-right: 0 !important;
+    margin-left: -370px;
+}
+@media (max-width: 767px) {
+    .creative-testimonial-active {
+        margin-left: 0 !important;
+    }
+}
+
+/* Avatar image: gap goes to the left in RTL */
+.creative-testimonial-avater img {
+    margin-right: 0;
+    margin-left: 13px;
+}
+
+/* Quote icon span: gap goes to the left in RTL */
+.creative-testimonial-text p span {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+/* Mobile card: looser padding on small screens */
+@media (max-width: 575px) {
+    .creative-testimonial-item {
+        padding: 22px 18px;
+    }
+    .creative-testimonial-text p {
+        font-size: 20px;
+    }
+}

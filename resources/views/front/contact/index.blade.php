@@ -2,16 +2,109 @@
 @extends('front.layout.app')
 
 @section('content')
+<style>
+/* ── unified phone field ─────────────────────────────── */
+.tp-phone-field-group {
+    display: flex;
+    background: #302f32;
+    border-radius: 10px;
+    border: 1.5px solid #302f32;
+    overflow: hidden;
+    transition: border-color .25s, background .25s;
+}
+.tp-phone-field-group:focus-within {
+    border-color: var(--tp-common-red-3);
+    background: #1b1b1d;
+}
+.tp-phone-field-group.is-invalid {
+    border-color: var(--tp-common-red-3) !important;
+}
+
+/* country select */
+.tp-phone-country-select {
+    flex-shrink: 0;
+    width: 118px;
+    background: transparent;
+    border: none;
+    border-inline-end: 1.5px solid rgba(255,255,255,.09);
+    color: rgba(255,255,255,.85);
+    font-size: 13.5px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    height: 60px;
+    padding: 0 26px 0 13px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 9px) center;
+    outline: none;
+}
+[dir="rtl"] .tp-phone-country-select {
+    padding: 0 13px 0 26px;
+    background-position: 9px center;
+}
+.tp-phone-country-select option {
+    background: #1b1b1d;
+    color: #fff;
+}
+
+/* phone number input */
+.tp-phone-field-group input[type="tel"] {
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    height: 60px;
+    color: #fff;
+    padding: 0 16px;
+    font-size: 16px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.tp-phone-field-group input[type="tel"]:focus {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.tp-phone-field-group input[type="tel"]::placeholder {
+    color: rgba(255,255,255,.28);
+    font-size: 14px;
+}
+
+/* ── form label tweaks ───────────────────────────────── */
+.tp-contact-us-wrap .tp-contact-form-input label {
+    font-size: 12.5px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    opacity: .65;
+    margin-bottom: 10px;
+}
+
+/* ── textarea height ─────────────────────────────────── */
+.tp-contact-us-wrap .tp-contact-form-input textarea {
+    height: 180px;
+}
+
+/* ── error message ───────────────────────────────────── */
+.phone-error-msg {
+    display: none;
+    color: #ff5722;
+    font-size: 12px;
+    margin-top: 7px;
+    padding-inline-start: 4px;
+    letter-spacing: .01em;
+}
+
+/* ── form row spacing ────────────────────────────────── */
+#contact-form .row {
+    --bs-gutter-y: 1.5rem;
+}
+</style>
 
     <main>
 
         <!-- hero area start -->
         <div class="tp-contact-us-ptb p-relative">
-            <div class="tp-career-shape-1">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" width="123" height="130" viewBox="0 0 123 130" fill="none">
-                                <path d="M58.2803 1.15449C63.3023 14.3017 71.049 54.3533 48.1082 67.0973C36.1831 73.4283 11.7107 77.3064 2.37778 43.9355C-1.14293 31.3468 9.61622 20.8908 32.0893 28.8395C45.055 33.4255 76.4207 44.0467 90.5787 70.0771C98.0511 83.8154 104.166 111.84 99.1745 129.671M99.1745 129.671C100.942 121.014 108.128 104.495 122.737 107.673M99.1745 129.671C100.181 123.978 97.0522 110.014 76.485 99.698M75.3644 33.2431C80.479 35.6688 96.6446 46.4742 101.81 64.2891" stroke="white" stroke-width="1.5" />
-                            </svg></span>
-            </div>
             <div class="container container-1230">
                 <div class="ar-about-us-4-hero-ptb">
                     <div class="row justify-content-center">
@@ -26,9 +119,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <h3 class="tp-career-title text-white pb-30">{{ $pageSettings->getTranslatedHeroTitle() }}
-                                    <span class="shape-1"><img src="{{asset('front/assets/img/about-us/about-us-4/about-us-4-shape-2.png')}}" alt=""></span>
-                                </h3>
+                                <h3 class="tp-career-title text-white pb-30">{{ $pageSettings->getTranslatedHeroTitle() }}</h3>
                             </div>
                         </div>
                     </div>
@@ -69,7 +160,7 @@
 
         <!-- contact form area start -->
         <div id="down" class="tp-contact-us-form-ptb pt-60 pb-120">
-            <div class="container container-1750">
+            <div class="container container-1230">
                 <div class="tp-contact-us-form-wrapper">
                     <div class="row">
                         <!-- <div class="col-lg-6">
@@ -85,24 +176,48 @@
                         <div class="col-lg-12">
                             <div class="tp-contact-us-wrap">
                                 <h4 class="tp-contact-us-title mb-55">{{ __('Send a Message') }}</h4>
-                                <form id="contact-form" action="{{asset('front/assets/mail.php')}}" method="POST">
+                                <form id="contact-form" action="{{asset('front/assets/mail.php')}}" method="POST" autocomplete="off">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="tp-contact-form-input mb-20">
                                                 <label>{{ __('Full name*') }}</label>
-                                                <input name="name" type="text">
+                                                <input name="name" type="text" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="tp-contact-form-input mb-20">
                                                 <label>{{ __('Email address*') }}</label>
-                                                <input name="email" type="email">
+                                                <input name="email" type="email" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="tp-contact-form-input mb-20">
-                                                <label>{{ __('Website link') }}</label>
-                                                <input name="subject" type="text">
+                                                <label>{{ __('Mobile number*') }}</label>
+                                                <div class="tp-phone-field-group">
+                                                    <select id="country-code-select" class="tp-phone-country-select" aria-label="{{ __('Country code') }}">
+                                                        <option value="+20">🇪🇬 +20</option>
+                                                        <option value="+966">🇸🇦 +966</option>
+                                                        <option value="+971">🇦🇪 +971</option>
+                                                        <option value="+965">🇰🇼 +965</option>
+                                                        <option value="+974">🇶🇦 +974</option>
+                                                        <option value="+973">🇧🇭 +973</option>
+                                                        <option value="+968">🇴🇲 +968</option>
+                                                        <option value="+962">🇯🇴 +962</option>
+                                                        <option value="+961">🇱🇧 +961</option>
+                                                        <option value="+964">🇮🇶 +964</option>
+                                                        <option value="+218">🇱🇾 +218</option>
+                                                        <option value="+216">🇹🇳 +216</option>
+                                                        <option value="+213">🇩🇿 +213</option>
+                                                        <option value="+212">🇲🇦 +212</option>
+                                                        <option value="+249">🇸🇩 +249</option>
+                                                        <option value="+1">🇺🇸 +1</option>
+                                                        <option value="+44">🇬🇧 +44</option>
+                                                        <option value="+49">🇩🇪 +49</option>
+                                                        <option value="+33">🇫🇷 +33</option>
+                                                    </select>
+                                                    <input name="phone" type="tel" id="phone-input" placeholder="{{ __('e.g. 501234567') }}" autocomplete="off">
+                                                </div>
+                                                <small class="phone-error-msg"></small>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -222,5 +337,46 @@
         <!-- contact area end -->
 
     </main>
+
+<script>
+(function ($) {
+    var phoneInput    = $('#phone-input');
+    var phoneGroup    = phoneInput.closest('.tp-phone-field-group');
+    var countrySelect = $('#country-code-select');
+    var phoneError    = $('.phone-error-msg');
+    var errorMsg      = '{{ __("Please enter a valid phone number (digits only, 7-15 digits).") }}';
+
+    function validatePhone() {
+        var val    = phoneInput.val().trim();
+        var digits = val.replace(/[\s\-()]/g, '');
+        if (val === '' || !/^\d{7,15}$/.test(digits)) {
+            phoneError.text(errorMsg).fadeIn(150);
+            phoneGroup.addClass('is-invalid');
+            return false;
+        }
+        phoneError.fadeOut(100);
+        phoneGroup.removeClass('is-invalid');
+        return true;
+    }
+
+    phoneInput.on('input', function () {
+        if (phoneGroup.hasClass('is-invalid')) validatePhone();
+    });
+
+    phoneInput.on('blur', function () {
+        if ($(this).val().trim() !== '') validatePhone();
+    });
+
+    $('#contact-form').on('submit', function (e) {
+        if (!validatePhone()) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            phoneInput.focus();
+            return false;
+        }
+        phoneInput.val(countrySelect.val() + phoneInput.val().trim());
+    });
+})(jQuery);
+</script>
 
 @endsection
